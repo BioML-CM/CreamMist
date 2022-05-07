@@ -29,9 +29,9 @@
 {#                        <tr>#}
 {#                            <th>Dataset</th>#}
 {#                            <th>Statistic</th>#}
-{#                            <th>Pvalue</th>#}
-{#                            <th>Statistic provided</th>#}
-{#                            <th>Pvalue provided</th>#}
+{#                            <th>P-value</th>#}
+{#                            <th>Provided statistic</th>#}
+{#                            <th>Provided p-value</th>#}
 {##}
 {#                        </tr>#}
 {#                        </thead>#}
@@ -41,8 +41,8 @@
 {#                                <td>{{ g.dataset }}</td>#}
 {#                                <td>{{ "%.4f" | format(g.statistic) }}</td>#}
 {#                                <td>{{ "%.4f" | format(g.pvalue) }}</td>#}
-{#                                <td>{{ "%.4f" | format(g.statistic_provided) }}</td>#}
-{#                                <td>{{ "%.4f" | format(g.pvalue_provided) }}</td>#}
+{#                                <td>{{ "%.4f" | format(g.provided_statistic) }}</td>#}
+{#                                <td>{{ "%.4f" | format(g.provided_pvalue) }}</td>#}
 {#                            </tr>#}
 {#                        {% endfor %}#}
 {#                        </tbody>#}
@@ -55,9 +55,9 @@
 {#                        <tr>#}
 {#                            <th>Dataset</th>#}
 {#                            <th>Statistic</th>#}
-{#                            <th>Pvalue</th>#}
-        {#                    <th>Statistic provided</th>#}
-        {#                    <th>Pvalue provided</th>#}
+{#                            <th>P-value</th>#}
+        {#                    <th>Provided statistic</th>#}
+        {#                    <th>Provided p-value</th>#}
 {##}
 {#                        </tr>#}
 {#                        </thead>#}
@@ -67,8 +67,8 @@
 {#                                <td>{{ g.dataset }}</td>#}
 {#                                <td>{{ "%.4f" | format(g.correlation) }}</td>#}
 {#                                <td>{{ "%.4f" | format(g.pvalue) }}</td>#}
-        {#                        <td>{{ "%.4f" | format(g.correlation_provided) }}</td>#}
-        {#                        <td>{{ "%.4f" | format(g.pvalue_provided) }}</td>#}
+        {#                        <td>{{ "%.4f" | format(g.provided_correlation) }}</td>#}
+        {#                        <td>{{ "%.4f" | format(g.provided_pvalue) }}</td>#}
 {#                            </tr>#}
 {#                        {% endfor %}#}
 {#                        </tbody>#}

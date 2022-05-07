@@ -64,11 +64,11 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
 
     mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug, Mutation.cancer_type == cancer_type)#.all()
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
-    mutation_df = mutation_df[['dataset','statistic','pvalue','statistic_provided','pvalue_provided']]
+    mutation_df = mutation_df[['dataset','statistic','pvalue','provided_statistic','provided_pvalue']]
 
     express_data = db.session.query(GeneExpression).filter(GeneExpression.gene == gene, GeneExpression.standard_drug_name == drug, GeneExpression.cancer_type == cancer_type)#.all()
     express_df = pd.read_sql(express_data.statement, db.session.bind)
-    express_df = express_df[['dataset','correlation','pvalue','correlation_provided','pvalue_provided']]
+    express_df = express_df[['dataset','correlation','pvalue','provided_correlation','provided_pvalue']]
 
 
     #all dataset
@@ -81,7 +81,7 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
 
     #form for select dataset
     form = ChoiceForm()
-    form.cancer_type.choices = cancer_type_list
+    form.cancer_type.choices = [(c, c) for c in cancer_type_list]
     form.cancer_type.default = cancer_type
     form.process()
 
@@ -92,15 +92,15 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
     print(express_df)
     #plot graph
     fig_mutation_stat = plot_data.plot_biomarker(mutation_df,'statistic','pvalue','Statistic')
-    fig_mutation_stat_provided = plot_data.plot_biomarker(mutation_df,'statistic_provided','pvalue_provided','Statistic Provided')
+    fig_mutation_stat_provided = plot_data.plot_biomarker(mutation_df,'provided_statistic','provided_pvalue','Provided statistic')
 
     fig_express_stat = plot_data.plot_biomarker(express_df,'correlation','pvalue','Correlation')
-    # fig_express_stat_provided = plot_data.plot_biomarker(express_df,'correlation_provided','pvalue','Correlation')
+    fig_express_stat_provided = plot_data.plot_biomarker(express_df,'provided_correlation','provided_pvalue','Provided correlation')
 
     graph1Jason = json.dumps(fig_mutation_stat, cls=plotly.utils.PlotlyJSONEncoder)
     graph2Jason = json.dumps(fig_mutation_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)
     graph3Jason = json.dumps(fig_express_stat, cls=plotly.utils.PlotlyJSONEncoder)
-    graph4Jason = json.dumps(fig_express_stat, cls=plotly.utils.PlotlyJSONEncoder)
+    graph4Jason = json.dumps(fig_express_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)
 
 
     # if score == 'mutation':

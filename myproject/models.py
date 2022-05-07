@@ -1,12 +1,11 @@
 from myproject import db
 
-# Test
-
 class CellLine(db.Model):
     __tablename__ = 'cell_lines'
 
     # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     cellosaurus_id = db.Column(db.String(64), primary_key=True)
+    cellosaurus_index = db.Column(db.String(64))
     ccle_name = db.Column(db.String(64))
     ctrp1_name = db.Column(db.String(64))
     ctrp2_name = db.Column(db.String(64))
@@ -18,14 +17,14 @@ class CellLine(db.Model):
 
     experiments_of_cell_line = db.relationship('Experiment', backref='cell_line', lazy='dynamic')
 
-    def __init__(self, site, cellosaurus_id, ccle_name, ctrp1_name, ctrp2_name, gdsc1_name, gdsc2_name):
+    def __init__(self, site, cellosaurus_id, cellosaurus_index, ccle_name, ctrp1_name, ctrp2_name, gdsc1_name, gdsc2_name):
         self.site = site
         self.ccle_name = ccle_name
         self.ctrp1_name = ctrp1_name
         self.ctrp2_name = ctrp2_name
         self.gdsc1_name = gdsc1_name
         self.gdsc2_name = gdsc2_name
-
+        self.cellosaurus_index = cellosaurus_index
         self.cellosaurus_id = cellosaurus_id
 
 
@@ -46,8 +45,6 @@ class Drug(db.Model):
     experiments_of_drug = db.relationship('Experiment', backref='drug', lazy='dynamic')
     mutations = db.relationship('Mutation', backref='drug', lazy='dynamic')
     gene_expressions = db.relationship('GeneExpression', backref='drug', lazy='dynamic')
-    # TODO check if this is valid
-    similarities = db.relationship('DrugSimilarity', backref='drug', lazy='dynamic')
 
     # Connect the exp.
     # standard_drug_name = db.Column(db.String(64), db.ForeignKey('experiments.standard_drug_name'), nullable=False)  #
@@ -68,12 +65,15 @@ class Drug(db.Model):
 class Experiment(db.Model):
     __tablename__ = 'experiments'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    cellosaurus_index = db.Column(db.String(64), nullable=False, index=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=False)
     cellosaurus_id = db.Column(db.String(64), db.ForeignKey('cell_lines.cellosaurus_id'), nullable=False)
     standard_drug_name = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'), nullable=False)
     dataset = db.Column(db.String(32), nullable=False)
     info = db.Column(db.Text)
+
+    __table_args__ = (
+        db.UniqueConstraint('cellosaurus_id', 'standard_drug_name', 'dataset'),
+    )
 
     # This is a one-to-many relationship
     # exp can have many dosage/response
@@ -86,9 +86,7 @@ class Experiment(db.Model):
     # mutation = db.relationship('Mutation', backref='experiment', lazy='dynamic')
     # gene_expression = db.relationship('GeneExpression', backref='experiment', lazy='dynamic')
 
-
-    def __init__(self, cellosaurus_index, cellosaurus_id, standard_drug_name, dataset, info):
-        self.cellosaurus_index = cellosaurus_index
+    def __init__(self, cellosaurus_id, standard_drug_name, dataset, info):
         self.cellosaurus_id = cellosaurus_id
         self.standard_drug_name = standard_drug_name
         self.dataset = dataset
@@ -122,20 +120,21 @@ class JagsSampling(db.Model):
     beta0_HDI_low = db.Column(db.Float)
     beta0_HDI_high = db.Column(db.Float)
     beta1_mode = db.Column(db.Float)
-    # beta1_HDI_low = db.Column(db.Float)
-    # beta1_HDI_high = db.Column(db.Float)
-    # ic90_mode = db.Column(db.Float)
-    # ic90_HDI_low = db.Column(db.Float)
-    # ic90_HDI_high = db.Column(db.Float)
-    # ec50_mode = db.Column(db.Float)
-    # ec50_HDI_low = db.Column(db.Float)
-    # ec50_HDI_high = db.Column(db.Float)
-    # ecinf_mode = db.Column(db.Float)
-    # ecinf_HDI_low = db.Column(db.Float)
-    # ecinf_HDI_high = db.Column(db.Float)
-    # auc_mode = db.Column(db.Float)
-    # auc_HDI_low = db.Column(db.Float)
-    # auc_HDI_high = db.Column(db.Float)
+    beta1_HDI_low = db.Column(db.Float)
+    beta1_HDI_high = db.Column(db.Float)
+    ic90_mode = db.Column(db.Float)
+    ic90_HDI_low = db.Column(db.Float)
+    ic90_HDI_high = db.Column(db.Float)
+    ec50_mode = db.Column(db.Float)
+    ec50_HDI_low = db.Column(db.Float)
+    ec50_HDI_high = db.Column(db.Float)
+    einf_mode = db.Column(db.Float)
+    einf_HDI_low = db.Column(db.Float)
+    einf_HDI_high = db.Column(db.Float)
+    auc_mode = db.Column(db.Float)
+    auc_HDI_low = db.Column(db.Float)
+    auc_HDI_high = db.Column(db.Float)
+    fitted_mae = db.Column(db.Float)
     beta0_jags_str = db.Column(db.Text)
     beta1_jags_str = db.Column(db.Text)
 
@@ -143,9 +142,9 @@ class JagsSampling(db.Model):
 
 
     def __init__(self, n_dosage, min_dosage, max_dosage, beta0_mode, beta0_HDI_low, beta0_HDI_high, beta1_mode,
-                 # beta1_HDI_low, beta1_HDI_high, ic90_mode, ic90_HDI_low, ic90_HDI_high,
-                 # ec50_mode, ec50_HDI_low, ec50_HDI_high, ecinf_mode, ecinf_HDI_low, ecinf_HDI_high,
-                 # auc_mode, auc_HDI_low, auc_HDI_high,
+                 beta1_HDI_low, beta1_HDI_high, ic90_mode, ic90_HDI_low, ic90_HDI_high,
+                 ec50_mode, ec50_HDI_low, ec50_HDI_high, ecinf_mode, ecinf_HDI_low, ecinf_HDI_high,
+                 auc_mode, auc_HDI_low, auc_HDI_high, fitted_mae,
                  beta0_jags_str, beta1_jags_str, exp_id):
         self.n_dosage = n_dosage
         self.min_dosage = min_dosage
@@ -154,20 +153,21 @@ class JagsSampling(db.Model):
         self.beta0_HDI_low = beta0_HDI_low
         self.beta0_HDI_high = beta0_HDI_high
         self.beta1_mode = beta1_mode
-        # self.beta1_HDI_low = beta1_HDI_low
-        # self.beta1_HDI_high = beta1_HDI_high
-        # self.ic90_mode = ic90_mode
-        # self.ic90_HDI_low = ic90_HDI_low
-        # self.ic90_HDI_high = ic90_HDI_high
-        # self.ec50_mode = ec50_mode
-        # self.ec50_HDI_low = ec50_HDI_low
-        # self.ec50_HDI_high = ec50_HDI_high
-        # self.ecinf_mode = ecinf_mode
-        # self.ecinf_HDI_low = ecinf_HDI_low
-        # self.ecinf_HDI_high = ecinf_HDI_high
-        # self.auc_mode = auc_mode
-        # self.auc_HDI_low = auc_HDI_low
-        # self.auc_HDI_high = auc_HDI_high
+        self.beta1_HDI_low = beta1_HDI_low
+        self.beta1_HDI_high = beta1_HDI_high
+        self.ic90_mode = ic90_mode
+        self.ic90_HDI_low = ic90_HDI_low
+        self.ic90_HDI_high = ic90_HDI_high
+        self.ec50_mode = ec50_mode
+        self.ec50_HDI_low = ec50_HDI_low
+        self.ec50_HDI_high = ec50_HDI_high
+        self.einf_mode = ecinf_mode
+        self.einf_HDI_low = ecinf_HDI_low
+        self.einf_HDI_high = ecinf_HDI_high
+        self.auc_mode = auc_mode
+        self.auc_HDI_low = auc_HDI_low
+        self.auc_HDI_high = auc_HDI_high
+        self.fitted_mae = fitted_mae
         self.beta0_jags_str = beta0_jags_str
         self.beta1_jags_str = beta1_jags_str
 
@@ -207,8 +207,8 @@ class SensitivityScore(db.Model):
 class ProvidedSensitivityScore(db.Model):
     __tablename__ = 'provided_sensitivity_scores'
 
-    # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), nullable=False)
     ic50_provided = db.Column(db.Float)
     auc_provided = db.Column(db.Float)
 
@@ -230,10 +230,8 @@ class Gene(db.Model):
     def __init__(self, gene_name):
         self.gene_name = gene_name
 
-    mutations = db.relationship('Mutation', backref='gene', lazy='dynamic')
-    gene_expressions = db.relationship('GeneExpression', backref='gene', lazy='dynamic')
-    # TODO check if this is valid
-    similarities = db.relationship('GeneSimilarity', backref='gene', lazy='dynamic')
+    mutations = db.relationship('Mutation', backref='gene_mutations_ref', lazy='dynamic')
+    gene_expressions = db.relationship('GeneExpression', backref='gene_gene_expressions_ref', lazy='dynamic')
 
 
 class Mutation(db.Model):
@@ -248,8 +246,13 @@ class Mutation(db.Model):
     statistic = db.Column(db.Float)
     provided_pvalue = db.Column(db.Float)
     provided_statistic = db.Column(db.Float)
+    n_mut = db.Column(db.Integer)
+    n_wt = db.Column(db.Integer)
+    provided_n_mut = db.Column(db.Integer)
+    provided_n_wt = db.Column(db.Integer)
 
-    def __init__(self, gene, dataset, cancer_type, pvalue, statistic, provided_pvalue, provided_statistic, standard_drug_name):
+    def __init__(self, gene, dataset, cancer_type, pvalue, statistic, provided_pvalue, provided_statistic,
+                 standard_drug_name, n_mut, n_wt, provided_n_mut, provided_n_wt):
         self.gene = gene
         self.dataset = dataset
         self.cancer_type = cancer_type
@@ -257,8 +260,11 @@ class Mutation(db.Model):
         self.statistic = statistic
         self.provided_pvalue = provided_pvalue
         self.provided_statistic = provided_statistic
-        
         self.standard_drug_name = standard_drug_name
+        self.n_mut = n_mut
+        self.n_wt = n_wt
+        self.provided_n_mut = provided_n_mut
+        self.provided_n_wt = provided_n_wt
 
 
 class GeneExpression(db.Model):
@@ -273,11 +279,14 @@ class GeneExpression(db.Model):
     correlation = db.Column(db.Float)
     provided_pvalue = db.Column(db.Float)
     provided_correlation = db.Column(db.Float)
+    n_cell_line = db.Column(db.Integer)
+    provided_n_cell_line = db.Column(db.Integer)
 
     # Connect the exp.
     # standard_drug_name = db.Column(db.String(64), db.ForeignKey('experiments.standard_drug_name'))  #
 
-    def __init__(self, gene, dataset, cancer_type, pvalue, correlation, provided_pvalue, provided_correlation, standard_drug_name):
+    def __init__(self, gene, dataset, cancer_type, pvalue, correlation, provided_pvalue, provided_correlation,
+                 standard_drug_name, n_cell_line, provided_n_cell_line):
         self.gene = gene
         self.dataset = dataset
         self.cancer_type = cancer_type
@@ -286,6 +295,8 @@ class GeneExpression(db.Model):
         self.provided_pvalue = provided_pvalue
         self.provided_correlation = provided_correlation
         self.standard_drug_name = standard_drug_name
+        self.n_cell_line = n_cell_line
+        self.provided_n_cell_line = provided_n_cell_line
 
 
 class DrugSimilarity(db.Model):

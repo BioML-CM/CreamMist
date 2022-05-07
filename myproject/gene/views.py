@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,url_for, Response
 from myproject import db
-from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, GeneExpression
+from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, GeneExpression, Gene
 from myproject.gene.forms import GeneForm, ChoiceForm
 
 from flask import request
@@ -21,8 +21,8 @@ gene_blueprint = Blueprint('gene',
 
 @gene_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
-    gene_records = db.session.query(Mutation.gene).distinct()
-    gene_name_db = [r.gene for r in gene_records]
+    gene_records = db.session.query(Gene.gene_name).all()
+    gene_name_db = [r.gene_name for r in gene_records]
 
     return Response(json.dumps(gene_name_db), mimetype='application/json')
 
@@ -62,8 +62,8 @@ def information_gene(gene, dataset, cancer_type): #show information cell line
 
     #form for select dataset
     form = ChoiceForm()
-    form.dataset.choices = dataset_list
-    form.cancer_type.choices = cancer_type_list
+    form.dataset.choices = [(d, d) for d in dataset_list]
+    form.cancer_type.choices = [(c, c) for c in cancer_type_list]
 
     form.dataset.default = dataset
     form.cancer_type.default = cancer_type

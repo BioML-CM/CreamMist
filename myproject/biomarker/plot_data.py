@@ -7,11 +7,13 @@ import plotly.graph_objects as go
 def plot_biomarker(df,stat,pval,title):
     fig = go.Figure()
     stat_list=df[stat].values
-    pval_list=df[pval].values
+    pval_list=df[pval].fillna(0).values
 
-    print(stat_list)
+    print(df)
+
 
     for i in range(len(stat_list)):
+        # print('value',pval_list[i])
         fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#A65D8C",name='',
                                  marker = dict(size=(pval_list[i]*5)+5), customdata=[pval_list[i]]))
 
@@ -32,6 +34,8 @@ def plot_biomarker(df,stat,pval,title):
             title_text="Dataset"
         )
     )
+
+    stat_list = [x for x in stat_list if x is not None]
     if len(stat_list) != 0:
         fig.update_layout(
             xaxis = dict(

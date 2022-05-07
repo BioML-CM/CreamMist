@@ -53,7 +53,7 @@ def information_drug(drug, dataset): #show information cell line
 
     #form for select dataset
     form = DatasetChoiceForm()
-    form.dataset.choices = [r.dataset for r in drug_records]
+    form.dataset.choices = [(r.dataset, r.dataset) for r in drug_records]
     form.dataset.default = dataset
     form.process()
 

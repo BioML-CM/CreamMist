@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,url_for
 from myproject import db
-from myproject.models import Exp, DoseResponse, JagsSampling, Sensitive
+from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore
 from myproject.cell_line.forms import AddForm, ChoiceForm, Logistic_Form, InputForm
 
 import scipy.stats as stats
@@ -39,7 +39,7 @@ def select():  #choose cell line
 @cell_line_blueprint.route("/<string:dataset>/<string:cell_line>",methods=['GET', 'POST'])
 def information_cell_line(cell_line, dataset): #show information cell line
     #all dataset
-    cell_line_records = db.session.query(Exp.dataset).filter(Exp.standard_cell_line_name == cell_line).distinct()
+    cell_line_records = db.session.query(Experiment.dataset).filter(Experiment.standard_cell_line_name == cell_line).distinct()
 
     #form for select dataset
     form = ChoiceForm()
@@ -50,9 +50,9 @@ def information_cell_line(cell_line, dataset): #show information cell line
         return redirect(url_for('cell_line.information_cell_line', cell_line=cell_line, dataset=dataset))
 
 
-    data = db.session.query(Exp, JagsSampling, Sensitive)\
-            .join(JagsSampling, JagsSampling.exp_id == Exp.id)\
-            .join(Sensitive, Sensitive.exp_id == Exp.id).filter(Exp.standard_cell_line_name == cell_line, Exp.dataset == dataset) #.all()
+    data = db.session.query(Experiment, JagsSampling, SensitivityScore)\
+            .join(JagsSampling, JagsSampling.exp_id == Experiment.id)\
+            .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.standard_cell_line_name == cell_line, Experiment.dataset == dataset) #.all()
 
     df = pd.read_sql(data.statement, db.session.bind)
 
@@ -71,7 +71,7 @@ def information_cell_line(cell_line, dataset): #show information cell line
 
 @cell_line_blueprint.route("/view/<string:exp>/<string:input_dose>",methods=['GET', 'POST'])
 def view_logistic(exp, input_dose):
-    experiment = Exp.query.filter_by(id = exp).first()
+    experiment = Experiment.query.filter_by(id = exp).first()
     jags = JagsSampling.query.filter_by(exp_id = exp).first()
     dose_list = DoseResponse.query.filter_by(exp_id = exp).all()
 
@@ -81,7 +81,7 @@ def view_logistic(exp, input_dose):
 
 
     #all dataset
-    cell_line_records = db.session.query(Exp.dataset).filter(Exp.standard_cell_line_name == c , Exp.standard_drug_name == drug).distinct()
+    cell_line_records = db.session.query(Experiment.dataset).filter(Experiment.standard_cell_line_name == c, Experiment.standard_drug_name == drug).distinct()
     print([r.dataset for r in cell_line_records])
     #form for select dataset
     form = Logistic_Form()
@@ -92,7 +92,7 @@ def view_logistic(exp, input_dose):
 
     if form.validate_on_submit():
         dataset = form.dataset.data
-        exp_records = db.session.query(Exp.id).filter(Exp.standard_cell_line_name == c,Exp.standard_drug_name == drug,Exp.dataset == dataset).first()
+        exp_records = db.session.query(Experiment.id).filter(Experiment.standard_cell_line_name == c, Experiment.standard_drug_name == drug, Experiment.dataset == dataset).first()
         for e in exp_records:
             exp=e
         return redirect(url_for('cell_line.view_logistic', exp=exp, input_dose=input_dose))
@@ -108,7 +108,7 @@ def view_logistic(exp, input_dose):
     for d in dose_list:
         dosage += [d.dosage]
         response += [d.response]
-        dataset += [Exp.query.filter_by(id = d.exp_id).first().dataset]
+        dataset += [Experiment.query.filter_by(id = d.exp_id).first().dataset]
 
 
     # Sampling

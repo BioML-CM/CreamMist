@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,url_for, Response
 from myproject import db
-from myproject.models import Exp, DoseResponse, JagsSampling, Sensitive
+from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore
 from myproject.cell_line.forms import CellLineForm, ChoiceForm, Logistic_Form, InputForm
 
 from flask import request

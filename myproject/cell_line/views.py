@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,url_for, Response
 from myproject import db
-from myproject.models import Exp, DoseResponse, JagsSampling, Sensitive, CellLineTable
+from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine
 from myproject.cell_line.forms import CellLineForm, DatasetChoiceForm, DatasetLogisticForm, InputForm
 
 from flask import request
@@ -23,7 +23,7 @@ random_state=1
 
 @cell_line_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
-    cell_line_records = db.session.query(Exp.cellosaurus_id).distinct()
+    cell_line_records = db.session.query(Experiment.cellosaurus_id).distinct()
     cell_line_name_db = [r.cellosaurus_id for r in cell_line_records]
 
     return Response(json.dumps(cell_line_name_db), mimetype='application/json')
@@ -42,7 +42,7 @@ def select():  #choose cell line
 def information_cell_line(cell_line, dataset): #show information cell line
 
     #form for select dataset
-    cell_line_dataset_records = db.session.query(Exp.dataset).filter(Exp.cellosaurus_id == cell_line).distinct()
+    cell_line_dataset_records = db.session.query(Experiment.dataset).filter(Experiment.cellosaurus_id == cell_line).distinct()
 
     form = DatasetChoiceForm()
     form.dataset.choices = [r.dataset for r in cell_line_dataset_records]
@@ -54,9 +54,9 @@ def information_cell_line(cell_line, dataset): #show information cell line
         return redirect(url_for('cell_line.information_cell_line', cell_line=cell_line, dataset=dataset))
 
 
-    data = db.session.query(Exp, JagsSampling, Sensitive)\
-            .join(JagsSampling, JagsSampling.exp_id == Exp.id)\
-            .join(Sensitive, Sensitive.exp_id == Exp.id).filter(Exp.cellosaurus_id == cell_line, Exp.dataset == dataset) #.all()
+    data = db.session.query(Experiment, JagsSampling, SensitivityScore)\
+            .join(JagsSampling, JagsSampling.exp_id == Experiment.id)\
+            .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.cellosaurus_id == cell_line, Experiment.dataset == dataset) #.all()
 
     df = pd.read_sql(data.statement, db.session.bind)
 
@@ -70,7 +70,7 @@ def information_cell_line(cell_line, dataset): #show information cell line
     graph3Jason = json.dumps(fig_auc, cls=plotly.utils.PlotlyJSONEncoder)
 
     # name cell line in each dataset (for information)
-    cell_line_info_records = db.session.query(CellLineTable).filter(CellLineTable.cellosaurus_id == cell_line).all()
+    cell_line_info_records = db.session.query(CellLine).filter(CellLine.cellosaurus_id == cell_line).all()
     cell_line_info = [c for c in cell_line_info_records]
     cell_line_info = cell_line_info[0]
     name_dict = dict()
@@ -97,9 +97,9 @@ def information_cell_line(cell_line, dataset): #show information cell line
 
 @cell_line_blueprint.route("/view/<string:exp>",methods=['GET', 'POST'])
 def view_logistic(exp):
-    experiment = Exp.query.filter_by(id = exp).first()
+    experiment = Experiment.query.filter_by(id = exp).first()
     jags = JagsSampling.query.filter_by(exp_id = exp).first()
-    sens = Sensitive.query.filter_by(exp_id = exp).all()
+    sens = SensitivityScore.query.filter_by(exp_id = exp).all()
 
     c = str(experiment.cellosaurus_id)
     drug = str(experiment.standard_drug_name)
@@ -107,7 +107,7 @@ def view_logistic(exp):
 
 
     #all dataset
-    cell_line_records = db.session.query(Exp).filter(Exp.cellosaurus_id == c , Exp.standard_drug_name == drug).distinct()
+    cell_line_records = db.session.query(Experiment).filter(Experiment.cellosaurus_id == c, Experiment.standard_drug_name == drug).distinct()
     dataset_list = []
     exp_id_list = []
     for r in cell_line_records:
@@ -125,7 +125,7 @@ def view_logistic(exp):
 
     if request.method == 'POST':
         dataset = request.form.get('dataset')
-        exp_records = db.session.query(Exp.id).filter(Exp.cellosaurus_id == c,Exp.standard_drug_name == drug,Exp.dataset == dataset).first()
+        exp_records = db.session.query(Experiment.id).filter(Experiment.cellosaurus_id == c, Experiment.standard_drug_name == drug, Experiment.dataset == dataset).first()
         for e in exp_records:
             exp=e
         return redirect(url_for('cell_line.view_logistic', exp=exp))
@@ -142,7 +142,7 @@ def view_logistic(exp):
     for d in dose_list:
         dosage += [d.dosage]
         response += [d.response]
-        dataset_plot += [Exp.query.filter_by(id = d.exp_id).first().dataset]
+        dataset_plot += [Experiment.query.filter_by(id = d.exp_id).first().dataset]
 
 
     beta0_s = np.array(jags.beta0_jags_str.split(',')).astype(float)

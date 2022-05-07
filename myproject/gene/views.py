@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,url_for, Response
 from myproject import db
-from myproject.models import Exp, DoseResponse, JagsSampling, Sensitive, CellLineTable, WildtypeMutation, GeneExpression
+from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, GeneExpression
 from myproject.gene.forms import GeneForm, ChoiceForm
 
 from flask import request
@@ -21,7 +21,7 @@ gene_blueprint = Blueprint('gene',
 
 @gene_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
-    gene_records = db.session.query(WildtypeMutation.gene).distinct()
+    gene_records = db.session.query(Mutation.gene).distinct()
     gene_name_db = [r.gene for r in gene_records]
 
     return Response(json.dumps(gene_name_db), mimetype='application/json')
@@ -40,7 +40,7 @@ def select():  #choose cell line
 @gene_blueprint.route("/<string:dataset>/<string:cancer_type>/<string:gene>",methods=['GET', 'POST'])
 def information_gene(gene, dataset, cancer_type): #show information cell line
 
-    mutation_data = db.session.query(WildtypeMutation).filter(WildtypeMutation.gene == gene, WildtypeMutation.dataset == dataset, WildtypeMutation.cancer_type == cancer_type)#.all()
+    mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.dataset == dataset, Mutation.cancer_type == cancer_type)#.all()
     express_data = db.session.query(GeneExpression).filter(GeneExpression.gene == gene, GeneExpression.dataset == dataset, GeneExpression.cancer_type == cancer_type)#.all()
 
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
@@ -49,7 +49,7 @@ def information_gene(gene, dataset, cancer_type): #show information cell line
 
 
     #all dataset
-    gene_mutation_records = db.session.query(WildtypeMutation).filter(WildtypeMutation.gene == gene)#.all()
+    gene_mutation_records = db.session.query(Mutation).filter(Mutation.gene == gene)#.all()
     dataset_mutation_list = list(set(r.dataset for r in gene_mutation_records))
     cancer_type_mutation_list = list(set(r.cancer_type for r in gene_mutation_records))
 

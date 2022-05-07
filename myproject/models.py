@@ -2,26 +2,89 @@ from myproject import db
 
 # Test
 
-class Exp(db.Model):
+class CellLine(db.Model):
+    __tablename__ = 'cell_lines'
+
+    # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    cellosaurus_id = db.Column(db.String(64), primary_key=True)
+    ccle_name = db.Column(db.String(64))
+    ctrp1_name = db.Column(db.String(64))
+    ctrp2_name = db.Column(db.String(64))
+    gdsc1_name = db.Column(db.String(64))
+    gdsc2_name = db.Column(db.String(64))
+    site = db.Column(db.String(128))
+    # Connect the exp.
+    # cellosaurus_id = db.Column(db.String(64), db.ForeignKey('experiments.cellosaurus_id'), nullable=False, )
+
+    experiments_of_cell_line = db.relationship('Experiment', backref='cell_line', lazy='dynamic')
+
+    def __init__(self, site, cellosaurus_id, ccle_name, ctrp1_name, ctrp2_name, gdsc1_name, gdsc2_name):
+        self.site = site
+        self.ccle_name = ccle_name
+        self.ctrp1_name = ctrp1_name
+        self.ctrp2_name = ctrp2_name
+        self.gdsc1_name = gdsc1_name
+        self.gdsc2_name = gdsc2_name
+
+        self.cellosaurus_id = cellosaurus_id
+
+
+class Drug(db.Model):
+    __tablename__ = 'drugs'
+
+    #id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    standard_drug_name = db.Column(db.String(64), primary_key=True,)
+    synonyms = db.Column(db.String(128))
+    target = db.Column(db.String(64))
+    pathway = db.Column(db.String(256))
+    ccle_drug_name = db.Column(db.String(64))
+    ctrp1_drug_name = db.Column(db.String(64))
+    ctrp2_drug_name = db.Column(db.String(64))
+    gdsc1_drug_name = db.Column(db.String(64))
+    gdsc2_drug_name = db.Column(db.String(64))
+
+    experiments_of_drug = db.relationship('Experiment', backref='drug', lazy='dynamic')
+    mutations = db.relationship('Mutation', backref='drug', lazy='dynamic')
+    gene_expressions = db.relationship('GeneExpression', backref='drug', lazy='dynamic')
+    # TODO check if this is valid
+    similarities = db.relationship('DrugSimilarity', backref='drug', lazy='dynamic')
+
+    # Connect the exp.
+    # standard_drug_name = db.Column(db.String(64), db.ForeignKey('experiments.standard_drug_name'), nullable=False)  #
+
+    def __init__(self, synonyms, target, pathway, standard_drug_name,
+                 ccle_drug_name, ctrp1_drug_name, ctrp2_drug_name, gdsc1_drug_name, gdsc2_drug_name):
+        self.synonyms = synonyms
+        self.target = target
+        self.pathway = pathway
+        self.ccle_drug_name = ccle_drug_name
+        self.ctrp1_drug_name = ctrp1_drug_name
+        self.ctrp2_drug_name = ctrp2_drug_name
+        self.gdsc1_drug_name = gdsc1_drug_name
+        self.gdsc2_drug_name = gdsc2_drug_name
+        self.standard_drug_name = standard_drug_name
+
+
+class Experiment(db.Model):
     __tablename__ = 'experiments'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     cellosaurus_index = db.Column(db.String(64), nullable=False, index=True)
-    cellosaurus_id = db.Column(db.String(64), nullable=False, index=True)
-    standard_drug_name = db.Column(db.String(64), nullable=False, index=True)
+    cellosaurus_id = db.Column(db.String(64), db.ForeignKey('cell_lines.cellosaurus_id'), nullable=False)
+    standard_drug_name = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'), nullable=False)
     dataset = db.Column(db.String(32), nullable=False)
     info = db.Column(db.Text)
 
     # This is a one-to-many relationship
     # exp can have many dosage/response
-    dose_response = db.relationship('DoseResponse', backref='exp', lazy='dynamic')
-    jags_sampling = db.relationship('JagsSampling', backref='exp', lazy='dynamic')
-    sensitivity = db.relationship('Sensitive', backref='exp', lazy='dynamic')
-    sensitivity_provided = db.relationship('SensitiveProvided', backref='exp', lazy='dynamic')
-    drug_table = db.relationship('DrugTable', backref='exp', lazy='dynamic')
-    cell_line_table = db.relationship('CellLineTable', backref='exp', lazy='dynamic')
-    wildtype_mutation = db.relationship('WildtypeMutation', backref='exp', lazy='dynamic')
-    gene_expression = db.relationship('GeneExpression', backref='exp', lazy='dynamic')
+    dose_responses = db.relationship('DoseResponse', backref='experiment', lazy='dynamic')
+    jags_sampling = db.relationship('JagsSampling', backref='experiment', lazy='dynamic')
+    sensitivity_score = db.relationship('SensitivityScore', backref='experiment', lazy='dynamic')
+    provided_sensitivity_score = db.relationship('ProvidedSensitivityScore', backref='experiment', lazy='dynamic')
+    # drug_table = db.relationship('DrugTable', backref='exp', lazy='dynamic')
+    # cell_line_table = db.relationship('CellLineTable', backref='exp', lazy='dynamic')
+    # mutation = db.relationship('Mutation', backref='experiment', lazy='dynamic')
+    # gene_expression = db.relationship('GeneExpression', backref='experiment', lazy='dynamic')
 
 
     def __init__(self, cellosaurus_index, cellosaurus_id, standard_drug_name, dataset, info):
@@ -33,7 +96,7 @@ class Exp(db.Model):
 
 
 class DoseResponse(db.Model):
-    __tablename__ = 'dose_response'
+    __tablename__ = 'dose_responses'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     dosage = db.Column(db.Float)
@@ -48,9 +111,10 @@ class DoseResponse(db.Model):
 
 
 class JagsSampling(db.Model):
-    __tablename__ = 'jags_sampling'
+    __tablename__ = 'jags_samplings'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), primary_key=True, nullable=False)
     n_dosage = db.Column(db.Integer)
     min_dosage = db.Column(db.Float)
     max_dosage = db.Column(db.Float)
@@ -76,7 +140,7 @@ class JagsSampling(db.Model):
     beta1_jags_str = db.Column(db.Text)
 
     # Connect the exp.
-    exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), nullable=False)
+
 
     def __init__(self, n_dosage, min_dosage, max_dosage, beta0_mode, beta0_HDI_low, beta0_HDI_high, beta1_mode,
                  # beta1_HDI_low, beta1_HDI_high, ic90_mode, ic90_HDI_low, ic90_HDI_high,
@@ -110,10 +174,11 @@ class JagsSampling(db.Model):
         self.exp_id = exp_id
 
 
-class Sensitive(db.Model):
-    __tablename__ = 'sensitivity'
+class SensitivityScore(db.Model):
+    __tablename__ = 'sensitivity_scores'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), primary_key=True, nullable=False)
     ic50_HDI_low = db.Column(db.Float)
     ic50_HDI_high = db.Column(db.Float)
     ic50_mode = db.Column(db.Float)
@@ -124,7 +189,7 @@ class Sensitive(db.Model):
 
 
     # Connect the exp.
-    exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), nullable=False)
+    # exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), nullable=False)
 
     def __init__(self, ic50_HDI_low, ic50_HDI_high, ic50_mode, ic90_calculate, ec50_calculate,
                  einf_calculate, auc_calculate, exp_id):
@@ -139,15 +204,16 @@ class Sensitive(db.Model):
         self.exp_id = exp_id
 
 
-class SensitiveProvided(db.Model):
-    __tablename__ = 'sensitivity_provided'
+class ProvidedSensitivityScore(db.Model):
+    __tablename__ = 'provided_sensitivity_scores'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), primary_key=True, nullable=False)
     ic50_provided = db.Column(db.Float)
     auc_provided = db.Column(db.Float)
 
     # Connect the exp.
-    exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), nullable=False)
+    # exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), nullable=False)
 
     def __init__(self, ic50_provided, auc_provided, exp_id):
         self.ic50_provided = ic50_provided
@@ -156,109 +222,93 @@ class SensitiveProvided(db.Model):
         self.exp_id = exp_id
 
 
+class Gene(db.Model):
+    __tablename__ = 'genes'
 
-class CellLineTable(db.Model):
-    __tablename__ = 'cell_line_table'
+    gene_name = db.Column(db.String(64), primary_key=True)
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    ccle_name = db.Column(db.String(64))
-    ctrp1_name = db.Column(db.String(64))
-    ctrp2_name = db.Column(db.String(64))
-    gdsc1_name = db.Column(db.String(64))
-    gdsc2_name = db.Column(db.String(64))
-    site = db.Column(db.String(128))
-    # Connect the exp.
-    cellosaurus_id = db.Column(db.String(64), db.ForeignKey('experiments.cellosaurus_id'), nullable=False, )
+    def __init__(self, gene_name):
+        self.gene_name = gene_name
 
-    def __init__(self, site, cellosaurus_id, ccle_name, ctrp1_name, ctrp2_name, gdsc1_name, gdsc2_name):
-        self.site = site
-        self.ccle_name = ccle_name
-        self.ctrp1_name = ctrp1_name
-        self.ctrp2_name = ctrp2_name
-        self.gdsc1_name = gdsc1_name
-        self.gdsc2_name = gdsc2_name
-
-        self.cellosaurus_id = cellosaurus_id
+    mutations = db.relationship('Mutation', backref='gene', lazy='dynamic')
+    gene_expressions = db.relationship('GeneExpression', backref='gene', lazy='dynamic')
+    # TODO check if this is valid
+    similarities = db.relationship('GeneSimilarity', backref='gene', lazy='dynamic')
 
 
-class DrugTable(db.Model):
-    __tablename__ = 'drug_table'
+class Mutation(db.Model):
+    __tablename__ = 'mutations'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    synonyms = db.Column(db.String(128))
-    target = db.Column(db.String(64))
-    pathway = db.Column(db.String(256))
-    ccle_drug_name = db.Column(db.String(64))
-    ctrp1_drug_name = db.Column(db.String(64))
-    ctrp2_drug_name = db.Column(db.String(64))
-    gdsc1_drug_name = db.Column(db.String(64))
-    gdsc2_drug_name = db.Column(db.String(64))
-
-    # Connect the exp.
-    standard_drug_name = db.Column(db.String(64), db.ForeignKey('experiments.standard_drug_name'), nullable=False)  #
-
-    def __init__(self, synonyms, target, pathway, standard_drug_name,
-                 ccle_drug_name, ctrp1_drug_name, ctrp2_drug_name, gdsc1_drug_name, gdsc2_drug_name):
-        self.synonyms = synonyms
-        self.target = target
-        self.pathway = pathway
-        self.ccle_drug_name = ccle_drug_name
-        self.ctrp1_drug_name = ctrp1_drug_name
-        self.ctrp2_drug_name = ctrp2_drug_name
-        self.gdsc1_drug_name = gdsc1_drug_name
-        self.gdsc2_drug_name = gdsc2_drug_name
-
-        self.standard_drug_name = standard_drug_name
-
-
-class WildtypeMutation(db.Model):
-    __tablename__ = 'wildtype_mutation'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    gene = db.Column(db.String(64))
+    standard_drug_name = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'))
+    gene = db.Column(db.String(64), db.ForeignKey('genes.gene_name'))
     dataset = db.Column(db.String(32))
     cancer_type = db.Column(db.String(64))
     pvalue = db.Column(db.Float)
     statistic = db.Column(db.Float)
-    pvalue_provided = db.Column(db.Float)
-    statistic_provided = db.Column(db.Float)
+    provided_pvalue = db.Column(db.Float)
+    provided_statistic = db.Column(db.Float)
 
-    # Connect the exp.
-    standard_drug_name = db.Column(db.String(64), db.ForeignKey('experiments.standard_drug_name'))  #
-
-    def __init__(self, gene, dataset, cancer_type, pvalue, statistic, pvalue_provided, statistic_provided, standard_drug_name):
+    def __init__(self, gene, dataset, cancer_type, pvalue, statistic, provided_pvalue, provided_statistic, standard_drug_name):
         self.gene = gene
         self.dataset = dataset
         self.cancer_type = cancer_type
         self.pvalue = pvalue
         self.statistic = statistic
-        self.pvalue_provided = pvalue_provided
-        self.statistic_provided = statistic_provided
+        self.provided_pvalue = provided_pvalue
+        self.provided_statistic = provided_statistic
         
         self.standard_drug_name = standard_drug_name
 
+
 class GeneExpression(db.Model):
-    __tablename__ = 'gene_expression'
+    __tablename__ = 'gene_expressions'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    gene = db.Column(db.String(64))
+    standard_drug_name = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'))
+    gene = db.Column(db.String(64), db.ForeignKey('genes.gene_name'))
     dataset = db.Column(db.String(32))
     cancer_type = db.Column(db.String(64))
     pvalue = db.Column(db.Float)
     correlation = db.Column(db.Float)
-    pvalue_provided = db.Column(db.Float)
-    correlation_provided = db.Column(db.Float)
+    provided_pvalue = db.Column(db.Float)
+    provided_correlation = db.Column(db.Float)
 
     # Connect the exp.
-    standard_drug_name = db.Column(db.String(64), db.ForeignKey('experiments.standard_drug_name'))  #
+    # standard_drug_name = db.Column(db.String(64), db.ForeignKey('experiments.standard_drug_name'))  #
 
-    def __init__(self, gene, dataset, cancer_type, pvalue, correlation, pvalue_provided, correlation_provided, standard_drug_name):
+    def __init__(self, gene, dataset, cancer_type, pvalue, correlation, provided_pvalue, provided_correlation, standard_drug_name):
         self.gene = gene
         self.dataset = dataset
         self.cancer_type = cancer_type
         self.pvalue = pvalue
         self.correlation = correlation
-        self.pvalue_provided = pvalue_provided
-        self.correlation_provided = correlation_provided
-
+        self.provided_pvalue = provided_pvalue
+        self.provided_correlation = provided_correlation
         self.standard_drug_name = standard_drug_name
+
+
+class DrugSimilarity(db.Model):
+    __tablename__ = 'drug_similarities'
+
+    drug_x = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'), primary_key=True)
+    drug_y = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'), primary_key=True)
+    similarity = db.Column(db.Float)
+
+    def __init__(self, drug_x, drug_y, similarity):
+        self.drug_x = drug_x
+        self.drug_y = drug_y
+        self.similarity = similarity
+
+
+class GeneSimilarity(db.Model):
+    __tablename__ = 'gene_similarities'
+
+    gene_x = db.Column(db.String(64), db.ForeignKey('genes.gene_name'), primary_key=True)
+    gene_y = db.Column(db.String(64), db.ForeignKey('genes.gene_name'), primary_key=True)
+    similarity = db.Column(db.Float)
+
+    def __init__(self, gene_x, gene_y, similarity):
+        self.gene_x = gene_x
+        self.gene_y = gene_y
+        self.similarity = similarity

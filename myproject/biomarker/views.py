@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,url_for, Response
 from myproject import db
-from myproject.models import Exp, DoseResponse, JagsSampling, Sensitive, CellLineTable, WildtypeMutation, GeneExpression
+from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, GeneExpression
 from myproject.biomarker.forms import BiomarkerForm, ChoiceForm
 
 from flask import request
@@ -21,7 +21,7 @@ biomarker_blueprint = Blueprint('biomarker',
 
 @biomarker_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
-    gene_mutation_records = db.session.query(WildtypeMutation.gene).distinct()
+    gene_mutation_records = db.session.query(Mutation.gene).distinct()
     gene_express_records = db.session.query(GeneExpression.gene).distinct()
     gene_mutation_list = [r.gene for r in gene_mutation_records]
     gene_express_list = [r.gene for r in gene_express_records]
@@ -34,7 +34,7 @@ def autocomplete_drug():
     gene = request.args.get('gene')
     print(gene)
     # print(request.form.get('hidden_name'))
-    drug_mutation_records = db.session.query(WildtypeMutation.standard_drug_name).filter(WildtypeMutation.gene == gene).distinct()
+    drug_mutation_records = db.session.query(Mutation.standard_drug_name).filter(Mutation.gene == gene).distinct()
     drug_express_records = db.session.query(GeneExpression.standard_drug_name).filter(GeneExpression.gene == gene).distinct()
 
     drug_mutation_list = [r.standard_drug_name for r in drug_mutation_records]
@@ -62,7 +62,7 @@ def select():  #choose cell line
 def information_biomarker(gene, drug, cancer_type): #show information cell line
 
 
-    mutation_data = db.session.query(WildtypeMutation).filter(WildtypeMutation.gene == gene, WildtypeMutation.standard_drug_name == drug, WildtypeMutation.cancer_type == cancer_type)#.all()
+    mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug, Mutation.cancer_type == cancer_type)#.all()
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
     mutation_df = mutation_df[['dataset','statistic','pvalue','statistic_provided','pvalue_provided']]
 
@@ -72,7 +72,7 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
 
 
     #all dataset
-    mutation_records = db.session.query(WildtypeMutation).filter(WildtypeMutation.gene == gene, WildtypeMutation.standard_drug_name == drug)#.all()
+    mutation_records = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug)#.all()
     cancer_type_mutation_list = list(set(r.cancer_type for r in mutation_records))
     express_records = db.session.query(GeneExpression).filter(GeneExpression.gene == gene, GeneExpression.standard_drug_name == drug)#.all()
     cancer_type_express_list = list(set(r.cancer_type for r in express_records))

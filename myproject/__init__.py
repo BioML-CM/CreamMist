@@ -19,7 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # flask db init (only for first time)
 # flask db stamp head (only if database is not up to date)
 
-# flask db migrate -m "migration"
+# flask db migrate -m "first migration"
 # flask db upgrade
 
 db = SQLAlchemy(app)

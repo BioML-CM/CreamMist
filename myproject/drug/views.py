@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,url_for,Response
 from myproject import db
-from myproject.models import Exp, DoseResponse, JagsSampling, Sensitive, DrugTable
+from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, Drug
 from myproject.drug.forms import DrugForm, DatasetChoiceForm
 
 from flask import request
@@ -28,7 +28,7 @@ random_state=1
 #     return render_template('home.html', data=data)
 @drug_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
-    drug_records = db.session.query(Exp.standard_drug_name).distinct()
+    drug_records = db.session.query(Experiment.standard_drug_name).distinct()
     drug_name_db = [r.standard_drug_name for r in drug_records]
 
     return Response(json.dumps(drug_name_db), mimetype='application/json')
@@ -49,7 +49,7 @@ def select():  #choose drug
 def information_drug(drug, dataset): #show information cell line
 
     #all dataset
-    drug_records = db.session.query(Exp.dataset).filter(Exp.standard_drug_name == drug).distinct()
+    drug_records = db.session.query(Experiment.dataset).filter(Experiment.standard_drug_name == drug).distinct()
 
     #form for select dataset
     form = DatasetChoiceForm()
@@ -62,9 +62,9 @@ def information_drug(drug, dataset): #show information cell line
         return redirect(url_for('drug.information_drug', drug=drug, dataset=dataset))
 
 
-    data = db.session.query(Exp, JagsSampling, Sensitive)\
-            .join(JagsSampling, JagsSampling.exp_id == Exp.id)\
-            .join(Sensitive, Sensitive.exp_id == Exp.id).filter(Exp.standard_drug_name == drug, Exp.dataset == dataset) #.all()
+    data = db.session.query(Experiment, JagsSampling, SensitivityScore)\
+            .join(JagsSampling, JagsSampling.exp_id == Experiment.id)\
+            .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.standard_drug_name == drug, Experiment.dataset == dataset) #.all()
 
     df = pd.read_sql(data.statement, db.session.bind)
     drug = pd.unique(df['standard_drug_name'])[0]
@@ -81,7 +81,7 @@ def information_drug(drug, dataset): #show information cell line
 
 
     #name each dataset
-    drug_info_records = db.session.query(DrugTable).filter(DrugTable.standard_drug_name == drug).all()
+    drug_info_records = db.session.query(Drug).filter(Drug.standard_drug_name == drug).all()
     drug_info = [d for d in drug_info_records]
     drug_info = drug_info[0]
     name_dict = dict()

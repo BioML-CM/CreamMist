@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,url_for, Response
 from myproject import db
-from myproject.models import Exp, DoseResponse, JagsSampling, Sensitive, CellLineTable
+from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine
 from myproject.cancer_type.forms import CancerForm, DatasetChoiceForm
 
 from flask import request
@@ -21,7 +21,7 @@ cancer_type_blueprint = Blueprint('cancer_type',
 
 @cancer_type_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
-    cancer_type_records = db.session.query(CellLineTable.site).distinct()
+    cancer_type_records = db.session.query(CellLine.site).distinct()
     cancer_type_name_db = [r.site for r in cancer_type_records]
 
     return Response(json.dumps(cancer_type_name_db), mimetype='application/json')
@@ -40,13 +40,13 @@ def select():  #choose cell line
 @cancer_type_blueprint.route("/<string:dataset>/<string:cancer_type>",methods=['GET', 'POST'])
 def information_cancer_type(cancer_type, dataset): #show information cell line
     #all dataset
-    cancer_type_records = db.session.query(CellLineTable.cellosaurus_id).filter(CellLineTable.site == cancer_type).all()
+    cancer_type_records = db.session.query(CellLine.cellosaurus_id).filter(CellLine.site == cancer_type).all()
     cell_line_list = [r.cellosaurus_id for r in cancer_type_records]
 
 
-    data = db.session.query(Exp, JagsSampling, Sensitive)\
-            .join(JagsSampling, JagsSampling.exp_id == Exp.id)\
-            .join(Sensitive, Sensitive.exp_id == Exp.id).filter(Exp.cellosaurus_id.in_(cell_line_list)) #.all()
+    data = db.session.query(Experiment, JagsSampling, SensitivityScore)\
+            .join(JagsSampling, JagsSampling.exp_id == Experiment.id)\
+            .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.cellosaurus_id.in_(cell_line_list)) #.all()
 
     df = pd.read_sql(data.statement, db.session.bind)
 

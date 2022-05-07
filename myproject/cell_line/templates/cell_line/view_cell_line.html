@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron" style="background-color: #A65D8C95">
+    <h1 style="color:#59364A"> ANALYSIS </h1><br>
+    <hr class="my-4">
+    <div class="lead">
+        <p> Cellosaurus ID : <a href="{{ url_for('cell_line.information_cell_line', cell_line=experiment.cellosaurus_id, dataset='All') }}"> {{ experiment.cellosaurus_id }} </a> <br>
+            Standard drug name : <a href="{{ url_for('drug.information_drug', drug=experiment.standard_drug_name, dataset='All') }}"> {{ experiment.standard_drug_name }} </a> <br>
+            {% if experiment.dataset=='All'  %}
+                Data set : All ({{ experiment.info }})
+            {% else %}
+                Data set : {{ experiment.dataset }}
+            {% endif %}
+        </p>
+    </div>
+
+
+
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <form action="{{ url_for('cell_line.view_logistic',exp=experiment.id) }}" method="POST">
+            {# This hidden_tag is a CSRF security feature. #}
+{#            {{ form.hidden_tag() }}#}
+            {{ form.dataset.label }} &nbsp;&nbsp;  {{ form.dataset }} &nbsp;&nbsp;
+{#            {{ form.submit() }}#}
+            <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
+        </form><br><br>
+    </div>
+    <div class="row">
+        <div id="chart1"></div>
+    </div>
+</div>
+
+{#    <div id="chart2"></div>#}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4" id="chart2"></div>
+            <div class="col-6" ><br><br><br>
+                <table class="table table-striped table-responsive " style="border-radius: 5px 5px 5px 5px;">
+                    <tbody>
+                    {% for s in data %}
+                        <tr>
+                            <th bgcolor="#735E5A" style="color:white">IC50</th>
+                            <td>{{ "%.4f" | format(s.ic50_mode) }} (log2 scale)</td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#BFAB9F" >IC90</th>
+                            <td>{{ "%.4f" | format(s.ic90_calculate) }} (log2 scale)</td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#735E5A" style="color:white">AUC</th>
+                            <td>{{ "%.4f" | format(s.auc_calculate) }} (%)</td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#BFAB9F" >EC50</th>
+                            <td>{{ "%.4f" | format(s.ec50_calculate) }} (log2 scale)</td>
+                        </tr>
+                        <tr>
+                            <th bgcolor="#735E5A" style="color:white">Einf</th>
+                            <td>{{ "%.4f" | format(s.einf_calculate) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{#    <div id="chart1"></div>#}
+
+
+
+
+{#    <div id="chart3"></div>#}
+{#    <div id="chart4"></div>#}
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+    var graph1= {{ graph1Jason | safe}};
+    Plotly.plot('chart1', graph1, {})
+
+    var graph2= {{ graph2Jason | safe}};
+    Plotly.plot('chart2', graph2, {})
+
+</script>
+
+{% endblock %}

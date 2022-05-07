@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+
+    {% block contenthead %}
+
+    {% endblock %}
+
+
+<title>Adoption</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{{ url_for('index') }}">About</a>
+        <a class="nav-item nav-link" href="{{ url_for('cell_line.select') }}">Cell Line</a>
+        <a class="nav-item nav-link" href="{{ url_for('drug.select') }}">Drug</a>
+        <a class="nav-item nav-link" href="{{ url_for('cancer_type.select') }}">Cancer Type</a>
+        <a class="nav-item nav-link" href="{{ url_for('gene.select') }}">Gene</a>
+        <a class="nav-item nav-link" href="{{ url_for('biomarker.select') }}">Biomarker</a>
+    </div>
+
+</nav>
+
+{% block content %}
+
+{% endblock %}
+
+
+
+
+</body>
+
+
+<style>
+    a:link {color:#59364A;}    /* unvisited link is black*/
+    a:visited {color:#59364A;} /* visited link is black (reverse the color back to black)*/
+    a:hover {color:#59364A;}   /* mouse over link (blue when mouse over)*/
+    a:active {color:#59364A;}  /* selected link (blue in the split second which you loading the page.)*/
+
+    a:hover {background-color: #A64E6550;}
+
+
+    .page-item.active .page-link {
+        background-color: #735E5A !important;
+        border: 1px solid black;}
+
+     }
+
+</style>
+</html>
+
+
+{#/* Color Theme Swatches in Hex */#}
+{#.Travel-suitcase-preparing-concept--1-hex { color: #A64E65; }#}
+{#.Travel-suitcase-preparing-concept--2-hex { color: #59364A; }#}
+{#.Travel-suitcase-preparing-concept--3-hex { color: #A65D8C; }#}
+{#.Travel-suitcase-preparing-concept--4-hex { color: #BFAB9F; }#}
+{#.Travel-suitcase-preparing-concept--5-hex { color: #735E5A; }#}
+

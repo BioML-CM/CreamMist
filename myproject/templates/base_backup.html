@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    {% block contenthead %}
+
+    {% endblock %}
+
+    {#    For sort table#}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+
+    <title>Adoption</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{{ url_for('index') }}">About</a>
+        <a class="nav-item nav-link" href="{{ url_for('cell_line.select') }}">Cell Line</a>
+        <a class="nav-item nav-link" href="{{ url_for('drug.select') }}">Drug</a>
+        <a class="nav-item nav-link" href="{{ url_for('cancer_type.select') }}">Cancer Type</a>
+        <a class="nav-item nav-link" href="{{ url_for('gene.select') }}">Gene</a>
+    </div>
+
+</nav>
+
+{% block content %}
+
+{% endblock %}
+
+
+{#    For sort table#}
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $('#data').DataTable();
+        });
+    </script>
+{% endblock %}
+
+</body>
+
+
+<style>
+    a:link {color:#A65D8C;}    /* unvisited link is black*/
+    a:visited {color:#A65D8C;} /* visited link is black (reverse the color back to black)*/
+    a:hover {color:#A65D8C;}   /* mouse over link (blue when mouse over)*/
+    a:active {color:#A65D8C;}  /* selected link (blue in the split second which you loading the page.)*/
+
+    a:hover {background-color: #BFAB9F;}
+
+</style>
+</html>
+
+
+{#/* Color Theme Swatches in Hex */#}
+{#.Travel-suitcase-preparing-concept--1-hex { color: #A64E65; }#}
+{#.Travel-suitcase-preparing-concept--2-hex { color: #59364A; }#}
+{#.Travel-suitcase-preparing-concept--3-hex { color: #A65D8C; }#}
+{#.Travel-suitcase-preparing-concept--4-hex { color: #BFAB9F; }#}
+{#.Travel-suitcase-preparing-concept--5-hex { color: #735E5A; }#}
+

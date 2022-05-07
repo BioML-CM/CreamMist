@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron" style="background-color: #A65D8C95;">
+        <h1 style="color:#59364A">BIOMARKER</h1>
+        <p class="lead"> Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
+            Drug Name : <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
+            Cancer type : {{ cancer_type }}</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,cancer_type=cancer_type) }}" method="POST">
+
+                {{ form.cancer_type.label }} &nbsp;&nbsp;  {{ form.cancer_type }} <br>
+
+                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
+            </form><br><br>
+        </div>
+    </div>
+
+{##}
+{#    <div class="container">#}
+{##}
+{#            <div class="col-md-12">#}
+{#                {% if  score== 'mutation' %}#}
+{#                    <table class="table table-striped">#}
+{#                        <thead>#}
+{#                        <tr>#}
+{#                            <th>Dataset</th>#}
+{#                            <th>Statistic</th>#}
+{#                            <th>Pvalue</th>#}
+{#                            <th>Statistic provided</th>#}
+{#                            <th>Pvalue provided</th>#}
+{##}
+{#                        </tr>#}
+{#                        </thead>#}
+{#                        <tbody>#}
+{#                        {% for g in data %}#}
+{#                            <tr>#}
+{#                                <td>{{ g.dataset }}</td>#}
+{#                                <td>{{ "%.4f" | format(g.statistic) }}</td>#}
+{#                                <td>{{ "%.4f" | format(g.pvalue) }}</td>#}
+{#                                <td>{{ "%.4f" | format(g.statistic_provided) }}</td>#}
+{#                                <td>{{ "%.4f" | format(g.pvalue_provided) }}</td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{#                        </tbody>#}
+{#                    </table>#}
+{#                {% endif %}#}
+{##}
+{#                {% if score== 'gene expression' %}#}
+{#                    <table class="table table-striped">#}
+{#                        <thead>#}
+{#                        <tr>#}
+{#                            <th>Dataset</th>#}
+{#                            <th>Statistic</th>#}
+{#                            <th>Pvalue</th>#}
+        {#                    <th>Statistic provided</th>#}
+        {#                    <th>Pvalue provided</th>#}
+{##}
+{#                        </tr>#}
+{#                        </thead>#}
+{#                        <tbody>#}
+{#                        {% for g in data %}#}
+{#                            <tr>#}
+{#                                <td>{{ g.dataset }}</td>#}
+{#                                <td>{{ "%.4f" | format(g.correlation) }}</td>#}
+{#                                <td>{{ "%.4f" | format(g.pvalue) }}</td>#}
+        {#                        <td>{{ "%.4f" | format(g.correlation_provided) }}</td>#}
+        {#                        <td>{{ "%.4f" | format(g.pvalue_provided) }}</td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{#                        </tbody>#}
+{#                    </table>#}
+{#                {% endif %}#}
+{##}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+
+    <div class="container">
+        <p>Mutation
+        <div class="row">
+            <div class="col" id="chart1">
+            </div>
+            <div class="col" id="chart2">
+            </div>
+        </div>
+        <p>Gene expression
+        <div class="row">
+            <div class="col" id="chart3">
+            </div>
+            <div class="col" id="chart4">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        var graph1= {{ graph1Jason | safe}};
+        Plotly.plot('chart1', graph1, {})
+
+        var graph2= {{ graph2Jason | safe}};
+        Plotly.plot('chart2', graph2, {})
+
+        var graph3= {{ graph3Jason | safe}};
+        Plotly.plot('chart3', graph3, {})
+
+        var graph4= {{ graph4Jason | safe}};
+        Plotly.plot('chart4', graph4, {})
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron" style="background-color: #A65D8C95;">
+    <h1 style="color:#59364A">GENE INFORMATION</h1>
+    <p class="lead"> Gene : {{ gene }}<br>
+    Dataset : {{ dataset }}<br>
+    Cancer type : {{ cancer_type }} </p>
+</div>
+
+
+{##}
+<div class="container">
+    <div class="row">
+    <form action="{{ url_for('gene.information_gene',gene=gene, dataset=dataset,cancer_type=cancer_type) }}" method="POST">
+        {# This hidden_tag is a CSRF security feature. #}
+        {#            {{ form.hidden_tag() }}#}
+        {{ form.dataset.label }} &nbsp;&nbsp;  {{ form.dataset }} &nbsp;&nbsp;<br>
+        {{ form.cancer_type.label }} &nbsp;&nbsp;  {{ form.cancer_type }} <br>
+        {#            {{ form.submit() }}#}
+        <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
+    </form><br><br>
+    </div>
+</div>
+
+
+
+    <div class="container">
+        <p>Mutation
+        <div class="row">
+            <div class="col" id="chart1">
+            </div>
+            <div class="col" id="chart2">
+            </div>
+        </div>
+        <p>Gene expression
+        <div class="row">
+            <div class="col" id="chart3">
+            </div>
+            <div class="col" id="chart4">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        var graph1= {{ graph1Jason | safe}};
+        Plotly.plot('chart1', graph1, {})
+
+        var graph2= {{ graph2Jason | safe}};
+        Plotly.plot('chart2', graph2, {})
+
+        var graph3= {{ graph3Jason | safe}};
+        Plotly.plot('chart3', graph3, {})
+
+        var graph4= {{ graph4Jason | safe}};
+        Plotly.plot('chart4', graph4, {})
+
+    </script>
+
+{% endblock %}

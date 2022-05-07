@@ -1,0 +1,51 @@
+{% extends "base_for_search.html" %}
+{% block contenthead %}
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style >
+        .ui-autocomplete
+        {
+            max-height:320px;
+            overflow: scroll;
+            background-color: #FFF4ED;
+        {#overflow-y: scroll;#}
+            scrollbar-color: #D6B2A7;
+            scrollbar-width: thin;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="jumbotron" style="background-color: #A65D8C95;">
+        <h1 style="color:#59364A">SELECT DRUG  </h1><br>
+        <div class="lead">
+            <form action="{{ url_for('drug.select') }}"  method="POST">
+                {# This hidden_tag is a CSRF security feature. #}
+                {#      {{ form.hidden_tag() }}#}
+                {{ form.name.label }} {{ form.name }} <br>
+                <script>
+                    $(function() {
+                        $.ajax({
+                            url: '{{ url_for("drug.autocomplete") }}'
+                        }).done(function (data){
+                            $('#drug_autocomplete').autocomplete({
+                                source: data,
+                                minLength: 1
+                            });
+                        });
+                    });
+
+
+                </script>
+                {#      {{ form.submit() }}#}
+                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

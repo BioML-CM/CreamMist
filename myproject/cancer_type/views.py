@@ -11,8 +11,8 @@ from myproject.cancer_type import plot_data
 import pandas as pd
 import json
 import plotly
-import upsetplot
-from upsetplot import from_contents
+# import upsetplot
+# from upsetplot import from_contents
 from matplotlib import pyplot as plt
 
 cancer_type_blueprint = Blueprint('cancer_type',

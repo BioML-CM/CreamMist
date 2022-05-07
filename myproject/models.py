@@ -6,9 +6,9 @@ class Exp(db.Model):
     __tablename__ = 'experiments'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    cellosaurus_index = db.Column(db.String(64), nullable=False)
-    cellosaurus_id = db.Column(db.String(64), nullable=False)
-    standard_drug_name = db.Column(db.String(64), nullable=False)
+    cellosaurus_index = db.Column(db.String(64), nullable=False, index=True)
+    cellosaurus_id = db.Column(db.String(64), nullable=False, index=True)
+    standard_drug_name = db.Column(db.String(64), nullable=False, index=True)
     dataset = db.Column(db.String(32), nullable=False)
     info = db.Column(db.Text)
 
@@ -166,9 +166,9 @@ class CellLineTable(db.Model):
     ctrp2_name = db.Column(db.String(64))
     gdsc1_name = db.Column(db.String(64))
     gdsc2_name = db.Column(db.String(64))
-    site = db.Column(db.String(64))
+    site = db.Column(db.String(128))
     # Connect the exp.
-    cellosaurus_id = db.Column(db.String(64), db.ForeignKey('experiments.cellosaurus_id'), nullable=False)  #
+    cellosaurus_id = db.Column(db.String(64), db.ForeignKey('experiments.cellosaurus_id'), nullable=False, )
 
     def __init__(self, site, cellosaurus_id, ccle_name, ctrp1_name, ctrp2_name, gdsc1_name, gdsc2_name):
         self.site = site

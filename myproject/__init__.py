@@ -1,7 +1,8 @@
 import os
 from flask import Flask
+from urllib.parse import quote
 from flask_sqlalchemy import SQLAlchemy
-# from flask_migrate import Migrate
+from flask_migrate import Migrate
 
 
 app = Flask(__name__)
@@ -11,12 +12,18 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 # Connects our Flask App to our Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/creammist'
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://creammist:CreamMist$2022@13.213.238.8/creammist" # mysql://username:password@server/db
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+# set FLASK_APP=app.py
+# flask db init (only for first time)
+# flask db stamp head (only if database is not up to date)
 
-# Migrate(app,db)
+# flask db migrate -m "migration"
+# flask db upgrade
+
+db = SQLAlchemy(app)
+Migrate(app, db, compare_type=True)
 
 # NOTE! These imports need to come after you've defined db, otherwise you will
 # get errors in your models.py files.

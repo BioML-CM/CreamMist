@@ -5,7 +5,7 @@
         <h1 style="color:#59364A">BIOMARKER</h1>
         <p class="lead"> Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
             Drug Name : <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
-            Cancer type : {{ cancer_type }}</p>
+            Cancer type : <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>
     </div>
 
     <div class="container">
@@ -86,14 +86,10 @@
         <div class="row">
             <div class="col" id="chart1">
             </div>
-            <div class="col" id="chart2">
-            </div>
         </div>
         <p>Gene expression
         <div class="row">
-            <div class="col" id="chart3">
-            </div>
-            <div class="col" id="chart4">
+            <div class="col" id="chart2">
             </div>
         </div>
     </div>
@@ -106,11 +102,6 @@
         var graph2= {{ graph2Jason | safe}};
         Plotly.plot('chart2', graph2, {})
 
-        var graph3= {{ graph3Jason | safe}};
-        Plotly.plot('chart3', graph3, {})
-
-        var graph4= {{ graph4Jason | safe}};
-        Plotly.plot('chart4', graph4, {})
 
     </script>
 

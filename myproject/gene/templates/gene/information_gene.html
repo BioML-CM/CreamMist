@@ -3,9 +3,9 @@
 {% block content %}
 <div class="jumbotron" style="background-color: #A65D8C95;">
     <h1 style="color:#59364A">GENE INFORMATION</h1>
-    <p class="lead"> Gene : {{ gene }}<br>
+    <p class="lead"> Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
     Dataset : {{ dataset }}<br>
-    Cancer type : {{ cancer_type }} </p>
+    Cancer type : <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a> </p>
 </div>
 
 

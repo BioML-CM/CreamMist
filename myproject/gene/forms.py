@@ -3,7 +3,7 @@ from wtforms import StringField, IntegerField, SubmitField, SelectField, FloatFi
 
 class GeneForm(FlaskForm):
 
-    gene_name = StringField('Gene :', id='gene_autocomplete')
+    name = StringField('Gene :', id='gene_autocomplete')
     # drug_name = StringField('Standard drug name :', id='biomarker_autocomplete_drug')
 
 

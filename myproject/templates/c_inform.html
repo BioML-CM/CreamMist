@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Creammist Database</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="vendor/choices.js/public/assets/styles/choices.min.css">
+    <!-- Swiper slider-->
+    <link rel="stylesheet" href="vendor/swiper/swiper-bundle.min.css">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700&amp;display=swap">
+    <!-- Lightbox-->
+    <link rel="stylesheet" href="vendor/glightbox/css/glightbox.min.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/style.pink.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.png">
+</head>
+<body>
+<!-- navbar-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 py-lg-2">
+        <div class="container"><img src="img/database.svg" alt="" width="30"><span class="text-uppercase text-small fw-bold text-dark ms-2 mb-0">CREAMMIST</span>
+            <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link active" href=#>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href=#>Cell line</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href=#>Drug</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href=#>Cancer Type</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href=#>Gene</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href=#>BioMarker</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row gy-5">
+            <!-- Filter-->
+            <div class="col-lg-3 order-2 order-lg-1">
+                <h2 class="h3 mb-4 pb-1">Filter</h2>
+                <div class="card border-0 shadow-sm mb-4 p-2">
+                    <div class="card-body">
+                        <h2 class="h5 mb-4">Choose tag</h2>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
+                            <label class="form-check-label" for="customCheckbox1">Startup</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="customCheckbox2">
+                            <label class="form-check-label" for="customCheckbox2">Development</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="customCheckbox3">
+                            <label class="form-check-label" for="customCheckbox3">Management</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="customCheckbox4">
+                            <label class="form-check-label" for="customCheckbox4">Resources</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="customCheckbox5">
+                            <label class="form-check-label" for="customCheckbox5">Engagement</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="customCheckbox6">
+                            <label class="form-check-label" for="customCheckbox6">Planning</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="customCheckbox7">
+                            <label class="form-check-label" for="customCheckbox7">Community</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Listing-->
+            <div class="col-lg-9 order-1 order-lg-2">
+                <!-- Listing sorting-->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-md-6">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item my-1 my-lg-0">
+                                <select class="choices" data-customclass="btn btn-light bg-white shadow-xs border text-start d-flex align-items-center">
+                                    <option value>Dataset </option>
+                                    <option value="alphabetically"></option>
+                                    <option value="latest"></option>
+                                    <option value="top rated"></option>
+                                    <option value="random"></option>
+                                </select>
+                            </li>
+                            <li class="list-inline-item my-1 my-lg-0">
+                                <select class="choices" data-customclass="btn btn-light bg-white shadow-xs border text-start d-flex align-items-center">
+                                    <option value>Cancer Type</option>
+                                    <option value="tools"></option>
+                                    <option value="resources"></option>
+                                </select>
+                            </li>
+                        </ul><br>
+                        <button class="btn btn-primary w-50" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4">
+                                <p class="h5 mb-0 p-3 p-md-0">Cell line : ........</p>
+                                <p class="h5 mb-0 p-3 p-md-0">Dataset : ........</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Listing items-->
+                <div class="row mb-4 gy-4">
+                    <!-- Gallery-->
+                    <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                        <div class="card-body p-lg-5">
+                            <h2 class="h3 mb-4">Gallery</h2>
+                            <div class="rounded overflow-hidden mb-3">
+                                <div class="swiper tool-gallery-slider">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide h-auto"><a class="glightbox d-block" href="img/tool-gallery-1.jpg" data-gallery="gallery2" data-glightbox="Product item 1"><img class="img-fluid" src="img/tool-gallery-1.jpg" alt="..."></a></div>
+                                        <div class="swiper-slide h-auto"><a class="glightbox d-block" href="img/tool-gallery-2.jpg" data-gallery="gallery2" data-glightbox="Product item 2"><img class="img-fluid" src="img/tool-gallery-2.jpg" alt="..."></a></div>
+                                        <div class="swiper-slide h-auto"><a class="glightbox d-block" href="img/tool-gallery-3.jpg" data-gallery="gallery2" data-glightbox="Product item 3"><img class="img-fluid" src="img/tool-gallery-3.jpg" alt="..."></a></div>
+                                        <div class="swiper-slide h-auto"><a class="glightbox d-block" href="img/tool-gallery-4.jpg" data-gallery="gallery2" data-glightbox="Product item 4"><img class="img-fluid" src="img/tool-gallery-4.jpg" alt="..."></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                        <div class="card-body p-lg-5">
+                            <h2 class="h3 mb-4">About this tool</h2>
+                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
+                            <p>looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
+                            <p class="mb-0">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4">
+                                <h3 class="h5"> Elevatr</h3>
+                                <img class="img-fluid" src="img/cat-tool-bg-2.jpg" alt="...">
+                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm border-0 ">
+<!--                            <div class="tool-thumb rounded-circle"><img class="img-fluid rounded-circle" src="img/tool-thumb-2.png" alt="..." width="40"></div>-->
+<!--                            <div class="featured-badge" rel="tooltip" data-placement="top" title="Featured"><i class="fas fa-bolt"></i></div>-->
+                            <div class="overlay-content"><img class="img-fluid" src="img/cat-tool-bg-2.jpg" alt="..."></div>
+                            <div class="card-body p-4">
+                                <h3 class="h5"> Elevatr</h3>
+                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+</body>
+
+<!-- JavaScript files-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/glightbox/js/glightbox.min.js"></script>
+<script src="vendor/swiper/swiper-bundle.min.js"></script>
+<script src="vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="js/front.js"></script>
+<script>
+    // ------------------------------------------------------- //
+    //   Inject SVG Sprite -
+    //   see more here
+    //   https://css-tricks.com/ajaxing-svg-sprite/
+    // ------------------------------------------------------ //
+    function injectSvgSprite(path) {
+
+        var ajax = new XMLHttpRequest();
+        ajax.open("GET", path, true);
+        ajax.send();
+        ajax.onload = function(e) {
+            var div = document.createElement("div");
+            div.className = 'd-none';
+            div.innerHTML = ajax.responseText;
+            document.body.insertBefore(div, document.body.childNodes[0]);
+        }
+    }
+    // this is set to BootstrapTemple website as you cannot
+    // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+    // while using file:// protocol
+    // pls don't forget to change to your domain :)
+    injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
+
+</script>
+<!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</html>

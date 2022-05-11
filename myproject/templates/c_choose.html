@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+
+<section class="hero-home py-5">
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-lg-7 mx-auto text-center">
+                <p class="h6 text-uppercase text-primary mb-3">CELL LINES</p>
+                <h1 class="mb-5">Select cell line name</h1>
+                <form class="p-2 rounded shadow-sm bg-white" action="#!">
+                    <div class="input-group">
+                        <input class="form-control border-0 me-2 shadow-0" type="search" placeholder="Select cell line name...">
+                        <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -37,7 +37,7 @@ def select():  #choose cell line
 
 
 
-@gene_blueprint.route("/<string:dataset>/<string:cancer_type>/<string:gene>",methods=['GET', 'POST'])
+@gene_blueprint.route("/<string:dataset>/<string:gene>/<string:cancer_type>",methods=['GET', 'POST'])
 def information_gene(gene, dataset, cancer_type): #show information cell line
 
     mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.dataset == dataset, Mutation.cancer_type == cancer_type)#.all()

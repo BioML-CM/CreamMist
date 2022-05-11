@@ -1,11 +1,10 @@
-{% extends "base_for_search.html" %}
-{% block contenthead %}
-    <meta charset="utf-8">
+{% extends "base.html" %}
 
+{% block content %}
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
 
     <style >
         .ui-autocomplete
@@ -13,40 +12,41 @@
             max-height:320px;
             overflow: scroll;
             background-color: #F2DAE6;
-        {#overflow-y: scroll;#}
+            overflow-y: scroll;
             scrollbar-color: #D6B2A7;
             scrollbar-width: thin;
         }
     </style>
-{% endblock %}
 
+    <section class="hero-home py-5">
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-lg-7 mx-auto text-center">
+                    <p class="h6 text-uppercase text-primary mb-3">CANCER TYPE</p>
+                    <h1 class="mb-5">Select cancer type</h1>
+                    <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('cancer_type.select') }}"  method="POST">
+                        <div class="input-group">
+                            {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="Select cancer type...")}} <br>
 
-{% block content %}
-
-    <div class="jumbotron" style="background-color: #A65D8C95;">
-        <h1 style="color:#59364A">SELECT CANCER TYPE  </h1><br>
-        <div class="lead">
-            <form action="{{ url_for('cancer_type.select') }}"  method="POST">
-                {# This hidden_tag is a CSRF security feature. #}
-                {#      {{ form.hidden_tag() }}#}
-                {{ form.name.label }} {{ form.name }} <br>
-                <script>
-                    $(function() {
-                        $.ajax({
-                            url: '{{ url_for("cancer_type.autocomplete") }}'
-                        }).done(function (data){
-                            $('#cancer_type_autocomplete').autocomplete({
-                                source: data,
-                                minLength: 1
+                            <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                        <script>
+                            $(function() {
+                                $.ajax({
+                                    url: '{{ url_for("cancer_type.autocomplete") }}'
+                                }).done(function (data){
+                                    $('#cancer_type_autocomplete').autocomplete({
+                                        source: data,
+                                        minLength: 1
+                                    });
+                                });
                             });
-                        });
-                    });
-
-
-                </script>
-                {#      {{ form.submit() }}#}
-                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
-            </form>
+                        </script>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock %}
+
+

@@ -1,11 +1,10 @@
-{% extends "base_for_search.html" %}
-{% block contenthead %}
-    <meta charset="utf-8">
+{% extends "base.html" %}
 
+{% block content %}
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
 
     <style >
         .ui-autocomplete
@@ -13,58 +12,106 @@
             max-height:320px;
             overflow: scroll;
             background-color: #F2DAE6;
-        {#overflow-y: scroll;#}
+            overflow-y: scroll;
             scrollbar-color: #D6B2A7;
             scrollbar-width: thin;
         }
     </style>
+
+    <section class="hero-home py-5">
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-lg-7 mx-auto text-center">
+                    <p class="h6 text-uppercase text-primary mb-3">BIOMARKER</p>
+                    <h1 class="mb-5">Select gene name and drug name</h1>
+                    <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('biomarker.select') }}"  method="POST">
+{#                        <div class="input-group">#}
+                            {{ form.gene_name(class="form-control border-1 me-2 shadow-0",placeholder="Select gene name...")}} <br>
+                            {{ form.drug_name(class="form-control border-1 me-2 shadow-0",placeholder="Select drug name...")}} <br>
+                            <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
+{#                        </div>#}
+                        <script>
+                            $(function() {
+                                $.ajax({
+                                    url: '{{ url_for("biomarker.autocomplete") }}'
+                                }).done(function(data){
+                                    $('#biomarker_autocomplete').autocomplete({
+                                        source: data,
+                                        minLength: 2
+                                    });
+                                });
+                            });
+                        </script>
+                        <script>
+                            var gene_select = document.getElementById('biomarker_autocomplete');
+                            {#var hidden_value = document.getElementById('hidden').value;#}
+
+                            gene_select.onchange = function () {
+                                console.log(gene_select.value);
+                                $.ajax({
+                                    url: '{{ url_for("biomarker.autocomplete_drug") }}' + '?gene=' + gene_select.value,
+
+                                }).done(function(data){
+                                    $('#biomarker_autocomplete_drug').autocomplete({
+                                        source: data,
+                                        minLength: 1
+                                    });
+                                });
+                            }
+                        </script>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
-
-{% block content %}
-
-    <div class="jumbotron" style="background-color: #A65D8C95;">
-        <h1 style="color:#59364A">SELECT CELL LINE  </h1><br>
-        <div class="lead">
-            <form action="{{ url_for('biomarker.select') }}"  method="POST">
-
-                {{ form.gene_name.label }} {{ form.gene_name }} <br>
-                {{ form.drug_name.label }} {{ form.drug_name }} <br>
-                {{ form.hidden_name }}
-                <script>
-                    $(function() {
-                        $.ajax({
-                            url: '{{ url_for("biomarker.autocomplete") }}'
-                        }).done(function(data){
-                            $('#biomarker_autocomplete').autocomplete({
-                                source: data,
-                                minLength: 2
-                            });
-                        });
-                    });
-                </script>
-                <script>
-                    var gene_select = document.getElementById('biomarker_autocomplete');
+{##}
+{##}
+{#{% block content %}#}
+{##}
+{#    <div class="jumbotron" style="background-color: #A65D8C95;">#}
+{#        <h1 style="color:#59364A">SELECT CELL LINE  </h1><br>#}
+{#        <div class="lead">#}
+{#            <form action="{{ url_for('biomarker.select') }}"  method="POST">#}
+{##}
+{#                {{ form.gene_name.label }} {{ form.gene_name }} <br>#}
+{#                {{ form.drug_name.label }} {{ form.drug_name }} <br>#}
+{#                {{ form.hidden_name }}#}
+{#                <script>#}
+{#                    $(function() {#}
+{#                        $.ajax({#}
+{#                            url: '{{ url_for("biomarker.autocomplete") }}'#}
+{#                        }).done(function(data){#}
+{#                            $('#biomarker_autocomplete').autocomplete({#}
+{#                                source: data,#}
+{#                                minLength: 2#}
+{#                            });#}
+{#                        });#}
+{#                    });#}
+{#                </script>#}
+{#                <script>#}
+{#                    var gene_select = document.getElementById('biomarker_autocomplete');#}
                     {#var hidden_value = document.getElementById('hidden').value;#}
-
-                    gene_select.onchange = function () {
-                        console.log(gene_select.value);
+{##}
+{#                    gene_select.onchange = function () {#}
+{#                        console.log(gene_select.value);#}
                         {#document.getElementById('biomarker_autocomplete').value = gene_select.value;#}
                         {#document.getElementById('hidden').value = gene_select.value;#}
                         {#alert(document.getElementById('hidden').value);#}
                         {#console.log(document.getElementById('hidden').value);#}
-                        $.ajax({
+{#                        $.ajax({#}
                             {#url: '{{ url_for("biomarker.autocomplete_drug", gene="GENE111") }}',#}
-                            url: '{{ url_for("biomarker.autocomplete_drug") }}' + '?gene=' + gene_select.value,
-
-                        }).done(function(data){
-                            $('#biomarker_autocomplete_drug').autocomplete({
-                                source: data,
-                                minLength: 1
-                            });
-                        });
-                    }
-                </script>
+{#                            url: '{{ url_for("biomarker.autocomplete_drug") }}' + '?gene=' + gene_select.value,#}
+{##}
+{#                        }).done(function(data){#}
+{#                            $('#biomarker_autocomplete_drug').autocomplete({#}
+{#                                source: data,#}
+{#                                minLength: 1#}
+{#                            });#}
+{#                        });#}
+{#                    }#}
+{#                </script>#}
 {#                <script>#}
 {#                    $(function() {#}
 {#                        $.ajax({#}
@@ -78,14 +125,14 @@
 {#                        });#}
 {#                    });#}
 {#                </script>#}
-
-
-
-
-
+{##}
+{##}
+{##}
+{##}
+{##}
                 {#      {{ form.submit() }}#}
-                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
-            </form>
-        </div>
-    </div>
-{% endblock %}
+{#                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>#}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}#}

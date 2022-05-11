@@ -1,29 +1,107 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row gy-5">
+                <!-- Filter-->
+                <div class="col-lg-3 order-2 order-lg-1">
+                    <h2 class="h3 mb-4 pb-1">Filter</h2>
+                    <div class="card border-0 shadow-sm mb-4 p-2">
+                        <div class="card-body">
+                            <h2 class="h5 mb-4">Choose tag</h2>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="customCheckbox1">
+                                <label class="form-check-label" for="customCheckbox1">Information</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="customCheckbox2">
+                                <label class="form-check-label" for="customCheckbox2">Table</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="customCheckbox3">
+                                <label class="form-check-label" for="customCheckbox3">Statistic</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Listing-->
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <!-- Listing sorting-->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-6">
+                            <form action="{{ url_for('cancer_type.information_cancer_type',cancer_type=cancer_type, dataset=dataset) }}" method="POST">
+                                {{ form.dataset.label }} : {{ form.dataset }} <br><br>
+                                <button class="btn btn-primary w-50" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
+                            </form><br><br>
+                        </div>
+                    </div>
+                    <!-- Listing items-->
+                    <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                        <div class="card-body p-lg-5">
+                            <h2 class="h3 mb-4">Information : {{ cancer_type }}</h2>
+                            <p> Data set : {{ dataset }}</p>
 
-<div class="jumbotron" style="background-color: #A65D8C95;">
-    <h1 style="color:#59364A">CANCER TYPE :
-        <span style="color:#ffffff;background-color:#000000;opacity:0.5;"> &nbsp; {{ cancer_type }} &nbsp;
-        </span>
-    </h1>
-    <p class="lead">
-        Data set : {{ dataset }} <br></p>
-</div>
+                        </div>
+                    </div>
+                    <div class="row mb-4 gy-4">
+                        <!-- Gallery-->
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4", id="chart1">
+                            </div>
+                        </div>
 
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4", id="chart2">
+                            </div>
+                        </div>
 
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4", id="chart3">
+                            </div>
+                        </div>
 
-<div class="container">
-    <div class="row">
-        <form action="{{ url_for('cancer_type.information_cancer_type',cancer_type=cancer_type, dataset=dataset) }}" method="POST">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        var graph1= {{ graph1Jason | safe}};
+        Plotly.plot('chart1', graph1, {})
+
+        var graph2= {{ graph2Jason | safe}};
+        Plotly.plot('chart2', graph2, {})
+
+        var graph3= {{ graph3Jason | safe}};
+        Plotly.plot('chart3', graph3, {})
+    </script>
+
+{#    #}
+{#<div class="jumbotron" style="background-color: #A65D8C95;">#}
+{#    <h1 style="color:#59364A">CANCER TYPE :#}
+{#        <span style="color:#ffffff;background-color:#000000;opacity:0.5;"> &nbsp; {{ cancer_type }} &nbsp;#}
+{#        </span>#}
+{#    </h1>#}
+{#    <p class="lead">#}
+{#        Data set : {{ dataset }} <br></p>#}
+{#</div>#}
+{##}
+{##}
+{##}
+{#<div class="container">#}
+{#    <div class="row">#}
+{#        <form action="{{ url_for('cancer_type.information_cancer_type',cancer_type=cancer_type, dataset=dataset) }}" method="POST">#}
             {# This hidden_tag is a CSRF security feature. #}
-            {{ form.dataset.label }} &nbsp;&nbsp;  {{ form.dataset }} &nbsp;&nbsp;
-
-            <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
-        </form><br><br>
-    </div>
-
-    <div class="row">
+{#            {{ form.dataset.label }} &nbsp;&nbsp;  {{ form.dataset }} &nbsp;&nbsp;#}
+{##}
+{#            <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>#}
+{#        </form><br><br>#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
 {#        <table id="data" class="table table-striped table-responsive">#}
 {#            <thead>#}
 {#                <tr>#}
@@ -50,32 +128,32 @@
 {#                {% endfor %}#}
 {#                </tbody>#}
 {#            </table>#}
-
-
-    </div>
-</div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col" id="chart1">
-            </div>
-            <div class="col" id="chart2">
-            </div>
-            <div class="col" id="chart3">
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script type="text/javascript">
-        var graph1= {{ graph1Jason | safe}};
-        Plotly.plot('chart1', graph1, {})
-
-        var graph2= {{ graph2Jason | safe}};
-        Plotly.plot('chart2', graph2, {})
-
-        var graph3= {{ graph3Jason | safe}};
-        Plotly.plot('chart3', graph3, {})
-    </script>
+{##}
+{##}
+{#    </div>#}
+{#</div>#}
+{##}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col" id="chart1">#}
+{#            </div>#}
+{#            <div class="col" id="chart2">#}
+{#            </div>#}
+{#            <div class="col" id="chart3">#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>#}
+{#    <script type="text/javascript">#}
+{#        var graph1= {{ graph1Jason | safe}};#}
+{#        Plotly.plot('chart1', graph1, {})#}
+{##}
+{#        var graph2= {{ graph2Jason | safe}};#}
+{#        Plotly.plot('chart2', graph2, {})#}
+{##}
+{#        var graph3= {{ graph3Jason | safe}};#}
+{#        Plotly.plot('chart3', graph3, {})#}
+{#    </script>#}
 
 {% endblock %}

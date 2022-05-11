@@ -1,31 +1,103 @@
-{% extends "base_for_search.html" %}
-{% block contenthead %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Creammist Database</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/choices.js/public/assets/styles/choices.min.css') }}">
+    <!-- Swiper slider-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}">
+    <!-- Google fonts-->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700&amp;display=swap">
+    <!-- Lightbox-->
+<!--    <link rel="stylesheet" href="vendor/glightbox/css/glightbox.min.css">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.default.css') }}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.pink.css') }}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.png">
+</head>
+<body>
+<!-- navbar-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 py-lg-2">
+        <div class="container"><img src="static/img/database.svg" alt="" width="30"><span class="text-uppercase text-small fw-bold text-dark ms-2 mb-0">CREAMMIST</span>
+            <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link active" href={{ url_for('index') }}>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href={{ url_for('cell_line.select') }}>Cell line</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href={{ url_for('drug.select') }}>Drug</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href={{ url_for('cancer_type.select') }}>Cancer Type</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href={{ url_for('gene.select') }}>Gene</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Navbar link--><a class="nav-link" href={{ url_for('biomarker.select') }}>BioMarker</a>
+                    </li>
 
-    <!-- Custom styles for this template-->
-{#    <link href="css/sb-admin-2.min.css" rel="stylesheet">#}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 
-    {#    For sort table#}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
-
-    <title>Adoption</title>
-
-    {#    For sort table#}
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
-
-    {% block scripts %}
-        <script>
-            $(document).ready(function () {
-                $('#data').DataTable();
-            });
-        </script>
-    {% endblock %}
+{% block content %}
 
 {% endblock %}
 
+
+</body>
+
+
+<!-- JavaScript files-->
+<script src="static/vendor/jquery/jquery.min.js"></script>
+<script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="static/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="static/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="static/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="static/js/front.js"></script>
+<script>
+    // ------------------------------------------------------- //
+    //   Inject SVG Sprite -
+    //   see more here
+    //   https://css-tricks.com/ajaxing-svg-sprite/
+    // ------------------------------------------------------ //
+    function injectSvgSprite(path) {
+
+        var ajax = new XMLHttpRequest();
+        ajax.open("GET", path, true);
+        ajax.send();
+        ajax.onload = function(e) {
+            var div = document.createElement("div");
+            div.className = 'd-none';
+            div.innerHTML = ajax.responseText;
+            document.body.insertBefore(div, document.body.childNodes[0]);
+        }
+    }
+    // this is set to BootstrapTemple website as you cannot
+    // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+    // while using file:// protocol
+    // pls don't forget to change to your domain :)
+    injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
+
+</script>
+<!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+</html>

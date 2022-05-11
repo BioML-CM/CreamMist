@@ -1,89 +1,130 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
 
-<div class="jumbotron" style="background-color: #A65D8C95;">
-    <h1 style="color:#59364A"> DRUG NAME :
-        <span style="color:#ffffff;background-color:#000000;opacity:0.5;"> &nbsp; {{ drug_info.standard_drug_name }} &nbsp;
-        </span>
-    </h1><br>
-{#    <hr class="my-4">#}
-    <div class="row justify-content-start">
-
-        <div class="lead col-4">
-            {% for i in name_list %}
-                {{ i[0][0] }}
-                {% for n in i[0][1:] %}
-                    , {{ n }}
-                {% endfor %}
-                : {{i[1]}} <br>
-            {% endfor %}
-
-        </div>
-        <div class="lead col-6">
-            <p>
-                Data set : {{ dataset }} <br>
-                SYNONYMS : {{ drug_info.synonyms }} <br>
-                TARGET : {{ drug_info.target }} <br>
-                PATHWAY : {{ drug_info.pathway }} </p>
-            </p>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <form action="{{ url_for('drug.information_drug',drug=drug, dataset=dataset) }}" method="POST">
-            {# This hidden_tag is a CSRF security feature. #}
-{#            {{ form.hidden_tag() }}#}
-            {{ form.dataset.label }} &nbsp;&nbsp;  {{ form.dataset }} &nbsp;&nbsp;
-{#            {{ form.submit() }}#}
-            <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
-        </form><br><br>
-
-        <div class="col-md-12">
-
-            <table id="data" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Drug name</th>
-                    <th>Cellosaurus ID</th>
-                    <th>Dataset</th>
-                    <th>Min Dose</th>
-                    <th>Max Dose</th>
-                    <th>View</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                {% for e,j,s in data %}
-                    <tr>
-                        <td>{{ e.standard_drug_name }}</td>
-                        <td><a href="{{ url_for('cell_line.information_cell_line', cell_line=e.cellosaurus_id, dataset='All') }}">{{ e.cellosaurus_id }} </a></td>
-                        <td>{{ e.info }}</td>
-                        <td>{{ "%.4f" | format(j.min_dosage) }}</td>
-                        <td>{{ "%.4f" | format(j.max_dosage) }}</td>
-                        <td><a href="{{ url_for('cell_line.view_logistic', exp=e.id, input_dose=2) }}">view</a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-</div>
+    {% block scripts %}
+        <script>
+            $(document).ready(function () {
+                $('#data').DataTable();
+            });
+        </script>
+    {% endblock %}
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col" id="chart1">
+
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row gy-5">
+                <!-- Filter-->
+                <div class="col-lg-3 order-2 order-lg-1">
+                    <h2 class="h3 mb-4 pb-1">Filter</h2>
+                    <div class="card border-0 shadow-sm mb-4 p-2">
+                        <div class="card-body">
+                            <h2 class="h5 mb-4">Choose tag</h2>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="customCheckbox1">
+                                <label class="form-check-label" for="customCheckbox1">Information</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="customCheckbox2">
+                                <label class="form-check-label" for="customCheckbox2">Table</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="customCheckbox3">
+                                <label class="form-check-label" for="customCheckbox3">Statistic</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Listing-->
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <!-- Listing sorting-->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-6">
+                            <form action="{{ url_for('drug.information_drug',drug=drug, dataset=dataset) }}" method="POST">
+                                {{ form.dataset.label }} : {{ form.dataset }} <br><br>
+                                <button class="btn btn-primary w-50" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
+                            </form><br><br>
+                        </div>
+                    </div>
+                    <!-- Listing items-->
+                    <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                        <div class="card-body p-lg-5">
+                            <h2 class="h3 mb-4">Information : {{ drug_info.standard_drug_name  }}</h2>
+                            <p>
+                            {% for i in name_list %}
+                                {{ i[0][0] }}
+                                {% for n in i[0][1:] %}
+                                    , {{ n }}
+                                {% endfor %}
+                                : {{i[1]}} <br>
+                            {% endfor %} <br>
+
+                            Data set : {{ dataset }} <br>
+                            SYNONYMS : {{ drug_info.synonyms }} <br>
+                            TARGET : {{ drug_info.target }} <br>
+                            PATHWAY : {{ drug_info.pathway }} </p>
+
+                        </div>
+                    </div>
+                    <div class="row mb-4 gy-4">
+                        <!-- Gallery-->
+                        <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                            <div class="card-body p-lg-5">
+                                <h2 class="h3 mb-4">Table</h2>
+                                <div class="rounded overflow-hidden mb-3">
+                                    <table id="data" class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Drug name</th>
+                                            <th>Cellosaurus ID</th>
+                                            <th>Dataset</th>
+                                            <th>Min Dose</th>
+                                            <th>Max Dose</th>
+                                            <th>View</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for e,j,s in data %}
+                                            <tr>
+                                                <td>{{ e.standard_drug_name }}</td>
+                                                <td><a href="{{ url_for('cell_line.information_cell_line', cell_line=e.cellosaurus_id, dataset='All') }}">{{ e.cellosaurus_id }} </a></td>
+                                                <td>{{ e.info }}</td>
+                                                <td>{{ "%.4f" | format(j.min_dosage) }}</td>
+                                                <td>{{ "%.4f" | format(j.max_dosage) }}</td>
+                                                <td><a href="{{ url_for('cell_line.view_logistic', exp=e.id, input_dose=2) }}">view</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4", id="chart1">
+                            </div>
+                        </div>
+
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4", id="chart2">
+                            </div>
+                        </div>
+
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4", id="chart3">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="col" id="chart2">
-            </div>
-            <div class="col" id="chart3">
-            </div>
         </div>
-    </div>
+    </section>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
@@ -96,5 +137,104 @@
         var graph3= {{ graph3Jason | safe}};
         Plotly.plot('chart3', graph3, {})
     </script>
+
+
+
+
+{#    #}
+{#<div class="jumbotron" style="background-color: #A65D8C95;">#}
+{#    <h1 style="color:#59364A"> DRUG NAME :#}
+{#        <span style="color:#ffffff;background-color:#000000;opacity:0.5;"> &nbsp; {{ drug_info.standard_drug_name }} &nbsp;#}
+{#        </span>#}
+{#    </h1><br>#}
+{#    <hr class="my-4">#}
+{#    <div class="row justify-content-start">#}
+{##}
+{#        <div class="lead col-4">#}
+{#            {% for i in name_list %}#}
+{#                {{ i[0][0] }}#}
+{#                {% for n in i[0][1:] %}#}
+{#                    , {{ n }}#}
+{#                {% endfor %}#}
+{#                : {{i[1]}} <br>#}
+{#            {% endfor %}#}
+{##}
+{#        </div>#}
+{#        <div class="lead col-6">#}
+{#            <p>#}
+{#                Data set : {{ dataset }} <br>#}
+{#                SYNONYMS : {{ drug_info.synonyms }} <br>#}
+{#                TARGET : {{ drug_info.target }} <br>#}
+{#                PATHWAY : {{ drug_info.pathway }} </p>#}
+{#            </p>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#<div class="container">#}
+{#    <div class="row">#}
+{#        <form action="{{ url_for('drug.information_drug',drug=drug, dataset=dataset) }}" method="POST">#}
+            {# This hidden_tag is a CSRF security feature. #}
+{#            {{ form.hidden_tag() }}#}
+{#            {{ form.dataset.label }} &nbsp;&nbsp;  {{ form.dataset }} &nbsp;&nbsp;#}
+{#            {{ form.submit() }}#}
+{#            <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>#}
+{#        </form><br><br>#}
+{##}
+{#        <div class="col-md-12">#}
+{##}
+{#            <table id="data" class="table table-striped">#}
+{#                <thead>#}
+{#                <tr>#}
+{#                    <th>Drug name</th>#}
+{#                    <th>Cellosaurus ID</th>#}
+{#                    <th>Dataset</th>#}
+{#                    <th>Min Dose</th>#}
+{#                    <th>Max Dose</th>#}
+{#                    <th>View</th>#}
+{##}
+{#                </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                {% for e,j,s in data %}#}
+{#                    <tr>#}
+{#                        <td>{{ e.standard_drug_name }}</td>#}
+{#                        <td><a href="{{ url_for('cell_line.information_cell_line', cell_line=e.cellosaurus_id, dataset='All') }}">{{ e.cellosaurus_id }} </a></td>#}
+{#                        <td>{{ e.info }}</td>#}
+{#                        <td>{{ "%.4f" | format(j.min_dosage) }}</td>#}
+{#                        <td>{{ "%.4f" | format(j.max_dosage) }}</td>#}
+{#                        <td><a href="{{ url_for('cell_line.view_logistic', exp=e.id, input_dose=2) }}">view</a></td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{##}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col" id="chart1">#}
+{#            </div>#}
+{#            <div class="col" id="chart2">#}
+{#            </div>#}
+{#            <div class="col" id="chart3">#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>#}
+{#    <script type="text/javascript">#}
+{#        var graph1= {{ graph1Jason | safe}};#}
+{#        Plotly.plot('chart1', graph1, {})#}
+{##}
+{#        var graph2= {{ graph2Jason | safe}};#}
+{#        Plotly.plot('chart2', graph2, {})#}
+{##}
+{#        var graph3= {{ graph3Jason | safe}};#}
+{#        Plotly.plot('chart3', graph3, {})#}
+{#    </script>#}
 
 {% endblock %}

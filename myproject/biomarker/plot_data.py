@@ -44,14 +44,14 @@ def plot_biomarker(df,stat,pval,p_stat,p_pval):
         )
     )
 
-    stat_list = set(stat_list).union(set(provided_stat_list))
-    if len(stat_list) != 0:
-        fig.update_layout(
-            xaxis = dict(
-                range = [min(stat_list)-1,max(stat_list)+1],
-                # title_text=title
-            )
-        )
+    # stat_list = set(stat_list).union(set(provided_stat_list))
+    # if len(stat_list) != 0:
+    #     fig.update_layout(
+    #         xaxis = dict(
+    #             range = [min(stat_list)-1,max(stat_list)+1],
+    #             # title_text=title
+    #         )
+    #     )
 
     # fig.update_yaxes(range = [-4,4])
     return fig

@@ -14,20 +14,22 @@ def plot_ic_auc_mode(df,type):
     # my_order = df.groupby(by=['standard_drug_name'])[type].median().sort_values().index
     if type=='auc_calculate':
         fig = px.box(df, x='standard_drug_name', y='auc_calculate', category_orders={'standard_drug_name':my_order},
-                     color_discrete_sequence=['#A65D8C']*df.shape[0],
+                     color_discrete_sequence=['#ef5285']*df.shape[0],
                      hover_data=[type])
         fig.update_yaxes(title_text="AUC (%)")
+        # for i in range(20):
+        #     fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/drug/All/{fig['data'][0]['x'][i]}' style='color:#17a2b8;'>{fig['data'][0]['x'][i]}</a>"
 
         # print(type)
     elif type=='ic50_mode':
         fig = px.box(df, x='standard_drug_name', y='ic50_mode', category_orders={'standard_drug_name':my_order},
-                     color_discrete_sequence=['#A65D8C']*df.shape[0])
+                     color_discrete_sequence=['#ef5285']*df.shape[0])
         fig.update_yaxes(title_text="IC50 (Log2 scale)")
 
         # print(type)
     elif type=='ic90_calculate':
         fig = px.box(df, x='standard_drug_name', y='ic90_calculate', category_orders={'standard_drug_name':my_order},
-                     color_discrete_sequence=['#A65D8C']*df.shape[0])
+                     color_discrete_sequence=['#ef5285']*df.shape[0])
         fig.update_yaxes(title_text="IC90 (Log2 scale)")
 
         # print(type)

@@ -31,8 +31,8 @@ def autocomplete():
 def select():  #choose cell line
     form = GeneForm()
     if request.method == 'POST':
-        gene_name = request.form.get('gene_name')
-        return redirect(url_for('gene.information_gene', gene=gene_name, dataset='All',cancer_type='pancan'))
+        gene = request.form.get('name')
+        return redirect(url_for('gene.information_gene', gene=gene, dataset='All',cancer_type='pancan'))
     return render_template('select_gene.html',form=form)
 
 
@@ -57,8 +57,8 @@ def information_gene(gene, dataset, cancer_type): #show information cell line
     dataset_exprees_list = list(set(r.dataset for r in gene_exprees_records))
     cancer_type_express_list = list(set(r.cancer_type for r in gene_exprees_records))
 
-    dataset_list = list(set(dataset_mutation_list).union(set(dataset_exprees_list)))
-    cancer_type_list = list(set(cancer_type_mutation_list).union(set(cancer_type_express_list)))
+    dataset_list = sorted(list(set(dataset_mutation_list).union(set(dataset_exprees_list))))
+    cancer_type_list = sorted(list(set(cancer_type_mutation_list).union(set(cancer_type_express_list))))
 
     #form for select dataset
     form = ChoiceForm()
@@ -78,11 +78,25 @@ def information_gene(gene, dataset, cancer_type): #show information cell line
     # print(df)
     #plot graph
 
-    fig_mutation_stat = plot_data.plot_statistic(mutation_df,'statistic')
-    fig_mutation_stat_provided = plot_data.plot_statistic(mutation_df,'statistic_provided')
+    if len(mutation_df['statistic']) == 0:
+        fig_mutation_stat = {}
+    else:
+        fig_mutation_stat = plot_data.plot_statistic(mutation_df,'statistic')
 
-    fig_express_stat = plot_data.plot_statistic(express_df,'correlation')
-    fig_express_stat_provided = plot_data.plot_statistic(express_df,'correlation_provided')
+    if len(mutation_df['provided_statistic']) == 0:
+        fig_mutation_stat_provided = {}
+    else:
+        fig_mutation_stat_provided = plot_data.plot_statistic(mutation_df,'provided_statistic')
+
+    if len(express_df['correlation']) == 0:
+        fig_express_stat = {}
+    else:
+        fig_express_stat = plot_data.plot_statistic(express_df,'correlation')
+
+    if len(express_df['provided_correlation']) == 0:
+        fig_express_stat = {}
+    else:
+        fig_express_stat_provided = plot_data.plot_statistic(express_df,'provided_correlation')
 
     graph1Jason = json.dumps(fig_mutation_stat, cls=plotly.utils.PlotlyJSONEncoder)
     graph2Jason = json.dumps(fig_mutation_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)

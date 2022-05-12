@@ -1,108 +1,126 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="jumbotron" style="background-color: #A65D8C95;">
-        <h1 style="color:#59364A">BIOMARKER</h1>
-        <p class="lead"> Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
-            Drug Name : <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
-            Cancer type : <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>
-    </div>
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row gy-5">
+                <!-- Filter-->
+                <div class="col-lg-3 order-2 order-lg-1">
+                    <h2 class="h3 mb-4 pb-1">Filter</h2>
+                    <div class="card border-0 shadow-sm mb-4 p-2">
+                        <div class="card-body">
+                            <h2 class="h5 mb-4">Choose tag</h2>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="customCheckbox1">
+                                <label class="form-check-label" for="customCheckbox1">Information</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="customCheckbox2">
+                                <label class="form-check-label" for="customCheckbox2">Table</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="customCheckbox3">
+                                <label class="form-check-label" for="customCheckbox3">Statistic</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Listing-->
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <!-- Listing sorting-->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-6">
+                            <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,cancer_type=cancer_type) }}" method="POST">
+                                {{ form.cancer_type.label }} &nbsp;&nbsp;  {{ form.cancer_type }} <br><br>
 
-    <div class="container">
-        <div class="row">
-            <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,cancer_type=cancer_type) }}" method="POST">
+                                <button class="btn btn-primary w-50" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
+                            </form><br><br>
+                        </div>
+                    </div>
+                    <!-- Listing items-->
+                    <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                        <div class="card-body p-lg-5">
+                            <h2 class="h3 mb-4">Information : </h2>
+                            Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
+                            Drug Name : <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
+                            Cancer type : <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>
+                        </div>
+                    </div>
+                    <div class="row mb-4 gy-4">
+                        <!-- Gallery-->
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4", id="chart1">
+                            </div>
+                        </div>
 
-                {{ form.cancer_type.label }} &nbsp;&nbsp;  {{ form.cancer_type }} <br>
+                        <div class="card shadow-sm border-0 ">
+                            <div class="card-body p-4", id="chart2">
+                            </div>
+                        </div>
 
-                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
-            </form><br><br>
-        </div>
-    </div>
-
-{##}
-{#    <div class="container">#}
-{##}
-{#            <div class="col-md-12">#}
-{#                {% if  score== 'mutation' %}#}
-{#                    <table class="table table-striped">#}
-{#                        <thead>#}
-{#                        <tr>#}
-{#                            <th>Dataset</th>#}
-{#                            <th>Statistic</th>#}
-{#                            <th>P-value</th>#}
-{#                            <th>Provided statistic</th>#}
-{#                            <th>Provided p-value</th>#}
-{##}
-{#                        </tr>#}
-{#                        </thead>#}
-{#                        <tbody>#}
-{#                        {% for g in data %}#}
-{#                            <tr>#}
-{#                                <td>{{ g.dataset }}</td>#}
-{#                                <td>{{ "%.4f" | format(g.statistic) }}</td>#}
-{#                                <td>{{ "%.4f" | format(g.pvalue) }}</td>#}
-{#                                <td>{{ "%.4f" | format(g.provided_statistic) }}</td>#}
-{#                                <td>{{ "%.4f" | format(g.provided_pvalue) }}</td>#}
-{#                            </tr>#}
-{#                        {% endfor %}#}
-{#                        </tbody>#}
-{#                    </table>#}
-{#                {% endif %}#}
-{##}
-{#                {% if score== 'gene expression' %}#}
-{#                    <table class="table table-striped">#}
-{#                        <thead>#}
-{#                        <tr>#}
-{#                            <th>Dataset</th>#}
-{#                            <th>Statistic</th>#}
-{#                            <th>P-value</th>#}
-        {#                    <th>Provided statistic</th>#}
-        {#                    <th>Provided p-value</th>#}
-{##}
-{#                        </tr>#}
-{#                        </thead>#}
-{#                        <tbody>#}
-{#                        {% for g in data %}#}
-{#                            <tr>#}
-{#                                <td>{{ g.dataset }}</td>#}
-{#                                <td>{{ "%.4f" | format(g.correlation) }}</td>#}
-{#                                <td>{{ "%.4f" | format(g.pvalue) }}</td>#}
-        {#                        <td>{{ "%.4f" | format(g.provided_correlation) }}</td>#}
-        {#                        <td>{{ "%.4f" | format(g.provided_pvalue) }}</td>#}
-{#                            </tr>#}
-{#                        {% endfor %}#}
-{#                        </tbody>#}
-{#                    </table>#}
-{#                {% endif %}#}
-{##}
-{##}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-
-    <div class="container">
-        <p>Mutation
-        <div class="row">
-            <div class="col" id="chart1">
+                    </div>
+                </div>
             </div>
         </div>
-        <p>Gene expression
-        <div class="row">
-            <div class="col" id="chart2">
-            </div>
-        </div>
-    </div>
+    </section>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
         var graph1= {{ graph1Jason | safe}};
+        graph1.config = {'displaylogo': false,
+            {#'modebar_remove': ['zoom', 'pan', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']#}
+            {#'displayModeBar': false#}
+        }
         Plotly.plot('chart1', graph1, {})
 
         var graph2= {{ graph2Jason | safe}};
+        graph2.config = {'displayModeBar': false}
         Plotly.plot('chart2', graph2, {})
 
-
     </script>
+
+{#    #}
+{#    <div class="jumbotron" style="background-color: #A65D8C95;">#}
+{#        <h1 style="color:#59364A">BIOMARKER</h1>#}
+{#        <p class="lead"> Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>#}
+{#            Drug Name : <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>#}
+{#            Cancer type : <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>#}
+{#    </div>#}
+{##}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,cancer_type=cancer_type) }}" method="POST">#}
+{##}
+{#                {{ form.cancer_type.label }} &nbsp;&nbsp;  {{ form.cancer_type }} <br>#}
+{##}
+{#                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>#}
+{#            </form><br><br>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{##}
+{#    <div class="container">#}
+{#        <p>Mutation#}
+{#        <div class="row">#}
+{#            <div class="col" id="chart1">#}
+{#            </div>#}
+{#        </div>#}
+{#        <p>Gene expression#}
+{#        <div class="row">#}
+{#            <div class="col" id="chart2">#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>#}
+{#    <script type="text/javascript">#}
+{#        var graph1= {{ graph1Jason | safe}};#}
+{#        Plotly.plot('chart1', graph1, {})#}
+{##}
+{#        var graph2= {{ graph2Jason | safe}};#}
+{#        Plotly.plot('chart2', graph2, {})#}
+{##}
+{##}
+{#    </script>#}
 
 {% endblock %}

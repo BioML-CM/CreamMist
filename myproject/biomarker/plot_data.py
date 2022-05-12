@@ -19,15 +19,13 @@ def plot_biomarker(df,stat,pval,p_stat,p_pval):
 
     for i in range(n):
         # print('value',pval_list[i])
-        fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#A65D8C",name='',
-                                 marker = dict(size=-np.log(pval_list[i])+5), customdata=[pval_list[i]]))
-
+        fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#ef5285",name='',
+                                 marker = dict(size=-np.log(pval_list[i])+8), customdata=[pval_list[i]]))
 
     for i in range(n):
         # print('value',pval_list[i])
-        fig.add_trace(go.Scatter(x=[provided_stat_list[i]], y=[i], mode='markers', line_color="green",name='',
-                                 marker = dict(size=-np.log(pval_list[i])+5), customdata=[provided_pval_list[i]]))
-
+        fig.add_trace(go.Scatter(x=[provided_stat_list[i]], y=[i], mode='markers', line_color="#6c757d",name='',
+                                 marker = dict(size=-np.log(pval_list[i])+8), customdata=[provided_pval_list[i]]))
         fig.update_traces(hovertemplate ='<b>correlation</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
                           hoverlabel=dict(bgcolor='#FFF4ED'))
 
@@ -35,7 +33,7 @@ def plot_biomarker(df,stat,pval,p_stat,p_pval):
     # fig.update_layout(title=title, showlegend=False)
     fig.update_layout(showlegend=False)
 
-    fig['layout'].update({'template': 'simple_white', 'width': 450, 'height': 300})
+    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
     fig.update_layout(
         yaxis = dict(
             tickmode = 'array',
@@ -46,14 +44,14 @@ def plot_biomarker(df,stat,pval,p_stat,p_pval):
         )
     )
 
-    # stat_list = [x for x in stat_list if x is not None]
-    # if len(stat_list) != 0:
-    #     fig.update_layout(
-    #         xaxis = dict(
-    #             range = [min(stat_list)-1,max(stat_list)+1],
-    #             title_text=title
-    #         )
-    #     )
+    stat_list = set(stat_list).union(set(provided_stat_list))
+    if len(stat_list) != 0:
+        fig.update_layout(
+            xaxis = dict(
+                range = [min(stat_list)-1,max(stat_list)+1],
+                # title_text=title
+            )
+        )
 
     # fig.update_yaxes(range = [-4,4])
     return fig

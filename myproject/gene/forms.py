@@ -10,6 +10,6 @@ class GeneForm(FlaskForm):
 
 class ChoiceForm(FlaskForm):
     score = SelectField('Select score', choices=['mutation', 'gene expression'])
-    dataset = SelectField('Select Dataset', choices=[])
-    cancer_type = SelectField('Select Cancer Type', choices=[])
+    dataset = SelectField('Dataset', choices=[])
+    cancer_type = SelectField('Cancer Type', choices=[])
     # submit = SubmitField('Enter')

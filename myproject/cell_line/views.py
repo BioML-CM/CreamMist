@@ -45,7 +45,7 @@ def information_cell_line(cell_line, dataset): #show information cell line
     cell_line_dataset_records = db.session.query(Experiment.dataset).filter(Experiment.cellosaurus_id == cell_line).distinct()
 
     form = DatasetChoiceForm()
-    form.dataset.choices = [(r.dataset, r.dataset) for r in cell_line_dataset_records]
+    form.dataset.choices = [(r.dataset, r.dataset) for r in sorted(cell_line_dataset_records)]
     form.dataset.default = dataset
     form.process()
 

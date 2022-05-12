@@ -64,7 +64,6 @@ def select():  #choose cell line
 @biomarker_blueprint.route("/<string:gene>/<string:drug>/<string:cancer_type>",methods=['GET', 'POST'])
 def information_biomarker(gene, drug, cancer_type): #show information cell line
 
-
     mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug, Mutation.cancer_type == cancer_type)#.all()
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
     mutation_df = mutation_df[['dataset','statistic','pvalue','provided_statistic','provided_pvalue']]
@@ -77,11 +76,12 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
     #all dataset
     mutation_records = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug)#.all()
     cancer_type_mutation_list = list(set(r.cancer_type for r in mutation_records))
+
     express_records = db.session.query(GeneExpression).filter(GeneExpression.gene == gene, GeneExpression.standard_drug_name == drug)#.all()
     cancer_type_express_list = list(set(r.cancer_type for r in express_records))
 
     cancer_type_list = list(set(cancer_type_mutation_list).union(set(cancer_type_express_list)))
-    print(cancer_type_list)
+
 
     #form for select dataset
     form = ChoiceForm()
@@ -93,7 +93,6 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
         cancer_type = request.form.get('cancer_type')
         return redirect(url_for('biomarker.information_biomarker', gene=gene, drug=drug, cancer_type=cancer_type))
 
-    print(express_df)
     #plot graph
     fig_mutation_stat = plot_data.plot_biomarker(mutation_df,'statistic','pvalue','provided_statistic','provided_pvalue')
     fig_express_stat = plot_data.plot_biomarker(express_df,'correlation','pvalue','provided_correlation','provided_pvalue')

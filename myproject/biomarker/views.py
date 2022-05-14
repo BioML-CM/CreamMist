@@ -35,15 +35,16 @@ def autocomplete():
 @biomarker_blueprint.route('/_autocomplete_drug', methods=['GET'])
 def autocomplete_drug():
     gene = request.args.get('gene')
-    print(gene)
+    # print(gene)
     # print(request.form.get('hidden_name'))
     drug_mutation_records = db.session.query(Mutation.standard_drug_name).filter(Mutation.gene == gene).distinct()
     drug_express_records = db.session.query(GeneExpression.standard_drug_name).filter(GeneExpression.gene == gene).distinct()
 
     drug_mutation_list = [r.standard_drug_name for r in drug_mutation_records]
     drug_express_list = [r.standard_drug_name for r in drug_express_records]
+
     drug_name_db = list(set(drug_mutation_list).union(set(drug_express_list)))
-    print(drug_name_db)
+    # print(drug_name_db)
 
     # drug_name_db = [r.standard_drug_name for r in drug_records]
 
@@ -72,6 +73,8 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
     express_df = pd.read_sql(express_data.statement, db.session.bind)
     express_df = express_df[['dataset','correlation','pvalue','provided_correlation','provided_pvalue']]
 
+    print(mutation_df)
+    print(express_df)
 
     #all dataset
     mutation_records = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug)#.all()

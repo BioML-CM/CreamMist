@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 
 def plot_statistic(df,score):
     n=10
-    color_list =['#ef5285', '#6c757d']*(n)
+    color_list =['#17a2b8', '#ffc107']*(n)
     fig=go.Figure()
     if score=='statistic':
         df = pd.concat([df.sort_values(score).head(n),df.sort_values(score).tail(n)]).reset_index(drop=True) .drop_duplicates()
@@ -18,7 +18,7 @@ def plot_statistic(df,score):
 
         fig.update_yaxes(title_text="Statistic")
         for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/drug/All/{df['standard_drug_name'][i]}' style='color:#17a2b8;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/drug/All/{df['standard_drug_name'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
 
     elif score=='provided_statistic':
@@ -31,7 +31,7 @@ def plot_statistic(df,score):
 
         fig.update_yaxes(title_text="Provided Statistic")
         for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/drug/All/{df['standard_drug_name'][i]}' style='color:#17a2b8;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/drug/All/{df['standard_drug_name'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
 
     elif score=='correlation':
@@ -44,7 +44,7 @@ def plot_statistic(df,score):
 
         fig.update_yaxes(title_text="Correlation")
         for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/drug/All/{df['standard_drug_name'][i]}' style='color:#17a2b8;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/drug/All/{df['standard_drug_name'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
 
 
@@ -58,7 +58,7 @@ def plot_statistic(df,score):
 
         fig.update_yaxes(title_text="Provided Correlation")
         for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/drug/All/{df['standard_drug_name'][i]}' style='color:#17a2b8;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/drug/All/{df['standard_drug_name'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
 
 

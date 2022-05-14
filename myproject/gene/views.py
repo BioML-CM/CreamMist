@@ -45,7 +45,7 @@ def information_gene(gene, dataset, cancer_type): #show information cell line
 
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
     express_df = pd.read_sql(express_data.statement, db.session.bind)
-    # print(data.statement)
+    print(mutation_df.shape)
 
 
     #all dataset
@@ -94,7 +94,7 @@ def information_gene(gene, dataset, cancer_type): #show information cell line
         fig_express_stat = plot_data.plot_statistic(express_df,'correlation')
 
     if len(express_df['provided_correlation']) == 0:
-        fig_express_stat = {}
+        fig_express_stat_provided = {}
     else:
         fig_express_stat_provided = plot_data.plot_statistic(express_df,'provided_correlation')
 

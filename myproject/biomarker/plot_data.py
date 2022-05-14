@@ -19,12 +19,12 @@ def plot_biomarker(df,stat,pval,p_stat,p_pval):
 
     for i in range(n):
         # print('value',pval_list[i])
-        fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#ef5285",name='',
+        fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#17a2b8",name='',
                                  marker = dict(size=-np.log(pval_list[i])+8), customdata=[pval_list[i]]))
 
     for i in range(n):
         # print('value',pval_list[i])
-        fig.add_trace(go.Scatter(x=[provided_stat_list[i]], y=[i], mode='markers', line_color="#6c757d",name='',
+        fig.add_trace(go.Scatter(x=[provided_stat_list[i]], y=[i], mode='markers', line_color="#ffc107",name='',
                                  marker = dict(size=-np.log(pval_list[i])+8), customdata=[provided_pval_list[i]]))
         fig.update_traces(hovertemplate ='<b>correlation</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
                           hoverlabel=dict(bgcolor='#FFF4ED'))

@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 
 def plot_ic_auc_mode(df,type):
     n=20
-    color_list =['#ef5285', '#6c757d']*(n)
+    color_list =['#17a2b8', '#ffc107']*(n)
     # color_list =['#59364A','#A65D8C']*(10)
     fig=go.Figure()
 
@@ -23,7 +23,7 @@ def plot_ic_auc_mode(df,type):
         fig.update_yaxes(title_text="AUC (%)")
         fig.update_layout(title="Top 20 AUC and last 20 AUC")
         for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#17a2b8;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
         # print(type)
     elif type=='ic50':
@@ -36,7 +36,7 @@ def plot_ic_auc_mode(df,type):
         fig.update_yaxes(title_text="IC50 in log2 scale")
         fig.update_layout(title="Top 20 IC50 and last 20 IC50")
         for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#17a2b8;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
         # print(type)
     elif type=='ic90':
@@ -49,7 +49,7 @@ def plot_ic_auc_mode(df,type):
         fig.update_yaxes(title_text="IC90 in log2 scale")
         fig.update_layout(title="Top 20 IC90 and last 20 IC90")
         for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#17a2b8;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
         # print(type)
 

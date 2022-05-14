@@ -22,7 +22,7 @@ cancer_type_blueprint = Blueprint('cancer_type',
 @cancer_type_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
     cancer_type_records = db.session.query(CellLine.site).distinct()
-    cancer_type_name_db = [r.site for r in cancer_type_records]
+    cancer_type_name_db = [r.site for r in cancer_type_records]+['pancan']
 
     return Response(json.dumps(cancer_type_name_db), mimetype='application/json')
 
@@ -40,38 +40,27 @@ def select():  #choose cell line
 @cancer_type_blueprint.route("/<string:dataset>/<string:cancer_type>",methods=['GET', 'POST'])
 def information_cancer_type(cancer_type, dataset): #show information cell line
     #all dataset
-    cancer_type_records = db.session.query(CellLine.cellosaurus_id).filter(CellLine.site == cancer_type).all()
+    if cancer_type=='pancan':
+        cancer_type_records = db.session.query(CellLine.cellosaurus_id).all()
+    else:
+        cancer_type_records = db.session.query(CellLine.cellosaurus_id).filter(CellLine.site == cancer_type).all()
     cell_line_list = [r.cellosaurus_id for r in cancer_type_records]
-    print(cell_line_list)
+    # print(cell_line_list)
 
     data = db.session.query(Experiment, SensitivityScore)\
             .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.cellosaurus_id.in_(cell_line_list), Experiment.dataset == dataset) #.all()
-    print(data.statement)
+    # print(data.statement)
+
+    dataset_records = db.session.query(Experiment.dataset).filter(Experiment.cellosaurus_id.in_(cell_line_list)).distinct()
 
     # data = db.session.query(Experiment, JagsSampling, SensitivityScore) \
     #     .join(JagsSampling, JagsSampling.exp_id == Experiment.id) \
     #     .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.cellosaurus_id.in_(cell_line_list)) #.all()
 
     df = pd.read_sql(data.statement, db.session.bind)
-
-    temp_list = ['CCLE', 'CTRP1', 'CTRP2', 'GDSC1', 'GDSC2', 'All']
-    dataset_list = list(set(df['dataset']))
-    dataset_list = sorted(dataset_list, key=lambda x: temp_list.index(x))
-    print(dataset_list)
-    # #for upsetplot
-    # #find cell line in each dataset
-    # col_names = dataset_list
-    # cell_line_dict = dict()
-    #
-    # for d in col_names:
-    #     cell_line_dict[d] = [list(set(df[df['dataset']==d]['cellosaurus_id'].values))]
-    #
-    # upset_df = from_contents(cell_line_dict)
-    # upset_df = upset_df.groupby(col_names).count().sort_values('level_0')
-    # fig = upsetplot.plot(upset_df['level_0'], sort_by="cardinality",show_counts=True, facecolor="darkblue")
-
-
     df = df[df['dataset']==dataset]
+
+    dataset_list = [(r.dataset, r.dataset) for r in sorted(dataset_records)] #sorted(dataset_list, key=lambda x: temp_list.index(x))
 
     #form for select dataset
     form = DatasetChoiceForm()
@@ -84,12 +73,12 @@ def information_cancer_type(cancer_type, dataset): #show information cell line
         return redirect(url_for('cancer_type.information_cancer_type', cancer_type=cancer_type, dataset=dataset))
 
 
-    print('plot')
+    # print('plot')
     #plot graph
     fig_ic50 = plot_data.plot_ic_auc_mode(df,'ic50_mode')
     fig_ic90 = plot_data.plot_ic_auc_mode(df,'ic90_calculate')
     fig_auc = plot_data.plot_ic_auc_mode(df,'auc_calculate')
-    print('after plot')
+    # print('after plot')
     graph1Jason = json.dumps(fig_ic50, cls=plotly.utils.PlotlyJSONEncoder)
     graph2Jason = json.dumps(fig_ic90, cls=plotly.utils.PlotlyJSONEncoder)
     graph3Jason = json.dumps(fig_auc, cls=plotly.utils.PlotlyJSONEncoder)

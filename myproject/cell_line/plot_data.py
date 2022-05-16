@@ -135,8 +135,8 @@ def plot_ic_auc_mode(df,type):
         fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
         # fig['data'][0]['x'][i] = "<a href='http://127.0.0.1:5000/cell_line/view/{}' style='color:ef5285;'>{}</a>".format(df['id'][i],fig['data'][0]['x'][i])
-    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 400})
-    fig.update_xaxes(tickangle= 45)
+    fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
+    fig.update_xaxes(tickangle= -45)
     return fig
 
 

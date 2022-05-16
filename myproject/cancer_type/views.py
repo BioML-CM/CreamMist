@@ -21,8 +21,12 @@ cancer_type_blueprint = Blueprint('cancer_type',
 
 @cancer_type_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
-    cancer_type_records = db.session.query(CellLine.site).distinct()
-    cancer_type_name_db = [r.site for r in cancer_type_records]+['pancan']
+    cellline_record = db.session.query(Experiment.cellosaurus_id).distinct()
+    cellline_list =[r.cellosaurus_id for r in cellline_record]
+
+    cancer_type_records = db.session.query(CellLine.site).filter(CellLine.cellosaurus_id.in_(cellline_list)).distinct()
+    cancer_type_name_db =[r.site for r in cancer_type_records]+['pancan']
+
 
     return Response(json.dumps(cancer_type_name_db), mimetype='application/json')
 
@@ -45,7 +49,7 @@ def information_cancer_type(cancer_type, dataset): #show information cell line
     else:
         cancer_type_records = db.session.query(CellLine.cellosaurus_id).filter(CellLine.site == cancer_type).all()
     cell_line_list = [r.cellosaurus_id for r in cancer_type_records]
-    # print(cell_line_list)
+
 
     data = db.session.query(Experiment, SensitivityScore)\
             .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.cellosaurus_id.in_(cell_line_list), Experiment.dataset == dataset) #.all()
@@ -53,11 +57,8 @@ def information_cancer_type(cancer_type, dataset): #show information cell line
 
     dataset_records = db.session.query(Experiment.dataset).filter(Experiment.cellosaurus_id.in_(cell_line_list)).distinct()
 
-    # data = db.session.query(Experiment, JagsSampling, SensitivityScore) \
-    #     .join(JagsSampling, JagsSampling.exp_id == Experiment.id) \
-    #     .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.cellosaurus_id.in_(cell_line_list)) #.all()
-
     df = pd.read_sql(data.statement, db.session.bind)
+
     df = df[df['dataset']==dataset]
 
     dataset_list = [(r.dataset, r.dataset) for r in sorted(dataset_records)] #sorted(dataset_list, key=lambda x: temp_list.index(x))

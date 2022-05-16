@@ -35,7 +35,7 @@ def plot_statistic(df,score):
     for i in range(df.shape[0]):
         fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/biomarker/{df['gene'][i]}/{df['standard_drug_name'][i]}/pancan' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
-    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 400})
-    fig.update_xaxes(tickangle= 45)
+    fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
+    fig.update_xaxes(tickangle= -45)
     return fig
 

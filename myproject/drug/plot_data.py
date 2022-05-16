@@ -47,8 +47,8 @@ def plot_ic_auc_mode(df,type):
     for i in range(df.shape[0]):
         fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
-    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 400})
-    fig.update_xaxes(tickangle= 45)
+    fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
+    fig.update_xaxes(tickangle= -45)
     return fig
 
 def plot_statistic(df,score):
@@ -84,6 +84,6 @@ def plot_statistic(df,score):
     for i in range(df.shape[0]):
         fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/gene/{df['dataset'][i]}/{df['gene'][i]}/pancan' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
-    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 400})
-    fig.update_xaxes(tickangle= 45)
+    fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
+    fig.update_xaxes(tickangle= -45)
     return fig

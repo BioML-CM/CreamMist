@@ -41,11 +41,11 @@ def plot_ic_auc_mode(df,type):
             tickmode="array",
             tickvals=np.arange(0, 20).astype(int),
             ticktext=new_xlabel_list,
-            tickangle=45,
+            tickangle=-45,
         )
     )
 
     fig.update_layout(layout)
     fig.update_layout(hoverlabel_bgcolor='#FFF4ED')
-    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 400})
+    fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
     return fig

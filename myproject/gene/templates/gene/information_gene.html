@@ -5,36 +5,36 @@
         <div class="container py-5">
             <div class="row gy-5">
                 <!-- Filter-->
-                <div class="col-lg-3 order-2 order-lg-1">
-                    <h2 class="h3 mb-4 pb-1">Filter</h2>
-                    <div class="card border-0 shadow-sm mb-4 p-2">
-                        <div class="card-body">
-                            <h2 class="h5 mb-4">Choose tag</h2>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                                <label class="form-check-label" for="customCheckbox1">Information</label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" id="customCheckbox2">
-                                <label class="form-check-label" for="customCheckbox2">Statistic Mutaion</label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" id="customCheckbox3">
-                                <label class="form-check-label" for="customCheckbox3">Provide Statistic Mutaion</label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" id="customCheckbox2">
-                                <label class="form-check-label" for="customCheckbox2">Statistic Gene Expression</label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" id="customCheckbox3">
-                                <label class="form-check-label" for="customCheckbox3">Provide Statistic Expression</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{#                <div class="col-lg-3 order-2 order-lg-1">#}
+{#                    <h2 class="h3 mb-4 pb-1">Filter</h2>#}
+{#                    <div class="card border-0 shadow-sm mb-4 p-2">#}
+{#                        <div class="card-body">#}
+{#                            <h2 class="h5 mb-4">Choose tag</h2>#}
+{#                            <div class="form-check mb-2">#}
+{#                                <input class="form-check-input" type="checkbox" id="customCheckbox1">#}
+{#                                <label class="form-check-label" for="customCheckbox1">Information</label>#}
+{#                            </div>#}
+{#                            <div class="form-check mb-2">#}
+{#                                <input class="form-check-input" type="checkbox" id="customCheckbox2">#}
+{#                                <label class="form-check-label" for="customCheckbox2">Statistic Mutaion</label>#}
+{#                            </div>#}
+{#                            <div class="form-check mb-2">#}
+{#                                <input class="form-check-input" type="checkbox" id="customCheckbox3">#}
+{#                                <label class="form-check-label" for="customCheckbox3">Provide Statistic Mutaion</label>#}
+{#                            </div>#}
+{#                            <div class="form-check mb-2">#}
+{#                                <input class="form-check-input" type="checkbox" id="customCheckbox2">#}
+{#                                <label class="form-check-label" for="customCheckbox2">Statistic Gene Expression</label>#}
+{#                            </div>#}
+{#                            <div class="form-check mb-2">#}
+{#                                <input class="form-check-input" type="checkbox" id="customCheckbox3">#}
+{#                                <label class="form-check-label" for="customCheckbox3">Provide Statistic Expression</label>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
                 <!-- Listing-->
-                <div class="col-lg-9 order-1 order-lg-2">
+                <div class="col-lg-12 order-1 order-lg-2">
                     <!-- Listing sorting-->
                     <div class="row mb-4 align-items-center">
                         <div class="col-md-6">
@@ -44,6 +44,16 @@
 
                                 <button class="btn btn-primary w-50" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
                             </form><br><br>
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
+                            <label class="form-check-label" for="customCheckbox1">Information</label> &nbsp;&nbsp;
+
+                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
+                            <label class="form-check-label" for="customCheckbox1">Mutation</label>&nbsp;&nbsp;
+
+                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
+                            <label class="form-check-label" for="customCheckbox1">Gene expression</label>&nbsp;&nbsp;
                         </div>
                     </div>
                     <!-- Listing items-->
@@ -57,23 +67,18 @@
                     </div>
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
-                        <div class="card shadow-sm border-0 ">
-                            <div class="card-body p-4", id="chart1">
+                        <div class="col-lg-6">
+                            <h2 class="h3 mb-4">Mutation</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4", id="chart1">
+                                </div>
                             </div>
                         </div>
-
-                        <div class="card shadow-sm border-0 ">
-                            <div class="card-body p-4", id="chart2">
-                            </div>
-                        </div>
-
-                        <div class="card shadow-sm border-0 ">
-                            <div class="card-body p-4", id="chart3">
-                            </div>
-                        </div>
-
-                        <div class="card shadow-sm border-0 ">
-                            <div class="card-body p-4", id="chart4">
+                        <div class="col-lg-6">
+                            <h2 class="h3 mb-4">Gene expression</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4", id="chart2">
+                                </div>
                             </div>
                         </div>
 
@@ -96,13 +101,13 @@
         graph2.config = {'displayModeBar': false}
         Plotly.plot('chart2', graph2, {})
 
-        var graph3= {{ graph3Jason | safe}};
-        graph3.config = {'displayModeBar': false}
-        Plotly.plot('chart3', graph3, {})
-
-        var graph4= {{ graph4Jason | safe}};
-        graph4.config = {'displayModeBar': false}
-        Plotly.plot('chart4', graph4, {})
+        {#var graph3= {{ graph3Jason | safe}};#}
+        {#graph3.config = {'displayModeBar': false}#}
+        {#Plotly.plot('chart3', graph3, {})#}
+        {##}
+        {#var graph4= {{ graph4Jason | safe}};#}
+        {#graph4.config = {'displayModeBar': false}#}
+        {#Plotly.plot('chart4', graph4, {})#}
     </script>
 
 

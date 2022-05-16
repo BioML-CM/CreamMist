@@ -45,7 +45,7 @@ def information_gene(gene, dataset, cancer_type): #show information cell line
 
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
     express_df = pd.read_sql(express_data.statement, db.session.bind)
-    print(mutation_df.shape)
+    # print(mutation_df.shape)
 
 
     #all dataset
@@ -78,34 +78,18 @@ def information_gene(gene, dataset, cancer_type): #show information cell line
     # print(df)
     #plot graph
 
-    if len(mutation_df['statistic']) == 0:
-        fig_mutation_stat = {}
-    else:
-        fig_mutation_stat = plot_data.plot_statistic(mutation_df,'statistic')
+    fig_mutation_stat = plot_data.plot_statistic(mutation_df,'statistic')
+    fig_express_stat = plot_data.plot_statistic(express_df,'correlation')
 
-    if len(mutation_df['provided_statistic']) == 0:
-        fig_mutation_stat_provided = {}
-    else:
-        fig_mutation_stat_provided = plot_data.plot_statistic(mutation_df,'provided_statistic')
-
-    if len(express_df['correlation']) == 0:
-        fig_express_stat = {}
-    else:
-        fig_express_stat = plot_data.plot_statistic(express_df,'correlation')
-
-    if len(express_df['provided_correlation']) == 0:
-        fig_express_stat_provided = {}
-    else:
-        fig_express_stat_provided = plot_data.plot_statistic(express_df,'provided_correlation')
 
     graph1Jason = json.dumps(fig_mutation_stat, cls=plotly.utils.PlotlyJSONEncoder)
-    graph2Jason = json.dumps(fig_mutation_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)
-    graph3Jason = json.dumps(fig_express_stat, cls=plotly.utils.PlotlyJSONEncoder)
-    graph4Jason = json.dumps(fig_express_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)
+    # graph2Jason = json.dumps(fig_mutation_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)
+    graph2Jason = json.dumps(fig_express_stat, cls=plotly.utils.PlotlyJSONEncoder)
+    # graph4Jason = json.dumps(fig_express_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)
 
 
     return render_template('information_gene.html', data=mutation_data, form=form, graph1Jason=graph1Jason ,graph2Jason=graph2Jason ,
-                           graph3Jason=graph3Jason ,graph4Jason=graph4Jason, gene=gene, dataset=dataset, cancer_type=cancer_type)
+                           gene=gene, dataset=dataset, cancer_type=cancer_type)
 
 
 # @gene_blueprint.route("/<string:dataset>/<string:cancer_type>/<string:gene>/<string:score>",methods=['GET', 'POST'])

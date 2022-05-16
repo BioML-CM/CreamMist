@@ -73,8 +73,8 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
     express_df = pd.read_sql(express_data.statement, db.session.bind)
     express_df = express_df[['dataset','correlation','pvalue','provided_correlation','provided_pvalue']]
 
-    print(mutation_df)
-    print(express_df)
+    # print(mutation_df)
+    # print(express_df)
 
     #all dataset
     mutation_records = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug)#.all()

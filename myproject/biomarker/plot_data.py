@@ -17,17 +17,23 @@ def plot_biomarker(df,stat,pval,p_stat,p_pval):
     # print(df)
 
 
-    for i in range(n):
+    for i in range(len(stat_list)):
         # print('value',pval_list[i])
         fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#17a2b8",name='',
-                                 marker = dict(size=-np.log(pval_list[i])+8), customdata=[pval_list[i]]))
+                                 marker = dict(size=-np.log(pval_list[i])+8), customdata=[pval_list[i]],
+                                 hovertemplate ='<b>correlation</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                 hoverlabel=dict(bgcolor='#FFF4ED')))
+        # fig.update_traces(hovertemplate ='<b>correlation</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+        #                   hoverlabel=dict(bgcolor='#FFF4ED'))
 
-    for i in range(n):
+    for i in range(len(provided_stat_list)):
         # print('value',pval_list[i])
         fig.add_trace(go.Scatter(x=[provided_stat_list[i]], y=[i], mode='markers', line_color="#ffc107",name='',
-                                 marker = dict(size=-np.log(pval_list[i])+8), customdata=[provided_pval_list[i]]))
-        fig.update_traces(hovertemplate ='<b>correlation</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
-                          hoverlabel=dict(bgcolor='#FFF4ED'))
+                                 marker = dict(size=-np.log(pval_list[i])+8), customdata=[provided_pval_list[i]],
+                                 hovertemplate ='<b>provide correlation</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                 hoverlabel=dict(bgcolor='#FFF4ED')))
+        # fig.update_traces(hovertemplate ='<b>provide correlation</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+        #                   hoverlabel=dict(bgcolor='#FFF4ED'))
 
     fig.add_vline(x=0, line_width=1, line_dash="dot", line_color="#59364A")
     # fig.update_layout(title=title, showlegend=False)

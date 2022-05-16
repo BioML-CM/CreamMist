@@ -25,8 +25,8 @@ def logistic(x, k, a):
 
 # Find AUC
 def find_auc(x_min, x_max, k, a):
-    f_min = (1/k)*np.abs(np.log2(np.exp(-k*(x_min-a))+1))+x_min-a
-    f_max = (1/k)*np.abs(np.log2(np.exp(-k*(x_max-a))+1))+x_max-a
+    f_min = (1/k)*np.abs(np.log2(2**(-k*(x_min-a))+1))+x_min-a
+    f_max = (1/k)*np.abs(np.log2(2**(-k*(x_max-a))+1))+x_max-a
     return (f_max-f_min)/(x_max-x_min)
 
 # Find IC90
@@ -110,8 +110,6 @@ def plot_ic_auc_mode(df,type):
 
         fig.update_yaxes(title_text="AUC (%)")
         fig.update_layout(title="Top 20 AUC and last 20 AUC")
-        for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:black;'>{fig['data'][0]['x'][i]}</a>"
 
     elif type=='ic50':
         df = pd.concat([df.sort_values('ic50_mode').head(n),df.sort_values('ic50_mode').tail(n)]).drop_duplicates('exp_id').reset_index(drop=True)
@@ -122,8 +120,6 @@ def plot_ic_auc_mode(df,type):
                               hoverlabel=dict(bgcolor='#FFF4ED')))
         fig.update_yaxes(title_text="IC50 (Log2 scale)")
         fig.update_layout(title="Top 20 IC50 and last 20 IC50")
-        for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:black;'>{fig['data'][0]['x'][i]}</a>"
 
     elif type=='ic90':
         df = pd.concat([df.sort_values('ic90_calculate').head(n),df.sort_values('ic90_calculate').tail(n)]).drop_duplicates('exp_id').reset_index(drop=True)
@@ -134,9 +130,12 @@ def plot_ic_auc_mode(df,type):
                               hoverlabel=dict(bgcolor='#FFF4ED')))
         fig.update_yaxes(title_text="IC90 (Log2 scale)")
         fig.update_layout(title="Top 20 IC90 and last 20 IC90")
-        for i in range(df.shape[0]):
-            fig['data'][0]['x'][i] = "<a href='http://127.0.0.1:5000/cell_line/view/{}' style='color:black;'>{}</a>".format(df['id'][i],fig['data'][0]['x'][i])
-    fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 400})
+
+    for i in range(df.shape[0]):
+        fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
+
+        # fig['data'][0]['x'][i] = "<a href='http://127.0.0.1:5000/cell_line/view/{}' style='color:ef5285;'>{}</a>".format(df['id'][i],fig['data'][0]['x'][i])
+    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 400})
     fig.update_xaxes(tickangle= 45)
     return fig
 
@@ -204,10 +203,11 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s,dosage,response,dataset_plot):
                                             legendgroup=k, showlegend=True, name=k))
 
     fig.add_hline(y=0.5, line_width=2, line_dash="dash", line_color="#A64E65")
+    fig.add_vline(x=sens[0].ic50_mode, line_width=2, line_dash="dash", line_color="#A64E65")
 
-    fig.add_hline(y=sens[0].einf_calculate, line_width=1, line_dash="dot", line_color="#59364A")
-    fig.add_vline(x=sens[0].ic90_calculate, line_width=1, line_dash="dot", line_color="#59364A")
-    fig.add_vline(x=sens[0].ec50_calculate, line_width=1, line_dash="dot", line_color="#59364A")
+    # fig.add_hline(y=sens[0].einf_calculate, line_width=1, line_dash="dot", line_color="#59364A")
+    # fig.add_vline(x=sens[0].ic90_calculate, line_width=1, line_dash="dot", line_color="#59364A")
+    # fig.add_vline(x=sens[0].ec50_calculate, line_width=1, line_dash="dot", line_color="#59364A")
 
 
     fig.update_xaxes(title_text="Log2 Concentration (uM)", range=(np.log2(min_dosage)-1, np.log2(max_dosage)+1))

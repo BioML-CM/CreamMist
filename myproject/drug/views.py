@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,url_for,Response
 from myproject import db
-from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, Drug
+from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, Drug, Mutation, GeneExpression
 from myproject.drug.forms import DrugForm, DatasetChoiceForm
 
 from flask import request
@@ -66,17 +66,30 @@ def information_drug(drug, dataset): #show information cell line
             .join(JagsSampling, JagsSampling.exp_id == Experiment.id)\
             .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.standard_drug_name == drug, Experiment.dataset == dataset) #.all()
 
+
     df = pd.read_sql(data.statement, db.session.bind)
     drug = pd.unique(df['standard_drug_name'])[0]
+
+    mutation_data = db.session.query(Mutation).filter(Mutation.standard_drug_name == drug, Mutation.dataset == dataset, Mutation.cancer_type == 'pancan')#.all()
+    express_data = db.session.query(GeneExpression).filter(GeneExpression.standard_drug_name == drug, GeneExpression.dataset == dataset, GeneExpression.cancer_type == 'pancan')#.all()
+
+    mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
+    express_df = pd.read_sql(express_data.statement, db.session.bind)
+    # print(mutation_df)
+    # print(express_df)
 
     #plot graph
     fig_ic50 = plot_data.plot_ic_auc_mode(df,'ic50')
     fig_ic90 = plot_data.plot_ic_auc_mode(df,'ic90')
     fig_auc = plot_data.plot_ic_auc_mode(df,'auc')
+    fig_mutation = plot_data.plot_statistic(mutation_df,'statistic')
+    fig_gene_expression = plot_data.plot_statistic(express_df,'correlation')
 
     graph1Jason = json.dumps(fig_ic50, cls=plotly.utils.PlotlyJSONEncoder)
     graph2Jason = json.dumps(fig_ic90, cls=plotly.utils.PlotlyJSONEncoder)
     graph3Jason = json.dumps(fig_auc, cls=plotly.utils.PlotlyJSONEncoder)
+    graph4Jason = json.dumps(fig_mutation, cls=plotly.utils.PlotlyJSONEncoder)
+    graph5Jason = json.dumps(fig_gene_expression, cls=plotly.utils.PlotlyJSONEncoder)
 
 
 
@@ -103,6 +116,7 @@ def information_drug(drug, dataset): #show information cell line
     # print(name_list)
 
     return render_template('information_drug.html', data=data, graph1Jason=graph1Jason,
-                           graph2Jason=graph2Jason, graph3Jason=graph3Jason, form=form,
+                           graph2Jason=graph2Jason, graph3Jason=graph3Jason, graph4Jason=graph4Jason,
+                           graph5Jason=graph5Jason, form=form,
                            dataset=dataset,drug_info=drug_info, name_list=name_list,drug=drug)
 

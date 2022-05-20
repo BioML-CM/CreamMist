@@ -161,11 +161,11 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s,dosage,response,dataset_plot):
     new_response = []
     marker_list = []
     for i,r in enumerate(response):
-        if r<0 :
-            new_response += [0]
+        if r<-0.25 :
+            new_response += [-0.25]
             marker_list += ['diamond']
-        elif r>1 :
-            new_response += [1]
+        elif r>1.25 :
+            new_response += [1.25]
             marker_list += ['diamond']
         else:
             new_response += [response[i]]
@@ -211,7 +211,7 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s,dosage,response,dataset_plot):
 
 
     fig.update_xaxes(title_text="Log2 Concentration (uM)", range=(np.log2(min_dosage)-1, np.log2(max_dosage)+1))
-    fig.update_yaxes(title_text="Response", range=(-0.1, 1))
+    fig.update_yaxes(title_text="Response", range=(-0.3, 1.3))
     fig.update_layout(title='Logistic')
     fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 500,})
     return fig

@@ -36,7 +36,7 @@
                         <div class="col-md-6">
                             <form action="{{ url_for('cancer_type.information_cancer_type',cancer_type=cancer_type, dataset=dataset) }}" method="POST">
                                 {{ form.dataset.label }} : {{ form.dataset }} <br><br>
-                                <button class="btn btn-primary w-50" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
+                                <button class="btn btn-primary w-10" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
                             </form><br><br>
                         </div>
                         <div class="col-md-6">
@@ -50,7 +50,12 @@
                             <label class="form-check-label" for="customCheckbox1">IC90</label>&nbsp;&nbsp;
 
                             <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                            <label class="form-check-label" for="customCheckbox1">AUC</label>&nbsp;&nbsp;
+                            <label class="form-check-label" for="customCheckbox1">AUC</label>&nbsp;&nbsp;<br><br>
+                            <div style="float: right;">
+                                <form action="{{ url_for('cancer_type.download',dataset=dataset, cancer_type=cancer_type) }}" method="POST">
+                                        <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <!-- Listing items-->
@@ -58,7 +63,6 @@
                         <div class="card-body p-lg-5">
                             <h2 class="h3 mb-4">Cancer type Information : {{ cancer_type }}</h2>
                             <p> Data set : {{ dataset }}</p>
-
                         </div>
                     </div>
                     <div class="row mb-4 gy-4">
@@ -84,7 +88,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ from myproject import db
 from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, GeneExpression, Gene
 from myproject.gene.forms import GeneForm, ChoiceForm
 
-from flask import request
+from flask import request, send_file
 
 import scipy.stats as stats
 from myproject.gene import plot_data
@@ -18,6 +18,27 @@ gene_blueprint = Blueprint('gene',
                               __name__,template_folder='templates/gene')
 
 
+@gene_blueprint.route('/download_mutation/<string:dataset>/<string:gene>/<string:cancer_type>', methods=['GET','POST'])
+def download_mutation(gene, dataset, cancer_type):
+    mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.dataset == dataset, Mutation.cancer_type == cancer_type)#.all()
+    mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
+
+    mutation_df = mutation_df[['gene','standard_drug_name','dataset','cancer_type','statistic','pvalue','n_mut','n_wt']]
+    mutation_df = mutation_df.rename(columns={'statistic':'effect size'})
+    path = f'gene/output/mutation_{gene}_{cancer_type}_{dataset}_information.csv'
+    mutation_df.to_csv('myproject/'+path)
+    return send_file(path, as_attachment=True)
+
+@gene_blueprint.route('/download_expression/<string:dataset>/<string:gene>/<string:cancer_type>', methods=['GET','POST'])
+def download_expression(gene, dataset, cancer_type):
+
+    express_data = db.session.query(GeneExpression).filter(GeneExpression.gene == gene, GeneExpression.dataset == dataset, GeneExpression.cancer_type == cancer_type)#.all()
+    express_df = pd.read_sql(express_data.statement, db.session.bind)
+
+    express_df = express_df[['gene','standard_drug_name','dataset','cancer_type','correlation','pvalue','n_cell_line']]
+    path = f'gene/output/gene_expression_{gene}_{cancer_type}_{dataset}_information.csv'
+    express_df.to_csv('myproject/'+path)
+    return send_file(path, as_attachment=True)
 
 @gene_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():

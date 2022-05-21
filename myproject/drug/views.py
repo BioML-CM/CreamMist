@@ -3,7 +3,7 @@ from myproject import db
 from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, Drug, Mutation, GeneExpression
 from myproject.drug.forms import DrugForm, DatasetChoiceForm
 
-from flask import request
+from flask import request, send_file
 
 import scipy.stats as stats
 from myproject.drug import plot_data
@@ -21,11 +21,21 @@ drug_blueprint = Blueprint('drug',__name__,template_folder='templates/drug')
 hdi=0.95
 random_state=1
 
-# @cell_line_blueprint.route('/')
-# def index():
-#     print('Hello HI')
-#     data = db.session.query(Exp,JagsSampling).join(Exp).all()
-#     return render_template('home.html', data=data)
+@drug_blueprint.route('/download/<string:drug>/<string:dataset>', methods=['GET','POST'])
+def download(drug,dataset):
+    data = db.session.query(Experiment, JagsSampling, SensitivityScore) \
+        .join(JagsSampling, JagsSampling.exp_id == Experiment.id) \
+        .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.standard_drug_name == drug, Experiment.dataset == dataset) #.all()
+
+    df = pd.read_sql(data.statement, db.session.bind)
+    df = df[['standard_drug_name','cellosaurus_id' ,'dataset','info','n_dosage','min_dosage','max_dosage',
+             'ic50_mode','ic90_calculate','ec50_calculate','einf_calculate','auc_calculate','fitted_mae']]
+    df = df.rename(columns={'ic50_mode':'IC50','ic90_calculate':'IC90','ec50_calculate':'EC50',
+                            'einf_calculate':'Einf','auc_calculate':'AUC'})
+    path = f'drug/output/drug_{drug}_{dataset}_information.csv'
+    df.to_csv('myproject/'+path)
+    return send_file(path, as_attachment=True)
+
 @drug_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
     drug_records = db.session.query(Experiment.standard_drug_name).distinct()

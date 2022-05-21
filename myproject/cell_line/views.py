@@ -3,7 +3,7 @@ from myproject import db
 from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine
 from myproject.cell_line.forms import CellLineForm, DatasetChoiceForm, DatasetLogisticForm, InputForm
 
-from flask import request
+from flask import request, send_file
 
 from myproject.cell_line import plot_data
 import numpy as np
@@ -19,6 +19,21 @@ cell_line_blueprint = Blueprint('cell_line',
 
 hdi=0.95
 random_state=1
+
+@cell_line_blueprint.route('/download/<string:dataset>/<string:cell_line>', methods=['GET','POST'])
+def download(cell_line,dataset):
+    data = db.session.query(Experiment, JagsSampling, SensitivityScore) \
+        .join(JagsSampling, JagsSampling.exp_id == Experiment.id) \
+        .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.cellosaurus_id == cell_line, Experiment.dataset == dataset) #.all()
+
+    df = pd.read_sql(data.statement, db.session.bind)
+    df = df[['cellosaurus_id', 'standard_drug_name','dataset','info','n_dosage','min_dosage','max_dosage',
+             'ic50_mode','ic90_calculate','ec50_calculate','einf_calculate','auc_calculate','fitted_mae']]
+    df = df.rename(columns={'ic50_mode':'IC50','ic90_calculate':'IC90','ec50_calculate':'EC50',
+                       'einf_calculate':'Einf','auc_calculate':'AUC'})
+    path = f'cell_line/output/cell_line_{cell_line}_{dataset}_information.csv'
+    df.to_csv('myproject/'+path)
+    return send_file(path, as_attachment=True)
 
 
 @cell_line_blueprint.route('/_autocomplete', methods=['GET'])

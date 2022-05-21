@@ -55,7 +55,7 @@
                         <div class="col-md-6">
                             <form action="{{ url_for('drug.information_drug',drug=drug, dataset=dataset) }}" method="POST">
                                 {{ form.dataset.label }} : {{ form.dataset }} <br><br>
-                                <button class="btn btn-primary w-50" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
+                                <button class="btn btn-primary w-10" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
                             </form><br><br>
                         </div>
                         <div class="col-md-6">
@@ -66,7 +66,14 @@
                             <label class="form-check-label" for="customCheckbox1">Table</label>&nbsp;&nbsp;
 
                             <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                            <label class="form-check-label" for="customCheckbox1">Statistic</label>&nbsp;&nbsp;
+                            <label class="form-check-label" for="customCheckbox1">Statistic</label>&nbsp;<br><br>
+
+                            <div style="float: right;">
+                                <form action="{{ url_for('drug.download',drug=drug, dataset=dataset) }}" method="POST">
+                                    <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                </form>
+                            </div>
+
                         </div>
 
                     </div>

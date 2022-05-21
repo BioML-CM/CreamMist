@@ -3,7 +3,7 @@ from myproject import db
 from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine
 from myproject.cancer_type.forms import CancerForm, DatasetChoiceForm
 
-from flask import request
+from flask import request,send_file
 
 
 from myproject.cancer_type import plot_data
@@ -17,6 +17,28 @@ from matplotlib import pyplot as plt
 
 cancer_type_blueprint = Blueprint('cancer_type',
                               __name__,template_folder='templates/cancer_type')
+
+@cancer_type_blueprint.route('/download_ic50/<string:dataset>/<string:cancer_type>', methods=['GET','POST'])
+def download(dataset, cancer_type):
+    if cancer_type=='pancan':
+        cancer_type_records = db.session.query(CellLine.cellosaurus_id).all()
+    else:
+        cancer_type_records = db.session.query(CellLine.cellosaurus_id).filter(CellLine.site == cancer_type).all()
+    cell_line_list = [r.cellosaurus_id for r in cancer_type_records]
+
+    data = db.session.query(Experiment, SensitivityScore) \
+        .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.cellosaurus_id.in_(cell_line_list), Experiment.dataset == dataset) #.all()
+
+    df = pd.read_sql(data.statement, db.session.bind)
+    df['cancer_type'] = cancer_type
+    df = df[['cancer_type','cellosaurus_id','standard_drug_name','dataset','info',
+             'ic50_mode','ic90_calculate','ec50_calculate','einf_calculate','auc_calculate']]
+    df = df.rename(columns={'ic50_mode':'IC50','ic90_calculate':'IC90','ec50_calculate':'EC50',
+                            'einf_calculate':'Einf','auc_calculate':'AUC'})
+    path = f'cancer_type/output/{cancer_type}_{dataset}_information.csv'
+    df.to_csv('myproject/'+path)
+    return send_file(path, as_attachment=True)
+
 
 
 @cancer_type_blueprint.route('/_autocomplete', methods=['GET'])

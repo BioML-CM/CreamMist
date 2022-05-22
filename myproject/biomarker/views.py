@@ -3,7 +3,7 @@ from myproject import db
 from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, GeneExpression, Gene
 from myproject.biomarker.forms import BiomarkerForm, ChoiceForm
 
-from flask import request
+from flask import request, send_file
 
 import scipy.stats as stats
 from myproject.biomarker import plot_data
@@ -17,6 +17,25 @@ import plotly
 biomarker_blueprint = Blueprint('biomarker',
                               __name__,template_folder='templates/biomarker')
 
+@biomarker_blueprint.route('/download/<string:drug>/<string:gene>/<string:cancer_type>', methods=['GET','POST'])
+def download(gene, drug, cancer_type):
+    mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug, Mutation.cancer_type == cancer_type)#.all()
+    mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
+    mutation_df = mutation_df[['dataset','statistic','pvalue','provided_statistic','provided_pvalue']]
+    mutation_df = mutation_df.rename(columns={'statistic':'effect_size_mutation', 'provided_statistic':'provided_effect_size_mutation',
+                                               'pvalue':'pvalue_mutation',  'provided_pvalue': 'provided_pvalue_mutation'})
+
+    express_data = db.session.query(GeneExpression).filter(GeneExpression.gene == gene, GeneExpression.standard_drug_name == drug, GeneExpression.cancer_type == cancer_type)#.all()
+    express_df = pd.read_sql(express_data.statement, db.session.bind)
+    express_df = express_df[['dataset','correlation','pvalue','provided_correlation','provided_pvalue']]
+    express_df = express_df.rename(columns={'correlation':'correlation_expression', 'provided_correlation':'provided_correlation_expression',
+                                              'pvalue':'pvalue_expression',  'provided_pvalue': 'provided_pvalue_expression'})
+
+    df = pd.merge(mutation_df,express_df,on=['dataset'],how='outer')
+
+    path = f'gene/output/biomarker_{gene}_{drug}_{cancer_type}_information.csv'
+    df.to_csv('myproject/'+path)
+    return send_file(path, as_attachment=True)
 
 
 @biomarker_blueprint.route('/_autocomplete', methods=['GET'])
@@ -97,8 +116,8 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
         return redirect(url_for('biomarker.information_biomarker', gene=gene, drug=drug, cancer_type=cancer_type))
 
     #plot graph
-    fig_mutation_stat = plot_data.plot_biomarker(mutation_df,'statistic','pvalue','provided_statistic','provided_pvalue')
-    fig_express_stat = plot_data.plot_biomarker(express_df,'correlation','pvalue','provided_correlation','provided_pvalue')
+    fig_mutation_stat = plot_data.plot_mutation(mutation_df)
+    fig_express_stat = plot_data.plot_expression(express_df)
 
     graph1Jason = json.dumps(fig_mutation_stat, cls=plotly.utils.PlotlyJSONEncoder)
     graph2Jason = json.dumps(fig_express_stat, cls=plotly.utils.PlotlyJSONEncoder)

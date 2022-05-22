@@ -137,6 +137,7 @@ def plot_ic_auc_mode(df,type):
         # fig['data'][0]['x'][i] = "<a href='http://127.0.0.1:5000/cell_line/view/{}' style='color:ef5285;'>{}</a>".format(df['id'][i],fig['data'][0]['x'][i])
     fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
     fig.update_xaxes(tickangle= -45)
+    fig.update_xaxes(title_text="Drug name")
     return fig
 
 
@@ -191,6 +192,7 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s,dosage,response,dataset_plot):
         fig.add_trace(go.Scatter(x=np.array(np.log2(dosage[i])), y=np.array(new_response[i]),
                                  mode='markers', text = [dosage[i]], customdata=[response[i]],
                                  marker_color=color_plot[i],marker_symbol=marker_list[i],name='',
+                                 marker=dict(size=10),
                                  hovertemplate='<b>dosage</b> : %{text:.4f} uM' +
                                  '<br><b>response</b> : %{customdata:.2f}',
                                  hoverlabel=dict(bgcolor='#FFF4ED'),
@@ -199,7 +201,7 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s,dosage,response,dataset_plot):
     for k,v in color_dict.items():
         if k in dataset_plot:
             fig.add_trace(go.Scatter(x=[None], y=[None], mode='markers',
-                                            marker=dict(size=8, color=v, line_width=1),
+                                            marker=dict(size=10, color=v, line_width=1),
                                             legendgroup=k, showlegend=True, name=k))
 
     fig.add_hline(y=0.5, line_width=2, line_dash="dash", line_color="#A64E65")
@@ -210,8 +212,9 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s,dosage,response,dataset_plot):
     # fig.add_vline(x=sens[0].ec50_calculate, line_width=1, line_dash="dot", line_color="#59364A")
 
 
-    fig.update_xaxes(title_text="Log2 Concentration (uM)", range=(np.log2(min_dosage)-1, np.log2(max_dosage)+1))
-    fig.update_yaxes(title_text="Response", range=(-0.3, 1.3))
-    fig.update_layout(title='Logistic')
+    fig.update_xaxes(title_text="Log2 Concentration (uM)", range=(np.log2(min_dosage)-1, np.log2(max_dosage)+1),
+                     titlefont_size=18)
+    fig.update_yaxes(title_text="Response", range=(-0.3, 1.3), titlefont_size=18)
+    fig.update_layout(title='Logistic Function', titlefont_size=20)
     fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 500,})
     return fig

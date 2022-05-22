@@ -49,6 +49,7 @@ def plot_ic_auc_mode(df,type):
 
     fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
     fig.update_xaxes(tickangle= -45)
+    fig.update_xaxes(title_text="Cellosaurus ID")
     return fig
 
 def plot_statistic(df,score):
@@ -82,8 +83,10 @@ def plot_statistic(df,score):
         fig.update_layout(title="Top 10 and bottom 10 of gene expression")
 
     for i in range(df.shape[0]):
-        fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/gene/{df['dataset'][i]}/{df['gene'][i]}/pancan' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
+        # fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/gene/{df['dataset'][i]}/{df['gene'][i]}/pancan' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
+        fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/biomarker/{df['gene'][i]}/{df['standard_drug_name'][i]}/pancan' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
     fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
     fig.update_xaxes(tickangle= -45)
+    fig.update_xaxes(title_text="Gene name")
     return fig

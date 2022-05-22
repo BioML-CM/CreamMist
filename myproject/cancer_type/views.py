@@ -35,7 +35,7 @@ def download(dataset, cancer_type):
              'ic50_mode','ic90_calculate','ec50_calculate','einf_calculate','auc_calculate']]
     df = df.rename(columns={'ic50_mode':'IC50','ic90_calculate':'IC90','ec50_calculate':'EC50',
                             'einf_calculate':'Einf','auc_calculate':'AUC'})
-    path = f'cancer_type/output/{cancer_type}_{dataset}_information.csv'
+    path = f'cancer_type/output/cancer_type_{cancer_type}_{dataset}_information.csv'
     df.to_csv('myproject/'+path)
     return send_file(path, as_attachment=True)
 

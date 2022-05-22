@@ -36,6 +36,28 @@ def download(drug,dataset):
     df.to_csv('myproject/'+path)
     return send_file(path, as_attachment=True)
 
+@drug_blueprint.route('/download_express/<string:drug>/<string:dataset>', methods=['GET','POST'])
+def download_express(drug,dataset):
+    express_data = db.session.query(GeneExpression).filter(GeneExpression.standard_drug_name == drug, GeneExpression.dataset == dataset, GeneExpression.cancer_type == 'pancan')#.all()
+    express_df = pd.read_sql(express_data.statement, db.session.bind)
+    express_df = express_df[['standard_drug_name','gene','dataset','cancer_type','correlation','pvalue','n_cell_line']]
+
+    path = f'drug/output/gene_expression_{drug}_{dataset}_pancan_information.csv'
+    express_df.to_csv('myproject/'+path)
+    return send_file(path, as_attachment=True)
+
+@drug_blueprint.route('/download_mutation/<string:drug>/<string:dataset>', methods=['GET','POST'])
+def download_mutation(drug,dataset):
+    mutation_data = db.session.query(Mutation).filter(Mutation.standard_drug_name == drug, Mutation.dataset == dataset, Mutation.cancer_type == 'pancan')#.all()
+    mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
+    mutation_df = mutation_df.rename(columns={'statistic':'effect_size', 'provided_statistic':'provided_effect_size'})
+
+    mutation_df = mutation_df[['standard_drug_name','gene','dataset','cancer_type','effect_size','pvalue','n_mut','n_wt']]
+
+    path = f'drug/output/mutation_{drug}_{dataset}_pancan_information.csv'
+    mutation_df.to_csv('myproject/'+path)
+    return send_file(path, as_attachment=True)
+
 @drug_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
     drug_records = db.session.query(Experiment.standard_drug_name).distinct()

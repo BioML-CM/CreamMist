@@ -1,34 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <section class="py-5">
         <div class="container py-5">
             <div class="row gy-5">
-                <!-- Filter-->
-{#                <div class="col-lg-3 order-2 order-lg-1">#}
-{#                    <h2 class="h3 mb-4 pb-1">Filter</h2>#}
-{#                    <div class="card border-0 shadow-sm mb-4 p-2">#}
-{#                        <div class="card-body">#}
-{#                            <h2 class="h5 mb-4">Choose tag</h2>#}
-{#                            <div class="form-check mb-2">#}
-{#                                <input class="form-check-input" type="checkbox" id="customCheckbox1">#}
-{#                                <label class="form-check-label" for="customCheckbox1">Information</label>#}
-{#                            </div>#}
-{#                            <div class="form-check mb-2">#}
-{#                                <input class="form-check-input" type="checkbox" id="customCheckbox2">#}
-{#                                <label class="form-check-label" for="customCheckbox2">Ic50</label>#}
-{#                            </div>#}
-{#                            <div class="form-check mb-2">#}
-{#                                <input class="form-check-input" type="checkbox" id="customCheckbox3">#}
-{#                                <label class="form-check-label" for="customCheckbox3">IC90</label>#}
-{#                            </div>#}
-{#                            <div class="form-check mb-2">#}
-{#                                <input class="form-check-input" type="checkbox" id="customCheckbox3">#}
-{#                                <label class="form-check-label" for="customCheckbox3">AUC</label>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
                 <!-- Listing-->
                 <div class="col-lg-12 order-1 order-lg-2">
                     <!-- Listing sorting-->
@@ -40,17 +17,17 @@
                             </form><br><br>
                         </div>
                         <div class="col-md-6">
-                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                            <label class="form-check-label" for="customCheckbox1">Information</label> &nbsp;&nbsp;
+                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>
+                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                            <label class="form-check-label" for="customCheckbox1">IC50</label>&nbsp;&nbsp;
+                            <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                            <label class="form-check-label" for="chk2">IC50</label>&nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                            <label class="form-check-label" for="customCheckbox1">IC90</label>&nbsp;&nbsp;
+                            <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                            <label class="form-check-label" for="chk3">IC90</label>&nbsp;&nbsp
 
-                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                            <label class="form-check-label" for="customCheckbox1">AUC</label>&nbsp;&nbsp;<br><br>
+                            <input class="form-check-input" type="checkbox" id="chk4", data-ptag="content4" name="chk4" checked>
+                            <label class="form-check-label" for="chk4">AUC</label>&nbsp;&nbsp;<br><br>
                             <div style="float: right;">
                                 <form action="{{ url_for('cancer_type.download',dataset=dataset, cancer_type=cancer_type) }}" method="POST">
                                         <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
@@ -60,28 +37,28 @@
                     </div>
                     <!-- Listing items-->
                     <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
-                        <div class="card-body p-lg-5">
+                        <div class="card-body p-lg-5" id="content1">
                             <h2 class="h3 mb-4">Cancer type Information : {{ cancer_type }}</h2>
                             <p> Data set : {{ dataset }}</p>
                         </div>
                     </div>
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" id="content2">
                             <h2 class="h3 mb-4">IC50</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4", id="chart1">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" id="content3">
                             <h2 class="h3 mb-4">IC90</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4", id="chart2">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" id="content4">
                             <h2 class="h3 mb-4">AUC</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4", id="chart3">
@@ -106,81 +83,18 @@
         Plotly.plot('chart3', graph3, {})
     </script>
 
-{#    #}
-{#<div class="jumbotron" style="background-color: #A65D8C95;">#}
-{#    <h1 style="color:#59364A">CANCER TYPE :#}
-{#        <span style="color:#ffffff;background-color:#000000;opacity:0.5;"> &nbsp; {{ cancer_type }} &nbsp;#}
-{#        </span>#}
-{#    </h1>#}
-{#    <p class="lead">#}
-{#        Data set : {{ dataset }} <br></p>#}
-{#</div>#}
-{##}
-{##}
-{##}
-{#<div class="container">#}
-{#    <div class="row">#}
-{#        <form action="{{ url_for('cancer_type.information_cancer_type',cancer_type=cancer_type, dataset=dataset) }}" method="POST">#}
-            {# This hidden_tag is a CSRF security feature. #}
-{#            {{ form.dataset.label }} &nbsp;&nbsp;  {{ form.dataset }} &nbsp;&nbsp;#}
-{##}
-{#            <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>#}
-{#        </form><br><br>#}
-{#    </div>#}
-{##}
-{#    <div class="row">#}
-{#        <table id="data" class="table table-striped table-responsive">#}
-{#            <thead>#}
-{#                <tr>#}
-{#                    <th>Cell line name</th>#}
-{#                    <th>Drug name</th>#}
-{#                    <th>Dataset</th>#}
-{#                    <th>Min Dose</th>#}
-{#                    <th>Max Dose</th>#}
-{#                    <th>View</th>#}
-{##}
-{#                </tr>#}
-{#                </thead>#}
-{#                <tbody>#}
-{#                {% for e,j,s in data %}#}
-{#                    <tr>#}
-{#                        <td>{{ e.standard_cell_line_name }}</td>#}
-{#                        <td><a href="{{ url_for('cell_line.information_cell_line', cell_line=e.cellosaurus_id, dataset='All') }}">{{ e.cellosaurus_id }} </a></td>#}
-{#                        <td><a href="{{ url_for('drug.information_drug', drug=e.standard_drug_name, dataset='All') }}">{{ e.standard_drug_name }} </a></td>#}
-{#                        <td>{{ e.info }}</td>#}
-{#                        <td>{{ j.min_dosage }}</td>#}
-{#                        <td>{{ j.max_dosage }}</td>#}
-{#                        <td><a href="{{ url_for('cell_line.view_logistic', exp=e.id, input_dose=2) }}">view</a></td>#}
-{#                    </tr>#}
-{#                {% endfor %}#}
-{#                </tbody>#}
-{#            </table>#}
-{##}
-{##}
-{#    </div>#}
-{#</div>#}
-{##}
-{#    <div class="container">#}
-{#        <div class="row">#}
-{#            <div class="col" id="chart1">#}
-{#            </div>#}
-{#            <div class="col" id="chart2">#}
-{#            </div>#}
-{#            <div class="col" id="chart3">#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>#}
-{#    <script type="text/javascript">#}
-{#        var graph1= {{ graph1Jason | safe}};#}
-{#        Plotly.plot('chart1', graph1, {})#}
-{##}
-{#        var graph2= {{ graph2Jason | safe}};#}
-{#        Plotly.plot('chart2', graph2, {})#}
-{##}
-{#        var graph3= {{ graph3Jason | safe}};#}
-{#        Plotly.plot('chart3', graph3, {})#}
-{#    </script>#}
+
+    <!-- #### for show/hide div -->
+
+    <script type="text/javascript">
+        var first = true;
+        $('input[type="checkbox"][name^=chk]').change(function () {
+            var $target = $('#content' + this.id.replace('chk', '')).toggle(this.checked);
+            if (first) {
+                $('p[id^=content]').not($target).hide();
+                first = false;
+            }
+        })
+    </script>
 
 {% endblock %}

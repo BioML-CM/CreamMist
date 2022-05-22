@@ -1,38 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+{#    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">#}
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{#    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>#}
+{#    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>#}
+
     <section class="py-5">
         <div class="container py-5">
             <div class="row gy-5">
-                <!-- Filter-->
-{#                <div class="col-lg-3 order-2 order-lg-1">#}
-{#                    <h2 class="h3 mb-4 pb-1">Filter</h2>#}
-{#                    <div class="card border-0 shadow-sm mb-4 p-2">#}
-{#                        <div class="card-body">#}
-{#                            <h2 class="h5 mb-4">Choose tag</h2>#}
-{#                            <div class="form-check mb-2">#}
-{#                                <input class="form-check-input" type="checkbox" id="customCheckbox1">#}
-{#                                <label class="form-check-label" for="customCheckbox1">Information</label>#}
-{#                            </div>#}
-{#                            <div class="form-check mb-2">#}
-{#                                <input class="form-check-input" type="checkbox" id="customCheckbox2">#}
-{#                                <label class="form-check-label" for="customCheckbox2">Statistic Mutaion</label>#}
-{#                            </div>#}
-{#                            <div class="form-check mb-2">#}
-{#                                <input class="form-check-input" type="checkbox" id="customCheckbox3">#}
-{#                                <label class="form-check-label" for="customCheckbox3">Provide Statistic Mutaion</label>#}
-{#                            </div>#}
-{#                            <div class="form-check mb-2">#}
-{#                                <input class="form-check-input" type="checkbox" id="customCheckbox2">#}
-{#                                <label class="form-check-label" for="customCheckbox2">Statistic Gene Expression</label>#}
-{#                            </div>#}
-{#                            <div class="form-check mb-2">#}
-{#                                <input class="form-check-input" type="checkbox" id="customCheckbox3">#}
-{#                                <label class="form-check-label" for="customCheckbox3">Provide Statistic Expression</label>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
                 <!-- Listing-->
                 <div class="col-lg-12 order-1 order-lg-2">
                     <!-- Listing sorting-->
@@ -46,17 +22,17 @@
                             </form><br><br>
                         </div>
                         <div class="col-md-6">
-                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                            <label class="form-check-label" for="customCheckbox1">Information</label> &nbsp;&nbsp;
+                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>
+                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                            <label class="form-check-label" for="customCheckbox1">Mutation</label>&nbsp;&nbsp;
+                            <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                            <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="customCheckbox1">
-                            <label class="form-check-label" for="customCheckbox1">Gene expression</label>&nbsp;&nbsp;<br><br>
+                            <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                            <label class="form-check-label" for="chk3">Gene expression</label>&nbsp;<br><br>
                             <div style="float: right;">
                                 <form action="{{ url_for('gene.download_mutation',gene=gene, dataset=dataset, cancer_type=cancer_type) }}" method="POST">
-                                    <button class="btn btn-primary w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Mutation</button>
+                                    <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Mutation</button>
                                 </form>
                             </div>
                             <div style="float: right;margin-right: 10px;">
@@ -71,7 +47,7 @@
                     </div>
                     <!-- Listing items-->
                     <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
-                        <div class="card-body p-lg-5">
+                        <div class="card-body p-lg-5" id="content1">
                             <h2 class="h3 mb-4">Gene Information : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a></h2>
                             <p class="lead"> Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
                                 Dataset : {{ dataset }}<br>
@@ -80,7 +56,7 @@
                     </div>
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" id="content2">
                             <h2 class="h3 mb-4">Mutation</h2>
 
                             <div class="card shadow-sm border-0 ">
@@ -88,7 +64,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" id="content3">
                             <h2 class="h3 mb-4">Gene expression</h2>
 
                             <div class="card shadow-sm border-0 ">
@@ -126,65 +102,18 @@
     </script>
 
 
+    <!-- #### for show/hide div -->
 
+    <script type="text/javascript">
+        var first = true;
+        $('input[type="checkbox"][name^=chk]').change(function () {
+            var $target = $('#content' + this.id.replace('chk', '')).toggle(this.checked);
+            if (first) {
+                $('p[id^=content]').not($target).hide();
+                first = false;
+            }
+        })
+    </script>
 
-{##}
-{##}
-{#<div class="jumbotron" style="background-color: #A65D8C95;">#}
-{#    <h1 style="color:#59364A">GENE INFORMATION</h1>#}
-{#    <p class="lead"> Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>#}
-{#    Dataset : {{ dataset }}<br>#}
-{#    Cancer type : <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a> </p>#}
-{#</div>#}
-{##}
-{##}
-{##}
-{#<div class="container">#}
-{#    <div class="row">#}
-{#    <form action="{{ url_for('gene.information_gene',gene=gene, dataset=dataset,cancer_type=cancer_type) }}" method="POST">#}
-        {# This hidden_tag is a CSRF security feature. #}
-        {#            {{ form.hidden_tag() }}#}
-{#        {{ form.dataset.label }} &nbsp;&nbsp;  {{ form.dataset }} &nbsp;&nbsp;<br>#}
-{#        {{ form.cancer_type.label }} &nbsp;&nbsp;  {{ form.cancer_type }} <br>#}
-        {#            {{ form.submit() }}#}
-{#        <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>#}
-{#    </form><br><br>#}
-{#    </div>#}
-{#</div>#}
-{##}
-{##}
-{##}
-{#    <div class="container">#}
-{#        <p>Mutation#}
-{#        <div class="row">#}
-{#            <div class="col" id="chart1">#}
-{#            </div>#}
-{#            <div class="col" id="chart2">#}
-{#            </div>#}
-{#        </div>#}
-{#        <p>Gene expression#}
-{#        <div class="row">#}
-{#            <div class="col" id="chart3">#}
-{#            </div>#}
-{#            <div class="col" id="chart4">#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>#}
-{#    <script type="text/javascript">#}
-{#        var graph1= {{ graph1Jason | safe}};#}
-{#        Plotly.plot('chart1', graph1, {})#}
-{##}
-{#        var graph2= {{ graph2Jason | safe}};#}
-{#        Plotly.plot('chart2', graph2, {})#}
-{##}
-{#        var graph3= {{ graph3Jason | safe}};#}
-{#        Plotly.plot('chart3', graph3, {})#}
-{##}
-{#        var graph4= {{ graph4Jason | safe}};#}
-{#        Plotly.plot('chart4', graph4, {})#}
-{##}
-{#    </script>#}
 
 {% endblock %}

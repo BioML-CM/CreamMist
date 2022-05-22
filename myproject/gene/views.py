@@ -24,7 +24,7 @@ def download_mutation(gene, dataset, cancer_type):
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
 
     mutation_df = mutation_df[['gene','standard_drug_name','dataset','cancer_type','statistic','pvalue','n_mut','n_wt']]
-    mutation_df = mutation_df.rename(columns={'statistic':'effect size'})
+    mutation_df = mutation_df.rename(columns={'statistic':'effect_size'})
     path = f'gene/output/mutation_{gene}_{cancer_type}_{dataset}_information.csv'
     mutation_df.to_csv('myproject/'+path)
     return send_file(path, as_attachment=True)

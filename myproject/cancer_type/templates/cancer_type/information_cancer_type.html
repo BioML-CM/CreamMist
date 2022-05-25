@@ -16,30 +16,33 @@
                                 <button class="btn btn-primary w-10" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
                             </form><br><br>
                         </div>
-                        <div class="col-md-6">
-                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>
-                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;
+                        <div class="col-md-6 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                            <div class="card-body p-lg-5">
+                                <h4>Information card </h4>
+{#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
+{#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
 
-                            <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
-                            <label class="form-check-label" for="chk2">IC50</label>&nbsp;&nbsp;
+                                <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                                <label class="form-check-label" for="chk2">IC50</label>&nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
-                            <label class="form-check-label" for="chk3">IC90</label>&nbsp;&nbsp
+                                <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                                <label class="form-check-label" for="chk3">IC90</label>&nbsp;&nbsp
 
-                            <input class="form-check-input" type="checkbox" id="chk4", data-ptag="content4" name="chk4" checked>
-                            <label class="form-check-label" for="chk4">AUC</label>&nbsp;&nbsp;<br><br>
-                            <div style="float: right;">
-                                <form action="{{ url_for('cancer_type.download',dataset=dataset, cancer_type=cancer_type) }}" method="POST">
-                                        <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
-                                </form>
+                                <input class="form-check-input" type="checkbox" id="chk4", data-ptag="content4" name="chk4" checked>
+                                <label class="form-check-label" for="chk4">AUC</label>&nbsp;&nbsp;<br><br>
+                                <div style="float: right;">
+                                    <form action="{{ url_for('cancer_type.download',dataset=dataset, cancer_type=cancer_type) }}" method="POST">
+                                            <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- Listing items-->
                     <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h3 mb-4">Cancer type Information : {{ cancer_type }}</h2>
-                            <p> Data set : {{ dataset }}</p>
+                            <h2 class="h3 mb-4">Cancer type Information : <mark style="background: #ffc107"> {{ cancer_type }}</mark></h2>
+                            <b> Data set :</b> {{ dataset }}
                         </div>
                     </div>
                     <div class="row mb-4 gy-4">
@@ -47,21 +50,30 @@
                         <div class="col-lg-6" id="content2">
                             <h2 class="h3 mb-4">IC50</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart1">
+                                <div class="card-body p-4">
+                                    Drug with 10 highest and lowest IC90 across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
+                                    <br><br>
+                                    <div id="chart1"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" id="content3">
                             <h2 class="h3 mb-4">IC90</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart2">
+                                <div class="card-body p-4">
+                                    Drug with 10 highest and lowest IC90 across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
+                                    <br><br>
+                                    <div id="chart2"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" id="content4">
                             <h2 class="h3 mb-4">AUC</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart3">
+                                <div class="card-body p-4">
+                                    Drug with 10 highest and lowest IC90 across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
+                                    <br><br>
+                                    <div id="chart3"></div>
                                 </div>
                             </div>
                         </div>

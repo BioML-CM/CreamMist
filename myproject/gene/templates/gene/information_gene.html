@@ -21,54 +21,58 @@
                                 <button class="btn btn-primary w-10" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
                             </form><br><br>
                         </div>
-                        <div class="col-md-6">
-                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>
-                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;
+                        <div class="col-md-6 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                            <div class="card-body p-lg-5">
+                                <h4>Information card </h4>
+{#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
+{#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
 
-                            <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
-                            <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
+                                <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                                <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
-                            <label class="form-check-label" for="chk3">Gene expression</label>&nbsp;<br><br>
-                            <div style="float: right;">
-                                <form action="{{ url_for('gene.download_mutation',gene=gene, dataset=dataset, cancer_type=cancer_type) }}" method="POST">
-                                    <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Mutation</button>
-                                </form>
+                                <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                                <label class="form-check-label" for="chk3">Gene expression</label>&nbsp;<br><br>
                             </div>
-                            <div style="float: right;margin-right: 10px;">
-                                <form action="{{ url_for('gene.download_expression',gene=gene, dataset=dataset, cancer_type=cancer_type) }}" method="POST">
-                                    <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Gene expression</button>
-                                </form>
-                            </div>
-
-
-
                         </div>
                     </div>
                     <!-- Listing items-->
                     <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h3 mb-4">Gene Information : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a></h2>
-                            <p class="lead"> Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
-                                Dataset : {{ dataset }}<br>
-                                Cancer type : <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a> </p>
+                            <h2 class="h3 mb-4">Gene Information : <mark style="background: #ffc107">{{ gene }} </mark></h2>
+                            <b> Gene :</b> <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
+                            <b>Dataset :</b> {{ dataset }}<br>
+                            <b>Cancer type :</b> <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
                         </div>
                     </div>
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
                         <div class="col-lg-6" id="content2">
-                            <h2 class="h3 mb-4">Mutation</h2>
-
+                            <h2 class="h3 mb-4">Associated Drugs (Mutation)</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart1">
+                                <div class="card-body p-4">
+                                    For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a> data, 10 highest and lowest ranksum's effect size between the presence mutation and IC50
+                                    <div  id="chart1">
+                                        <div style="float: right;">
+                                            <form action="{{ url_for('gene.download_mutation',gene=gene, dataset=dataset, cancer_type=cancer_type) }}" method="POST">
+                                                <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" id="content3">
-                            <h2 class="h3 mb-4">Gene expression</h2>
-
+                            <h2 class="h3 mb-4">Associated Drugs (Gene expression)</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart2">
+                                <div class="card-body p-4">
+                                    For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a> data, 10 highest and lowest spearman correlation between gene expression and IC50
+                                    <div id="chart2">
+                                        <div style="float: right;">
+                                            <form action="{{ url_for('gene.download_expression',gene=gene, dataset=dataset, cancer_type=cancer_type) }}" method="POST">
+                                                <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

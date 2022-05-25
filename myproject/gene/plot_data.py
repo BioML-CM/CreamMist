@@ -10,26 +10,30 @@ def plot_statistic(df,score):
     fig=go.Figure()
     if score=='statistic':
         df = pd.concat([df.sort_values(score).head(n),df.sort_values(score).tail(n)]).reset_index(drop=True) .drop_duplicates().reset_index()
-        fig.add_traces(go.Bar(x=df['standard_drug_name'], y = df[score],
+        fig.add_traces(go.Bar(x=df['standard_drug_name'], y = df[score],customdata=df['pvalue'],
                               marker_color=color_list, width=1, name='',
                               hovertemplate='<b>Drug name</b> : %{x} <br>'
-                                            '<b>Statistic </b> : %{y:.4f}%',
+                                            '<b>effect size </b> : %{y:.4f}%<br>'
+                                            '<b>pvalue</b> : ' + '%{customdata:.4f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 
-        fig.update_yaxes(title_text="Statistic")
-        fig.update_layout(title="Top 10 and bottom 10 of mutation")
+        fig.update_yaxes(title_text="Ranksum's Effect Size")
+        # fig.update_layout(title=f"For {cancer_type} data, 10 highest and lowest ranksum's effect size <br>between the presence mutation and IC50")
+
 
 
     elif score=='correlation':
         df = pd.concat([df.sort_values(score).head(n),df.sort_values(score).tail(n)]).reset_index(drop=True) .drop_duplicates().reset_index()
-        fig.add_traces(go.Bar(x=df['standard_drug_name'], y = df[score],
+        fig.add_traces(go.Bar(x=df['standard_drug_name'], y = df[score],customdata=df['pvalue'],
                               marker_color=color_list, width=1, name='',
                               hovertemplate='<b>Drug name</b> : %{x} <br>'
-                                            '<b>Correlation </b> : %{y:.4f}%',
+                                            '<b>Correlation </b> : %{y:.4f}%<br>'
+                                            '<b>pvalue</b> : ' + '%{customdata:.4f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 
-        fig.update_yaxes(title_text="Correlation")
-        fig.update_layout(title="Top 10 and bottom 10 of gene expression")
+        fig.update_yaxes(title_text="Spearman Correlation")
+        # fig.update_layout(title=f"For {cancer_type} data, 10 highest and lowest spearman correlation <br>between gene expression and IC50<br>")
+
 
 
     for i in range(df.shape[0]):

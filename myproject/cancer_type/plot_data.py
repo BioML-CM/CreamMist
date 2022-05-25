@@ -17,18 +17,22 @@ def plot_ic_auc_mode(df,type):
                      color_discrete_sequence=['#17a2b8']*df.shape[0],
                      hover_data=[type])
         fig.update_yaxes(title_text="AUC (%)")
+        # fig.update_layout(title=f"Drug with 10 highest and lowest AUC across all cell line <br>in {cancer_type}")
+
 
 
     elif type=='ic50_mode':
         fig = px.box(df, x='standard_drug_name', y='ic50_mode', category_orders={'standard_drug_name':my_order},
                      color_discrete_sequence=['#17a2b8']*df.shape[0])
-        fig.update_yaxes(title_text="IC50 (Log2 scale)")
+        fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
+        # fig.update_layout(title=f"Drug with 10 highest and lowest IC50 across all cell line <br>in {cancer_type}")
 
 
     elif type=='ic90_calculate':
         fig = px.box(df, x='standard_drug_name', y='ic90_calculate', category_orders={'standard_drug_name':my_order},
                      color_discrete_sequence=['#17a2b8']*df.shape[0])
-        fig.update_yaxes(title_text="IC90 (Log2 scale)")
+        fig.update_yaxes(title_text="IC90 Log2 Concentration (\u03bcM)")
+        # fig.update_layout(title=f"Drug with 10 highest and lowest IC90 across all cell line <br>in {cancer_type}")
 
 
     xlabel_list = fig['layout']['xaxis']['categoryarray']

@@ -17,29 +17,32 @@
                                 <button class="btn btn-primary w-10" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
                             </form><br><br>
                         </div>
-                        <div class="col-md-6">
-                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>
-                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;
+                        <div class="col-md-6 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                            <div class="card-body p-lg-5">
+                                <h4>Information card </h4>
+{#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
+{#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
 
-                            <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
-                            <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
+                                <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                                <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
-                            <label class="form-check-label" for="chk3">Gene expression</label>&nbsp;<br><br>
-                            <div style="float: right;">
-                                <form action="{{ url_for('biomarker.download',gene=gene,drug=drug, cancer_type=cancer_type) }}" method="POST">
-                                    <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
-                                </form>
+                                <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                                <label class="form-check-label" for="chk3">Gene expression</label>&nbsp;<br><br>
+                                <div style="float: right;">
+                                    <form action="{{ url_for('biomarker.download',gene=gene,drug=drug, cancer_type=cancer_type) }}" method="POST">
+                                        <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- Listing items-->
                     <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h3 mb-4">Information : </h2>
-                            Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
-                            Drug Name : <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
-                            Cancer type : <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>
+                            <h2 class="h3 mb-4">BioMarker Information : </h2>
+                            <b>Gene :</b> <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
+                            <b>Drug Name :</b> <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
+                            <b>Cancer type :</b> <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>
                         </div>
                     </div>
                     <div class="row mb-4 gy-4">

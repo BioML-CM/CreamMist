@@ -29,54 +29,56 @@
                                 <button class="btn btn-primary w-10" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
                             </form><br><br>
                         </div>
-                        <div class="col-md-8">
-                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>
-                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;
+                        <div class="col-md-8 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                            <div class="card-body p-lg-5">
+                                <h4>Information card </h4>
+{#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
+{#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
 
-                            <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
-                            <label class="form-check-label" for="chk2">Table</label>&nbsp;&nbsp;
+                                <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                                <label class="form-check-label" for="chk2">Experiment Information</label>&nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
-                            <label class="form-check-label" for="chk3">IC50</label>&nbsp;&nbsp
+                                <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                                <label class="form-check-label" for="chk3">IC50</label>&nbsp;&nbsp
 
-                            <input class="form-check-input" type="checkbox" id="chk4", data-ptag="content4" name="chk4" checked>
-                            <label class="form-check-label" for="chk4">IC90</label>&nbsp;&nbsp;
+                                <input class="form-check-input" type="checkbox" id="chk4", data-ptag="content4" name="chk4" checked>
+                                <label class="form-check-label" for="chk4">IC90</label>&nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="chk5", data-ptag="content5" name="chk5" checked>
-                            <label class="form-check-label" for="chk5">AUC</label>&nbsp;&nbsp;
+                                <input class="form-check-input" type="checkbox" id="chk5", data-ptag="content5" name="chk5" checked>
+                                <label class="form-check-label" for="chk5">AUC</label>&nbsp;&nbsp;<br>
 
-                            <input class="form-check-input" type="checkbox" id="chk6", data-ptag="content6" name="chk6" checked>
-                            <label class="form-check-label" for="chk6">Mutation</label>&nbsp;&nbsp;
+                                <input class="form-check-input" type="checkbox" id="chk6", data-ptag="content6" name="chk6" checked>
+                                <label class="form-check-label" for="chk6">Associated Genes (Mutation)</label>&nbsp;&nbsp;
 
-                            <input class="form-check-input" type="checkbox" id="chk7", data-ptag="content7" name="chk7" checked>
-                            <label class="form-check-label" for="chk7">Gene expression</label>&nbsp;&nbsp;<br><br>
+                                <input class="form-check-input" type="checkbox" id="chk7", data-ptag="content7" name="chk7" checked>
+                                <label class="form-check-label" for="chk7">Associated Genes (Gene Expression)</label>&nbsp;&nbsp;<br><br>
 
-                            <div style="float: right;">
-                                <form action="{{ url_for('drug.download',drug=drug, dataset=dataset) }}" method="POST">
-                                    <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
-                                </form>
+                                <div style="float: right;">
+                                    <form action="{{ url_for('drug.download',drug=drug, dataset=dataset) }}" method="POST">
+                                        <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>All Drug Data</button>
+                                    </form>
+                                </div>
                             </div>
-
                         </div>
 
                     </div>
                     <!-- Listing items-->
                     <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h3 mb-4">Drug Information : {{ drug_info.standard_drug_name  }}</h2>
+                            <h2 class="h3 mb-4">Drug Information : <mark style="background: #ffc107">{{ drug_info.standard_drug_name  }}</mark></h2>
                             <p>
                             {% for i in name_list %}
-                                {{ i[0][0] }}
+                                <b>{{ i[0][0] }}</b>
                                 {% for n in i[0][1:] %}
-                                    , {{ n }}
+                                   <b>, {{ n }}</b>
                                 {% endfor %}
                                 : {{i[1]}} <br>
                             {% endfor %} <br>
 
-                            Data set : {{ dataset }} <br>
-                            SYNONYMS : {{ drug_info.synonyms }} <br>
-                            TARGET : {{ drug_info.target }} <br>
-                            PATHWAY : {{ drug_info.pathway }} </p>
+                                <b>Data set :</b> {{ dataset }} <br>
+                                <b>SYNONYMS :</b> {{ drug_info.synonyms }} <br>
+                                <b>TARGET :</b> {{ drug_info.target }} <br>
+                                <b>PATHWAY :</b> {{ drug_info.pathway }} </p>
 
                         </div>
                     </div>
@@ -84,7 +86,7 @@
                         <!-- Gallery-->
                         <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                             <div class="card-body p-lg-5" id="content2">
-                                <h2 class="h3 mb-4">Table</h2>
+                                <h2 class="h3 mb-4">Experiment Information</h2>
                                 <div class="rounded overflow-hidden mb-3">
                                     <table id="data" class="table table-striped">
                                         <thead>
@@ -117,21 +119,30 @@
                         <div class="col-lg-6" id="content3">
                             <h2 class="h3 mb-4">IC50</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart1">
+                                <div class="card-body p-4">
+                                    10 highest and lowest IC50
+                                    <div  id="chart1">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" id="content4">
                             <h2 class="h3 mb-4">IC90</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart2">
+                                <div class="card-body p-4">
+                                    10 highest and lowest IC90
+                                    <div  id="chart2">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" id="content5">
                             <h2 class="h3 mb-4">AUC</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart3">
+                                <div class="card-body p-4">
+                                    10 highest and lowest AUC
+                                    <div  id="chart3">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -140,13 +151,16 @@
                         </div>
 
                         <div class="col-lg-6" id="content6">
-                            <h2 class="h3 mb-4">Mutation in pancan</h2>
+                            <h2 class="h3 mb-4">Associated Genes (Mutation)</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart4">
-                                    <div style="float: right;">
-                                        <form action="{{ url_for('drug.download_mutation',drug=drug, dataset=dataset) }}" method="POST">
-                                            <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Mutation</button>
-                                        </form>
+                                <div class="card-body p-4">
+                                    For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}"> pancan </a> data, 10 highest and lowest ranksum's effect size <br>between the presence mutation and IC50
+                                    <div  id="chart4">
+                                        <div style="float: right;">
+                                            <form action="{{ url_for('drug.download_mutation',drug=drug, dataset=dataset) }}" method="POST">
+                                                <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -154,13 +168,16 @@
                         </div>
 
                         <div class="col-lg-6" id="content7">
-                            <h2 class="h3 mb-4">Gene expression in pancan</h2>
+                            <h2 class="h3 mb-4">Associated Genes (Gene expression) </h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart5">
-                                    <div style="float: right;">
-                                        <form action="{{ url_for('drug.download_express',drug=drug, dataset=dataset) }}" method="POST">
-                                            <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Gene expression</button>
-                                        </form>
+                                <div class="card-body p-4">
+                                    For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}"> pancan </a> data, 10 highest and lowest spearman correlation between gene expression and IC50
+                                    <div  id="chart5">
+                                        <div style="float: right;">
+                                            <form action="{{ url_for('drug.download_express',drug=drug, dataset=dataset) }}" method="POST">
+                                                <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

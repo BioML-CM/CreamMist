@@ -87,16 +87,16 @@ def plot_distribution_ic50(data_list,m,M):
 
     fig.update_layout(showlegend=False)
     fig.update_yaxes(rangemode="tozero", visible=False)
-    fig.update_layout(title='Distribution of IC50')
-    fig['layout'].update({'template': 'simple_white', 'width': 300, 'height': 400})
-    fig.update_xaxes(title_text="Log2 Concentration (uM)")
+    fig.update_layout(title='IC50 Distribution')
+    fig['layout'].update({'template': 'simple_white', 'width': 400, 'height': 500})
+    fig.update_xaxes(title_text="Log2 Concentration (\u03bcM)")
     fig.update_traces(hoverinfo='none', selector=dict(type="scatter",))
     fig.update_traces(hovertemplate ='<b>Bin-range</b> : ' + '%{x}' + '<br><b>Density</b> : ' + '%{y:.2f}',
                       selector=dict(type="histogram",), hoverlabel=dict(bgcolor='#FFF4ED'))
     return fig
 
 def plot_ic_auc_mode(df,type):
-    n=20
+    n=10
     color_list =['#17a2b8', '#ffc107']*(n)
     # color_list =['#59364A','#A65D8C']*(n)  #ef5285
     fig=go.Figure()
@@ -109,7 +109,7 @@ def plot_ic_auc_mode(df,type):
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 
         fig.update_yaxes(title_text="AUC (%)")
-        fig.update_layout(title="Top 20 AUC and last 20 AUC")
+        # fig.update_layout(title="10 highest and lowest AUC")
 
     elif type=='ic50':
         df = pd.concat([df.sort_values('ic50_mode').head(n),df.sort_values('ic50_mode').tail(n)]).drop_duplicates('exp_id').reset_index(drop=True)
@@ -118,8 +118,8 @@ def plot_ic_auc_mode(df,type):
                               hovertemplate='<b>Cell line</b> : %{x} <br>'
                                             '<b>IC50 </b> : %{y:.2f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
-        fig.update_yaxes(title_text="IC50 (Log2 scale)")
-        fig.update_layout(title="Top 20 IC50 and last 20 IC50")
+        fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
+        # fig.update_layout(title="10 highest and lowest IC50")
 
     elif type=='ic90':
         df = pd.concat([df.sort_values('ic90_calculate').head(n),df.sort_values('ic90_calculate').tail(n)]).drop_duplicates('exp_id').reset_index(drop=True)
@@ -128,8 +128,8 @@ def plot_ic_auc_mode(df,type):
                               hovertemplate='<b>Cell line</b> : %{x} <br>'
                                             '<b>IC90 </b> : %{y:.2f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
-        fig.update_yaxes(title_text="IC90 (Log2 scale)")
-        fig.update_layout(title="Top 20 IC90 and last 20 IC90")
+        fig.update_yaxes(title_text="IC90 Log2 Concentration (\u03bcM)")
+        # fig.update_layout(title="10 highest and lowest IC90")
 
     for i in range(df.shape[0]):
         fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
@@ -212,9 +212,9 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s,dosage,response,dataset_plot):
     # fig.add_vline(x=sens[0].ec50_calculate, line_width=1, line_dash="dot", line_color="#59364A")
 
 
-    fig.update_xaxes(title_text="Log2 Concentration (uM)", range=(np.log2(min_dosage)-1, np.log2(max_dosage)+1),
+    fig.update_xaxes(title_text="Log2 Concentration (\u03bcM)", range=(np.log2(min_dosage)-1, np.log2(max_dosage)+1),
                      titlefont_size=18)
     fig.update_yaxes(title_text="Response", range=(-0.3, 1.3), titlefont_size=18)
-    fig.update_layout(title='Logistic Function', titlefont_size=20)
+    fig.update_layout(title='Dose Response Curve', titlefont_size=20)
     fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 500,})
     return fig

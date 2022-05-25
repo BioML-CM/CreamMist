@@ -21,7 +21,7 @@ def plot_ic_auc_mode(df,type):
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 
         fig.update_yaxes(title_text="AUC (%)")
-        fig.update_layout(title="Top 10 and bottom 10 of AUC")
+        # fig.update_layout(title="10 highest and lowest AUC")
 
         # print(type)
     elif type=='ic50':
@@ -31,8 +31,8 @@ def plot_ic_auc_mode(df,type):
                               hovertemplate='<b>Cell line</b> : %{x} <br>'
                                             '<b>IC50 </b> : %{y:.2f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
-        fig.update_yaxes(title_text="IC50 in log2 scale")
-        fig.update_layout(title="Top 10 and bottom 10 of IC50")
+        fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
+        # fig.update_layout(title="10 highest and lowest IC50")
 
     elif type=='ic90':
         df = pd.concat([df.sort_values('ic90_calculate').head(n),df.sort_values('ic90_calculate').tail(n)]).drop_duplicates('exp_id').reset_index(drop=True)
@@ -41,8 +41,8 @@ def plot_ic_auc_mode(df,type):
                               hovertemplate='<b>Cell line</b> : %{x} <br>'
                                             '<b>IC90 </b> : %{y:.2f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
-        fig.update_yaxes(title_text="IC90 in log2 scale")
-        fig.update_layout(title="Top 10 and bottom 10 of IC90")
+        fig.update_yaxes(title_text="IC90 Log2 Concentration (\u03bcM)")
+        # fig.update_layout(title="10 highest and lowest IC90")
 
     for i in range(df.shape[0]):
         fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
@@ -58,14 +58,15 @@ def plot_statistic(df,score):
     fig=go.Figure()
     if score=='statistic':
         df = pd.concat([df.sort_values(score).head(n),df.sort_values(score).tail(n)]).reset_index(drop=True) .drop_duplicates().reset_index()
-        fig.add_traces(go.Bar(x=df['gene'], y = df[score],
+        fig.add_traces(go.Bar(x=df['gene'], y = df[score], customdata=df['pvalue'],
                               marker_color=color_list, width=1, name='',
                               hovertemplate='<b>Drug name</b> : %{x} <br>'
-                                            '<b>Statistic </b> : %{y:.4f}%',
+                                            '<b>effect size </b> : %{y:.4f}<br>'
+                                            '<b>pvalue</b> : ' + '%{customdata:.4f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 
-        fig.update_yaxes(title_text="Statistic")
-        fig.update_layout(title="Top 10 and bottom 10 of mutation")
+        fig.update_yaxes(title_text="Ranksum's Effect Size")
+        # fig.update_layout(title="For pancan data, 10 highest and lowest ranksum's effect size <br>between the presence mutation and IC50")
 
 
 
@@ -73,14 +74,15 @@ def plot_statistic(df,score):
     elif score=='correlation':
         df = pd.concat([df.sort_values(score).head(n),df.sort_values(score).tail(n)]).reset_index(drop=True).drop_duplicates().reset_index()
 
-        fig.add_traces(go.Bar(x=df['gene'], y = df[score],
+        fig.add_traces(go.Bar(x=df['gene'], y = df[score],customdata=df['pvalue'],
                               marker_color=color_list, width=1, name='',
                               hovertemplate='<b>Drug name</b> : %{x} <br>'
-                                            '<b>Correlation </b> : %{y:.4f}',
+                                            '<b>Correlation </b> : %{y:.4f}<br>'
+                                            '<b>pvalue</b> : ' + '%{customdata:.4f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 
-        fig.update_yaxes(title_text="Correlation")
-        fig.update_layout(title="Top 10 and bottom 10 of gene expression")
+        fig.update_yaxes(title_text="Spearman Correlation")
+        # fig.update_layout(title="For pancan data, 10 highest and lowest spearman correlation <br>between gene expression and IC50")
 
     for i in range(df.shape[0]):
         # fig['data'][0]['x'][i] = f"<a href='http://127.0.0.1:5000/gene/{df['dataset'][i]}/{df['gene'][i]}/pancan' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"

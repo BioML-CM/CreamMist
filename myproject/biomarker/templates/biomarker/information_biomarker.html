@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <!-- Listing items-->
-                    <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                    <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
                             <h2 class="h3 mb-4">BioMarker Information : </h2>
                             <b>Gene :</b> <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
@@ -61,6 +61,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6" >
+                            <h2 class="h3 mb-4">Mutation box plot</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4", id="chart3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" >
+                            <h2 class="h3 mb-4">Gene expression scatter plot</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4", id="chart4">
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -77,9 +91,16 @@
         }
         Plotly.plot('chart1', graph1, {})
 
+
         var graph2= {{ graph2Jason | safe}};
-        graph2.config = {'displayModeBar': false}
+        {#graph2.config = {'displayModeBar': false}#}
         Plotly.plot('chart2', graph2, {})
+
+        var graph3= {{ graph3Jason | safe}};
+        Plotly.plot('chart3', graph3, {})
+
+        var graph4= {{ graph4Jason | safe}};
+        Plotly.plot('chart4', graph4, {})
 
     </script>
 

@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <!-- Listing items-->
-                    <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                    <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
                             <h2 class="h3 mb-4">Cancer type Information : <mark style="background: #ffc107"> {{ cancer_type }}</mark></h2>
                             <b> Data set :</b> {{ dataset }}
@@ -51,7 +51,7 @@
                             <h2 class="h3 mb-4">IC50</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    Drug with 10 highest and lowest IC90 across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
+                                    Drug with 10 highest and lowest IC50 across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
                                     <br><br>
                                     <div id="chart1"></div>
                                 </div>
@@ -71,7 +71,7 @@
                             <h2 class="h3 mb-4">AUC</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    Drug with 10 highest and lowest IC90 across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
+                                    Drug with 10 highest and lowest AUC across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
                                     <br><br>
                                     <div id="chart3"></div>
                                 </div>

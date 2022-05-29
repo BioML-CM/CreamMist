@@ -44,3 +44,16 @@ def plot_statistic(df,score):
     fig.update_xaxes(title_text="Drug name")
     return fig
 
+def plot_nodata():
+    # Create figure
+    fig = go.Figure()
+
+    # Configure axes
+    fig.update_xaxes(visible=False,)
+    fig.update_yaxes(visible=False,)
+
+    fig.add_annotation(x=2, y=1, text="No data / less than cut off",showarrow=False,
+                       font=dict(size=18,color="#ef5285"))
+
+    fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
+    return fig

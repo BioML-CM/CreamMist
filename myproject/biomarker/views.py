@@ -13,6 +13,12 @@ import pandas as pd
 import json
 import plotly
 
+import pickle
+
+cancer_dict = pickle.load(open('myproject/biomarker/data/cancer_dict.pickle', 'rb'))
+vaf_df = pd.read_csv('myproject/biomarker/data/mutation.csv', index_col=0)
+gene_express_df = pd.read_csv('myproject/biomarker/data/gene_expression.csv', index_col=0)
+
 
 biomarker_blueprint = Blueprint('biomarker',
                               __name__,template_folder='templates/biomarker')
@@ -83,6 +89,7 @@ def select():  #choose cell line
 
 @biomarker_blueprint.route("/<string:gene>/<string:drug>/<string:cancer_type>",methods=['GET', 'POST'])
 def information_biomarker(gene, drug, cancer_type): #show information cell line
+    # vaf_df = pd.read_csv('myproject/biomarker/data/mutation.csv', index_col=0)
 
     mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug, Mutation.cancer_type == cancer_type)#.all()
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
@@ -116,14 +123,40 @@ def information_biomarker(gene, drug, cancer_type): #show information cell line
         return redirect(url_for('biomarker.information_biomarker', gene=gene, drug=drug, cancer_type=cancer_type))
 
     #plot graph
-    fig_mutation_stat = plot_data.plot_mutation(mutation_df)
-    fig_express_stat = plot_data.plot_expression(express_df)
+    fig_mutation_stat, box_plot, mut_plot = plot_data.plot_mutation(mutation_df)
+    fig_express_stat, scatt_plot, exp_plot = plot_data.plot_expression(express_df)
+    if mut_plot:
+        graph1Jason = json.dumps(fig_mutation_stat, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        graph1Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
 
-    graph1Jason = json.dumps(fig_mutation_stat, cls=plotly.utils.PlotlyJSONEncoder)
-    graph2Jason = json.dumps(fig_express_stat, cls=plotly.utils.PlotlyJSONEncoder)
+    if exp_plot:
+        graph2Jason = json.dumps(fig_express_stat, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        graph2Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
+
+    data = db.session.query(CellLine,Experiment,JagsSampling) \
+        .join(Experiment, Experiment.cellosaurus_id == CellLine.cellosaurus_id)\
+        .join(JagsSampling, JagsSampling.exp_id == Experiment.id).filter(Experiment.standard_drug_name == drug, Experiment.dataset == 'All') #.all()
+    df = pd.read_sql(data.statement, db.session.bind)
+
+    df = df[['cellosaurus_index', 'standard_drug_name','beta0_mode']]
+
+    if box_plot:
+        fig_box_mutation = plot_data.plot_box_mutation(drug,gene,df,vaf_df,cancer_type,cancer_dict)
+        graph3Jason = json.dumps(fig_box_mutation, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        graph3Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
+
+    if scatt_plot:
+        fig_scatter_expression = plot_data.plot_scatter_expression(drug,gene,df,gene_express_df,cancer_type,cancer_dict)
+        graph4Jason = json.dumps(fig_scatter_expression, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        graph4Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
+
 
 
     return render_template('information_biomarker.html', data=mutation_data, graph1Jason=graph1Jason, graph2Jason=graph2Jason,
-                           form=form, gene=gene, drug=drug, cancer_type=cancer_type)
+                           graph3Jason=graph3Jason,graph4Jason=graph4Jason,form=form, gene=gene, drug=drug, cancer_type=cancer_type)
 
 

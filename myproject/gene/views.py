@@ -96,17 +96,20 @@ def information_gene(gene, dataset, cancer_type): #show information cell line
         # score = request.form.get('score')
         return redirect(url_for('gene.information_gene', gene=gene, dataset=dataset, cancer_type=cancer_type))
 
-    # print(df)
+
     #plot graph
+    if mutation_df.shape[0]>0:
+        fig_mutation_stat = plot_data.plot_statistic(mutation_df,'statistic')
+        graph1Jason = json.dumps(fig_mutation_stat, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        graph1Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
 
-    fig_mutation_stat = plot_data.plot_statistic(mutation_df,'statistic')
-    fig_express_stat = plot_data.plot_statistic(express_df,'correlation')
+    if express_df.shape[0]>0:
+        fig_express_stat = plot_data.plot_statistic(express_df,'correlation')
+        graph2Jason = json.dumps(fig_express_stat, cls=plotly.utils.PlotlyJSONEncoder)
+    else:
+        graph2Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
 
-
-    graph1Jason = json.dumps(fig_mutation_stat, cls=plotly.utils.PlotlyJSONEncoder)
-    # graph2Jason = json.dumps(fig_mutation_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)
-    graph2Jason = json.dumps(fig_express_stat, cls=plotly.utils.PlotlyJSONEncoder)
-    # graph4Jason = json.dumps(fig_express_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)
 
 
     return render_template('information_gene.html', data=mutation_data, form=form, graph1Jason=graph1Jason ,graph2Jason=graph2Jason ,

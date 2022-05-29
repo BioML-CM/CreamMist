@@ -1,7 +1,3 @@
-,gene,standard_drug_name,dataset,cancer_type,correlation,pvalue,n_cell_line
-0,ARFGEF1,ML090,All,pancan,0.38961,0.0808379,21
-1,ARFGEF1,trans-C 75,All,pancan,-0.453247,0.0390667,21
-2,ARFGEF1,"racemic-2,4-dideoxy-DC-45-A2",All,pancan,-0.264511,0.00379791,118
-3,ARFGEF1,BRD2762,All,pancan,-0.201264,0.034161,111
-4,ARFGEF1,nimodipine,All,pancan,-0.201638,0.0500565,95
-5,ARFGEF1,BRD1566,All,pancan,-0.211665,0.0831365,68
+version https://git-lfs.github.com/spec/v1
+oid sha256:8fcc33341c46cc78e5efb3d9e3c319d8fce839059c906edb9543c9dc3da7ea08
+size 415

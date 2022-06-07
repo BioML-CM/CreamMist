@@ -53,7 +53,7 @@ def plot_nodata():
     fig.update_yaxes(visible=False,)
 
     fig.add_annotation(x=2, y=1, text="No data / less than cut off",showarrow=False,
-                       font=dict(size=18,color="#ef5285"))
+                       font=dict(size=18,color="#6c757d"))
 
     fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
     return fig

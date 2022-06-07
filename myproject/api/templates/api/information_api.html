@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+
+{% block content %}
+{#    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">#}
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{#    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>#}
+{#    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>#}
+
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row gy-5">
+                <!-- Listing-->
+                <div class="col-lg-12 order-1 order-lg-2">
+                    <!-- Listing sorting-->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-12 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                            <div class="card-body p-lg-5">
+                                <h4>Information card </h4>
+{#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
+{#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
+
+                                <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                                <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
+
+                                <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                                <label class="form-check-label" for="chk3">Gene expression</label>&nbsp;<br><br>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Listing items-->
+{#                    <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">#}
+{#                        <div class="card-body p-lg-5" id="content1">#}
+{#                            <h2 class="h3 mb-4">Gene Information : <mark style="background: #ffc107">{{ gene }} </mark></h2>#}
+{##}
+{#                        </div>#}
+{#                    </div>#}
+                    <div class="row mb-4 gy-4">
+                        <!-- Gallery-->
+                        <div class="col-lg-6" id="content1">
+                            <h2 class="h5 mb-4"> <span style="color:#17a2b8"> GET </span> api/celllines</h2>
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body p-4" id="result-1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6" id="content2">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/celllines/{cellosaurus_id}</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4" id="result-2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content3">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/cancertypes</h2>
+                            <div class="card shadow-sm border-0 " >
+                                <div class="card-body p-4" >
+                                    ["adrenal_gland", "autonomic_ganglia", "biliary_tract", "bone", "breast", "central_nervous_system", "cervix",
+                                    "endometrium", "eye", "haematopoietic_and_lymphoid_tissue", "kidney", "large_intestine", "liver", "lung", "ns",
+                                    "oesophagus", "ovary", "pancreas", "placenta", "pleura", "prostate", "salivary_gland", "skin", "small_intestine",
+                                    "soft_tissue", "stomach", "testis", "thyroid", "upper_aerodigestive_tract", "urinary_tract", "vulva", "pancan"]
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content4">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/cancertypes/{cancer_type>}</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4" >
+                                    ["C-33A", "C-4-I", "CASKI", "DOTC24510", "HELA", "HT-3", "ME-180", "MS751", "OMC-1[HUMANCERVICALCARCINOMA]", "SIHA",
+                                    "SISO", "SKG-IIIA", "SW756", "TC-YIK"]
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content5">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/experiments/{cellosaurus_id}/<br>{standard_drug_name}</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4" id="result-5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content6">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/drugs</h2>
+                            <div class="card shadow-sm border-0 " >
+                                <div class="card-body p-4" id="result-6">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content7">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/drugs/{standard_drug_name}</h2>
+                            <div class="card shadow-sm border-0 " >
+                                <div class="card-body p-4" id="result-7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content8">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/genes</h2>
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body p-4" >
+                                    ["A1BG", "A1BG-AS1", "A1CF", "A2M", "A2M-AS1", "A2ML1", "A2ML1-AS1", "A2ML1-AS2", "A2MP1", "A3GALT2", "A4GALT", "A4GNT",
+                                    "AAAS", "AACS", "AACSP1", "AADAC", "AADACL2", "AADACL2-AS1", "AADACL3", "AADACL4", "AADACP1", "AADAT", "AAGAB", "AAK1",
+                                    "AAMDC", "AAMP", "AANAT", "AAR2", "AARD", "AARS1", "AARS1P1", "AARS2", "AARSD1", "AASDH", "AASDHPPT", "AASS", "AATBC",...]
+                               </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content9">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/gene/<br>{gene}/{pos|neg}/{n_top}</h2>
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body p-4" id="result-9">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content10">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/drug/<br>{standard_drug_name}/{pos|neg}/{n_top}</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4" id="result-10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content11">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/info/<br>{gene}/{standard_drug_name}</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4" id="result-11">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content12">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/mutation/{cellosaurus_id}</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4" id="result-12">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="content13">
+                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/expression/{cellosaurus_id}</h2>
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-4" id="result-13">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- #### for show/hide div -->
+
+    <script type="text/javascript">
+        var first = true;
+        $('input[type="checkbox"][name^=chk]').change(function () {
+            var $target = $('#content' + this.id.replace('chk', '')).toggle(this.checked);
+            if (first) {
+                $('p[id^=content]').not($target).hide();
+                first = false;
+            }
+        })
+    </script>
+
+    <script>
+        var jsonObj1 = [{
+            "cellosaurus_id": "1321N1",
+            "cellosaurus_index": "CVCL_0110",
+            "ccle_name": "1321N1_CENTRAL_NERVOUS_SYSTEM",
+            "ctrp1_name": "",
+            "ctrp2_name": "1321N1",
+            "gdsc1_name": "",
+            "gdsc2_name": "",
+            "site": "central_nervous_system"
+        },
+            {
+                "cellosaurus_id": "143B",
+                "cellosaurus_index": "CVCL_2270",
+                "ccle_name": "143B_BONE",
+                "ctrp1_name": "",
+                "ctrp2_name": "143B",
+                "gdsc1_name": "",
+                "gdsc2_name": "",
+                "site": "bone"
+            }
+        ];
+        var jsonObj2 = [{
+            "cellosaurus_id": "1321N1",
+            "standard_drug_name": "AEW541",
+            "dataset": "All",
+            "info": "CCLE"
+        },
+            {
+                "cellosaurus_id": "1321N1",
+                "standard_drug_name": "AEW541",
+                "dataset": "CCLE",
+                "info": "CCLE"
+            },
+            {
+                "cellosaurus_id": "1321N1",
+                "standard_drug_name": "Crizotinib",
+                "dataset": "All",
+                "info": "CCLE"
+            },
+        ];
+
+        {#var jsonObj4 =["201T", "A-427", "A-549", "ABC-1", "ABC1", "BEN", "CAL-12T", "CALU-1", "CALU-3", "CALU-6", "CHAGO-K-1", "COLO668", ... ];#}
+
+        var jsonObj5 = [ {
+            "cellosaurus_id": "A-172",
+            "standard_drug_name": "Lapatinib",
+            "dataset": "CCLE",
+            "info": "CCLE",
+            "n_dosage": 8,
+            "min_dosage": 0.0025,
+            "max_dosage": 8.0,
+            "dose_response": [
+                [
+                    0.0025,
+                    -0.0348
+                ],
+                [
+                    0.008,
+                    -0.0118
+                ],
+                [
+                    0.025,
+                    -0.002
+                ],
+                [
+                    0.08,
+                    -0.0258
+                ],
+                [
+                    0.25,
+                    0.046
+                ],
+                [
+                    0.8,
+                    0.021
+                ],
+                [
+                    2.53,
+                    0.08
+                ],
+                [
+                    8.0,
+                    0.042
+                ]
+            ],
+            "IC50": 5.72259,
+            "IC90": 8.71137,
+            "EC50": 1.96821,
+            "Einf": 0.119041,
+            "AUC": 1.48035,
+            "fitted_mae": 0.0308152
+        },
+        ];
+        var jsonObj6 =[{
+            "standard_drug_name": "(-)-gallocatechin-3-monogallate",
+            "synonyms": "gallocatechin gallate;L-GCG;GCG",
+            "target": "",
+            "pathway": "natural product",
+            "ccle_drug_name": "",
+            "ctrp1_drug_name": "(-)-gallocatechin-3-monogallate",
+            "ctrp2_drug_name": "",
+            "gdsc1_drug_name": "",
+            "gdsc2_drug_name": ""
+        },
+            {
+                "standard_drug_name": "(5Z)-7-Oxozeaenol",
+                "synonyms": "5Z-7-Oxozeaenol, LL-Z1640-2",
+                "target": "TAK1",
+                "pathway": "Other, kinases",
+                "ccle_drug_name": "",
+                "ctrp1_drug_name": "",
+                "ctrp2_drug_name": "",
+                "gdsc1_drug_name": "(5Z)-7-Oxozeaenol",
+                "gdsc2_drug_name": ""
+            },
+        ];
+        var jsonObj7 =[{
+            "standard_drug_name": "Lapatinib",
+            "cellosaurus_id": "1321N1",
+            "dataset": "CCLE",
+            "info": "CCLE"
+        },
+            {
+                "standard_drug_name": "Lapatinib",
+                "cellosaurus_id": "22RV1",
+                "dataset": "CCLE",
+                "info": "CCLE"
+            },
+            {
+                "standard_drug_name": "Lapatinib",
+                "cellosaurus_id": "42-MG-BA",
+                "dataset": "CCLE",
+                "info": "CCLE"
+            },
+        ];
+        {#var jsonObj8 = [#}
+        {#    "A1BG", "A1BG-AS1", "A1CF", "A2M", "A2M-AS1", "A2ML1", "A2ML1-AS1", "A2ML1-AS2", "A2MP1", "A3GALT2", "A4GALT", "A4GNT"#}
+        {#];#}
+        var jsonObj9 = [{
+            "standard_drug_name": "GSK-J4",
+            "gene": "EGFR",
+            "dataset": "All",
+            "cancer_type": "pancan",
+            "correlation": 0.557032,
+            "pvalue": 0.0000000453,
+            "n_cell_line": 83
+        },
+            {
+                "standard_drug_name": "decitabine:carboplatin (1:1 mol/mol)",
+                "gene": "EGFR",
+                "dataset": "All",
+                "cancer_type": "pancan",
+                "correlation": 0.514214,
+                "pvalue": 0.0,
+                "n_cell_line": 756
+            },
+            {
+                "standard_drug_name": "PJ 34",
+                "gene": "EGFR",
+                "dataset": "All",
+                "cancer_type": "pancan",
+                "correlation": 0.512775,
+                "pvalue": 0.000101626,
+                "n_cell_line": 52
+            },
+        ];
+        var jsonObj10 =[{
+            "standard_drug_name": "Lapatinib",
+            "gene": "POLR2L",
+            "dataset": "All",
+            "cancer_type": "pancan",
+            "correlation": 0.341148,
+            "pvalue": 3.41234e-32,
+            "n_cell_line": 1130
+        },
+            {
+                "standard_drug_name": "Lapatinib",
+                "gene": "ITGB1P1",
+                "dataset": "All",
+                "cancer_type": "pancan",
+                "correlation": 0.340583,
+                "pvalue": 4.37009e-32,
+                "n_cell_line": 1130
+            },
+            {
+                "standard_drug_name": "Lapatinib",
+                "gene": "LAMC1-AS1",
+                "dataset": "All",
+                "cancer_type": "pancan",
+                "correlation": 0.339988,
+                "pvalue": 5.66813e-32,
+                "n_cell_line": 1130
+            },
+        ];
+        var jsonObj11 ={
+            "standard_drug_name": "Lapatinib",
+            "gene": "EGFR",
+            "dataset": "All",
+            "cancer_type": "pancan",
+            "effect_size": -0.845786,
+            "pvalue": 0.397672,
+            "n_mut": 106,
+            "n_wt": 981
+        };
+        var jsonObj12 =[{
+            "gene": "GIMAP1",
+            "values": 0.0
+        },
+            {
+                "gene": "SUSD3",
+                "values": 0.0
+            },
+            {
+                "gene": "TBC1D17",
+                "values": 0.0
+            },
+            {
+                "gene": "DYM",
+                "values": 0.0
+            },
+            {
+                "gene": "FAM184A",
+                "values": 0.0
+            },
+        ];
+        var jsonObj13 =[{
+            "gene": "A1BG",
+            "values": 1.5
+        },
+            {
+                "gene": "A1BG-AS1",
+                "values": 7.78
+            },
+            {
+                "gene": "A1CF",
+                "values": 0.04
+            },
+            {
+                "gene": "A2M",
+                "values": 0.04
+            },
+            {
+                "gene": "A2M-AS1",
+                "values": 0.0
+            },
+        ];
+
+        document.getElementById("result-1").innerHTML = "<pre>"+JSON.stringify(jsonObj1,null, 4) +"</pre>"
+        document.getElementById("result-2").innerHTML = "<pre>"+JSON.stringify(jsonObj2,null, 4) +"</pre>"
+        {#document.getElementById("result-3").innerHTML = "<pre>"+JSON.stringify(jsonObj3) +"</pre>"#}
+        {#document.getElementById("result-4").innerHTML = "<pre>"+JSON.stringify(jsonObj4) +"</pre>"#}
+        document.getElementById("result-5").innerHTML = "<pre>"+JSON.stringify(jsonObj5,null, 4) +"</pre>"
+        document.getElementById("result-6").innerHTML = "<pre>"+JSON.stringify(jsonObj6,null, 4) +"</pre>"
+        document.getElementById("result-7").innerHTML = "<pre>"+JSON.stringify(jsonObj7,null, 4) +"</pre>"
+        {#document.getElementById("result-8").innerHTML = "<pre>"+JSON.stringify(jsonObj8) +"</pre>"#}
+        document.getElementById("result-9").innerHTML = "<pre>"+JSON.stringify(jsonObj9,null, 4) +"</pre>"
+        document.getElementById("result-10").innerHTML = "<pre>"+JSON.stringify(jsonObj10,null, 4) +"</pre>"
+        document.getElementById("result-11").innerHTML = "<pre>"+JSON.stringify(jsonObj11,null, 4) +"</pre>"
+        document.getElementById("result-12").innerHTML = "<pre>"+JSON.stringify(jsonObj12,null, 4) +"</pre>"
+        document.getElementById("result-13").innerHTML = "<pre>"+JSON.stringify(jsonObj13,null, 4) +"</pre>"
+    </script>
+
+
+{% endblock %}

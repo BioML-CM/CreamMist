@@ -323,3 +323,18 @@ class GeneSimilarity(db.Model):
         self.gene_x = gene_x
         self.gene_y = gene_y
         self.similarity = similarity
+
+class MutExpMetadata(db.Model):
+    __tablename__ = 'mut_exp_metadata'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    cellosaurus_index = db.Column(db.String(64))
+    gene = db.Column(db.String(64))
+    values = db.Column(db.Float)
+    score = db.Column(db.String(64))
+
+    def __init__(self, cellosaurus_index, gene, values, score):
+        self.cellosaurus_index = cellosaurus_index
+        self.gene = gene
+        self.values = values
+        self.score = score

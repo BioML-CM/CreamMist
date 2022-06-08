@@ -39,7 +39,7 @@
                     <!-- Listing items-->
                     <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h3 mb-4">BioMarker Information : </h2>
+                            <h2 class="h4 mb-4">BioMarker Information : </h2>
                             <b>Gene :</b> <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
                             <b>Drug Name :</b> <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
                             <b>Cancer type :</b> <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>
@@ -48,28 +48,28 @@
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
                         <div class="col-lg-6" id="content2">
-                            <h2 class="h3 mb-4">Mutation</h2>
+                            <h2 class="h4 mb-4">Mutation</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4", id="chart1">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" id="content3">
-                            <h2 class="h3 mb-4">Gene expression</h2>
+                            <h2 class="h4 mb-4">Gene expression</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4", id="chart2">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" >
-                            <h2 class="h3 mb-4">Mutation box plot</h2>
+                            <h2 class="h4 mb-4">Mutation box plot</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4", id="chart3">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" >
-                            <h2 class="h3 mb-4">Gene expression scatter plot</h2>
+                            <h2 class="h4 mb-4">Gene expression scatter plot</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4", id="chart4">
                                 </div>

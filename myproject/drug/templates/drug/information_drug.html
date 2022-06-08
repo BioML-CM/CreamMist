@@ -65,7 +65,7 @@
                     <!-- Listing items-->
                     <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h3 mb-4">Drug Information : <mark style="background: #ffc107">{{ drug_info.standard_drug_name  }}</mark></h2>
+                            <h2 class="h4 mb-4">Drug Information : <mark style="background: #ffc107">{{ drug_info.standard_drug_name  }}</mark></h2>
                             <p>
                             {% for i in name_list %}
                                 <b>{{ i[0][0] }}</b>
@@ -86,7 +86,7 @@
                         <!-- Gallery-->
                         <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                             <div class="card-body p-lg-5" id="content2">
-                                <h2 class="h3 mb-4">Experiment Information</h2>
+                                <h2 class="h4 mb-4">Experiment Information</h2>
                                 <div class="rounded overflow-hidden mb-3">
                                     <table id="data" class="table table-striped">
                                         <thead>
@@ -117,7 +117,7 @@
                         </div>
 
                         <div class="col-lg-6" id="content3">
-                            <h2 class="h3 mb-4">IC50</h2>
+                            <h2 class="h4 mb-4">IC50</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     10 highest and lowest IC50
@@ -127,7 +127,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6" id="content4">
-                            <h2 class="h3 mb-4">IC90</h2>
+                            <h2 class="h4 mb-4">IC90</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     10 highest and lowest IC90
@@ -137,7 +137,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6" id="content5">
-                            <h2 class="h3 mb-4">AUC</h2>
+                            <h2 class="h4 mb-4">AUC</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     10 highest and lowest AUC
@@ -151,7 +151,7 @@
                         </div>
 
                         <div class="col-lg-6" id="content6">
-                            <h2 class="h3 mb-4">Associated Genes (Mutation)</h2>
+                            <h2 class="h4 mb-4">Associated Genes (Mutation)</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}"> pancan </a> data, 10 highest and lowest ranksum's effect size <br>between the presence mutation and IC50
@@ -168,7 +168,7 @@
                         </div>
 
                         <div class="col-lg-6" id="content7">
-                            <h2 class="h3 mb-4">Associated Genes (Gene expression) </h2>
+                            <h2 class="h4 mb-4">Associated Genes (Gene expression) </h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}"> pancan </a> data, 10 highest and lowest spearman correlation between gene expression and IC50

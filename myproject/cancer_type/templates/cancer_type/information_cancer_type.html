@@ -41,14 +41,14 @@
                     <!-- Listing items-->
                     <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h3 mb-4">Cancer type Information : <mark style="background: #ffc107"> {{ cancer_type }}</mark></h2>
+                            <h2 class="h4 mb-4">Cancer type Information : <mark style="background: #ffc107"> {{ cancer_type }}</mark></h2>
                             <b> Data set :</b> {{ dataset }}
                         </div>
                     </div>
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
                         <div class="col-lg-6" id="content2">
-                            <h2 class="h3 mb-4">IC50</h2>
+                            <h2 class="h4 mb-4">IC50</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     Drug with 10 highest and lowest IC50 across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6" id="content3">
-                            <h2 class="h3 mb-4">IC90</h2>
+                            <h2 class="h4 mb-4">IC90</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     Drug with 10 highest and lowest IC90 across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6" id="content4">
-                            <h2 class="h3 mb-4">AUC</h2>
+                            <h2 class="h4 mb-4">AUC</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     Drug with 10 highest and lowest AUC across all cell line in <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>

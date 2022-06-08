@@ -38,7 +38,7 @@
                     <!-- Listing items-->
                     <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h3 mb-4">Gene Information : <mark style="background: #ffc107">{{ gene }} </mark></h2>
+                            <h2 class="h4 mb-4">Gene Information : <mark style="background: #ffc107">{{ gene }} </mark></h2>
                             <b> Gene :</b> <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
                             <b>Dataset :</b> {{ dataset }}<br>
                             <b>Cancer type :</b> <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a>
@@ -47,7 +47,7 @@
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
                         <div class="col-lg-6" id="content2">
-                            <h2 class="h3 mb-4">Associated Drugs (Mutation)</h2>
+                            <h2 class="h4 mb-4">Associated Drugs (Mutation)</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a> data, 10 highest and lowest ranksum's effect size between the presence mutation and IC50
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6" id="content3">
-                            <h2 class="h3 mb-4">Associated Drugs (Gene expression)</h2>
+                            <h2 class="h4 mb-4">Associated Drugs (Gene expression)</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a> data, 10 highest and lowest spearman correlation between gene expression and IC50

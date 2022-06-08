@@ -23,10 +23,10 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
                     <p class="h6 text-uppercase text-primary mb-3">CANCER TYPE</p>
-                    <h1 class="mb-5">Select cancer type</h1>
+                    <h2 class="mb-5">Search by cancer type</h2>
                     <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('cancer_type.select') }}"  method="POST">
                         <div class="input-group">
-                            {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="Select cancer type...")}} <br>
+                            {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="For example, pancan")}} <br>
 
                             <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
                         </div>

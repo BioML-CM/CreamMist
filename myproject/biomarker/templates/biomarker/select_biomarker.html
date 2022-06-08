@@ -23,11 +23,11 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
                     <p class="h6 text-uppercase text-primary mb-3">BIOMARKER</p>
-                    <h1 class="mb-5">Select gene name and drug name</h1>
+                    <h2 class="mb-5">Search by gene name and drug name</h2>
                     <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('biomarker.select') }}"  method="POST">
 {#                        <div class="input-group">#}
-                            {{ form.gene_name(class="form-control border-1 me-2 shadow-0",placeholder="Select gene name...")}} <br>
-                            {{ form.drug_name(class="form-control border-1 me-2 shadow-0",placeholder="Select drug name...")}} <br>
+                            {{ form.gene_name(class="form-control border-1 me-2 shadow-0",placeholder="Gene : For example, EGFR")}} <br>
+                            {{ form.drug_name(class="form-control border-1 me-2 shadow-0",placeholder="Drug : For example, Lapatinib")}} <br>
                             <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
 {#                        </div>#}
                         <script>

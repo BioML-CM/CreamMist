@@ -34,6 +34,7 @@ from myproject.cancer_type.views import cancer_type_blueprint
 from myproject.biomarker.views import biomarker_blueprint
 from myproject.gene.views import gene_blueprint
 from myproject.api.views import api_blueprint
+from myproject.doc.views import doc_blueprint
 
 app.register_blueprint(cell_line_blueprint,url_prefix="/cell_line")
 app.register_blueprint(drug_blueprint,url_prefix="/drug")
@@ -41,6 +42,7 @@ app.register_blueprint(cancer_type_blueprint,url_prefix="/cancer_type")
 app.register_blueprint(biomarker_blueprint,url_prefix="/biomarker")
 app.register_blueprint(gene_blueprint,url_prefix="/gene")
 app.register_blueprint(api_blueprint,url_prefix="/api")
+app.register_blueprint(doc_blueprint,url_prefix="/doc")
 
 # from myproject.cell_line.views_test import cell_line_search_blueprint
 # app.register_blueprint(cell_line_search_blueprint,url_prefix="/cell_line_search")

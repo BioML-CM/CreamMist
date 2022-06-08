@@ -10,134 +10,139 @@
         <div class="container py-5">
             <div class="row gy-5">
                 <!-- Listing-->
-                <div class="col-lg-12 order-1 order-lg-2">
-                    <!-- Listing sorting-->
-                    <div class="row mb-4 align-items-center">
-                        <div class="col-md-12 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
-                            <div class="card-body p-lg-5">
-                                <h4>Information card </h4>
-{#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
-{#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
-
-                                <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
-                                <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
-
-                                <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
-                                <label class="form-check-label" for="chk3">Gene expression</label>&nbsp;<br><br>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Listing items-->
-{#                    <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">#}
-{#                        <div class="card-body p-lg-5" id="content1">#}
-{#                            <h2 class="h3 mb-4">Gene Information : <mark style="background: #ffc107">{{ gene }} </mark></h2>#}
-{##}
-{#                        </div>#}
-{#                    </div>#}
-                    <div class="row mb-4 gy-4">
-                        <!-- Gallery-->
-                        <div class="col-lg-6" id="content1">
-                            <h2 class="h5 mb-4"> <span style="color:#17a2b8"> GET </span> api/celllines</h2>
-                            <div class="card shadow-sm border-0">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <div class=" mb-4 p-2" id="content1">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/celllines</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/celllines </span>
                                 <div class="card-body p-4" id="result-1">
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-6" id="content2">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/celllines/{cellosaurus_id}</h2>
-                            <div class="card shadow-sm border-0 ">
+                    </div>
+                    <div class=" mb-4 p-2" id="content2">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/celllines/{cellosaurus_id}</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/celllines/1321N1 </span>
                                 <div class="card-body p-4" id="result-2">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content3">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/cancertypes</h2>
-                            <div class="card shadow-sm border-0 " >
-                                <div class="card-body p-4" >
-                                    ["adrenal_gland", "autonomic_ganglia", "biliary_tract", "bone", "breast", "central_nervous_system", "cervix",
-                                    "endometrium", "eye", "haematopoietic_and_lymphoid_tissue", "kidney", "large_intestine", "liver", "lung", "ns",
-                                    "oesophagus", "ovary", "pancreas", "placenta", "pleura", "prostate", "salivary_gland", "skin", "small_intestine",
-                                    "soft_tissue", "stomach", "testis", "thyroid", "upper_aerodigestive_tract", "urinary_tract", "vulva", "pancan"]
+                    </div>
+                    <div class=" mb-4 p-2" id="content3">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/cancertypes</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/cancertypes </span>
+                                <div class="card-body p-4" id="result-3">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content4">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/cancertypes/{cancer_type>}</h2>
-                            <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4" >
-                                    ["C-33A", "C-4-I", "CASKI", "DOTC24510", "HELA", "HT-3", "ME-180", "MS751", "OMC-1[HUMANCERVICALCARCINOMA]", "SIHA",
-                                    "SISO", "SKG-IIIA", "SW756", "TC-YIK"]
+                    </div>
+                    <div class=" mb-4 p-2" id="content4">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/cancertypes/{cancer_type}</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/cancertypes/stomach </span>
+                                <div class="card-body p-4" id="result-4">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content5">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/experiments/{cellosaurus_id}/<br>{standard_drug_name}</h2>
-                            <div class="card shadow-sm border-0 ">
+                    </div>
+                    <div class=" mb-4 p-2" id="content5">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/experiments/{cellosaurus_id}/<br>{standard_drug_name}</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/experiments/1321N1/Lapatinib </span>
                                 <div class="card-body p-4" id="result-5">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content6">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/drugs</h2>
-                            <div class="card shadow-sm border-0 " >
+                    </div>
+                    <div class=" mb-4 p-2" id="content6">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/drugs</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/drugs </span>
                                 <div class="card-body p-4" id="result-6">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content7">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/drugs/{standard_drug_name}</h2>
-                            <div class="card shadow-sm border-0 " >
+                    </div>
+
+                </div>
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <div class=" mb-4 p-2" id="content7">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/drugs/{standard_drug_name}</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/drugs/Lapatinib </span>
                                 <div class="card-body p-4" id="result-7">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content8">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/genes</h2>
-                            <div class="card shadow-sm border-0">
-                                <div class="card-body p-4" >
-                                    ["A1BG", "A1BG-AS1", "A1CF", "A2M", "A2M-AS1", "A2ML1", "A2ML1-AS1", "A2ML1-AS2", "A2MP1", "A3GALT2", "A4GALT", "A4GNT",
-                                    "AAAS", "AACS", "AACSP1", "AADAC", "AADACL2", "AADACL2-AS1", "AADACL3", "AADACL4", "AADACP1", "AADAT", "AAGAB", "AAK1",
-                                    "AAMDC", "AAMP", "AANAT", "AAR2", "AARD", "AARS1", "AARS1P1", "AARS2", "AARSD1", "AASDH", "AASDHPPT", "AASS", "AATBC",...]
-                               </div>
+                    </div>
+                    <div class=" mb-4 p-2" id="content8">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/genes</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/genes </span>
+                                <div class="card-body p-4" id="result-8">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content9">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/gene/<br>{gene}/{pos|neg}/{n_top}</h2>
-                            <div class="card shadow-sm border-0">
+                    </div>
+                    <div class=" mb-4 p-2" id="content9">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/gene/<br>{gene}/{pos|neg}/{n_top}</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/biomarker/exp/pancan/gene/EGFR/pos/10 </span>
                                 <div class="card-body p-4" id="result-9">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content10">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/drug/<br>{standard_drug_name}/{pos|neg}/{n_top}</h2>
-                            <div class="card shadow-sm border-0 ">
+                    </div>
+                    <div class=" mb-4 p-2" id="content10">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/drug/<br>{standard_drug_name}/{pos|neg}/{n_top}</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/biomarker/exp/pancan/drug/Lapatinib/pos/10 </span>
                                 <div class="card-body p-4" id="result-10">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content11">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/info/<br>{gene}/{standard_drug_name}</h2>
-                            <div class="card shadow-sm border-0 ">
+                    </div>
+                    <div class=" mb-4 p-2" id="content11">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/info/<br>{gene}/{standard_drug_name}</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/biomarker/mut/pancan/info/EGFR/Lapatinib </span>
                                 <div class="card-body p-4" id="result-11">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content12">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/mutation/{cellosaurus_id}</h2>
-                            <div class="card shadow-sm border-0 ">
+                    </div>
+                    <div class=" mb-4 p-2" id="content12">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span>api/mutation/{cellosaurus_id} </h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/mutation/A-172 </span>
                                 <div class="card-body p-4" id="result-12">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="content13">
-                            <h2 class="h5 mb-4"><span style="color:#17a2b8"> GET </span> api/expression/{cellosaurus_id}</h2>
-                            <div class="card shadow-sm border-0 ">
+                    </div>
+                    <div class=" mb-4 p-2" id="content13">
+                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/expression/{cellosaurus_id}</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/expression/A-172 </span>
                                 <div class="card-body p-4" id="result-13">
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -200,59 +205,143 @@
                 "info": "CCLE"
             },
         ];
+        var jsonObj3={
+            "cancer_types": [
+                "adrenal_gland",
+                "autonomic_ganglia",
+                "biliary_tract",
+                "bone",
+                "breast",
+                "central_nervous_system",
+                "cervix",
+                "endometrium",
+                "eye",
+                "haematopoietic_and_lymphoid_tissue",
+                "kidney",
+                "large_intestine",
+                "liver",
+                "lung",
+                "ns",
+                "oesophagus",
+                "ovary",
+                "pancreas",
+                "placenta",
+                "pleura",
+                "prostate",
+                "salivary_gland",
+                "skin",
+                "small_intestine",
+                "soft_tissue",
+                "stomach",
+                "testis",
+                "thyroid",
+                "upper_aerodigestive_tract",
+                "urinary_tract",
+                "vulva",
+                "pancan"
+            ]
+        };
+        var jsonObj4 ={
+            "cell_lines": [
+                "23132/87",
+                "AGS",
+                "AZ-521",
+                "BGC-823",
+                "ECC10",
+                "ECC12",
+                "FU97",
+                "GCIY",
+                "GSS",
+                "GSU",
+                "GT3TKB",
+                "HGC-27",
+                "HS746.T",
+                "HSC-39",
+                "HUG1-N",
+                "IM95",
+                "KATOIII",
+                "KE-39",
+                "LMSU",
+                "MKN1",
+                "MKN28",
+                "MKN45",
+                "MKN7",
+                "MKN74",
+                "NCC-STC-K140",
+                "NCI-N87",
+                "NUGC-2",
+                "NUGC-3",
+                "NUGC-4",
+                "OCUM-1",
+                "RERF-GC-1B",
+                "RF-48",
+                "SCH",
+                "SH-10-TC",
+                "SK-GT-2",
+                "SNU-1",
+                "SNU-16",
+                "SNU-216",
+                "SNU-5",
+                "SNU-520",
+                "SNU-601",
+                "SNU-620",
+                "SNU-668",
+                "SNU-719",
+                "TGBC11TKB",
+                "TMK-1"
+            ]
+        };
 
-        {#var jsonObj4 =["201T", "A-427", "A-549", "ABC-1", "ABC1", "BEN", "CAL-12T", "CALU-1", "CALU-3", "CALU-6", "CHAGO-K-1", "COLO668", ... ];#}
-
-        var jsonObj5 = [ {
-            "cellosaurus_id": "A-172",
-            "standard_drug_name": "Lapatinib",
-            "dataset": "CCLE",
-            "info": "CCLE",
-            "n_dosage": 8,
-            "min_dosage": 0.0025,
-            "max_dosage": 8.0,
-            "dose_response": [
-                [
-                    0.0025,
-                    -0.0348
+        var jsonObj5 = [
+            {
+                "cellosaurus_id": "1321N1",
+                "standard_drug_name": "Lapatinib",
+                "dataset": "All",
+                "info": "CCLE",
+                "n_dosage": 8,
+                "min_dosage": 0.0025,
+                "max_dosage": 8.0,
+                "dose_response": [
+                    [
+                        0.0025,
+                        -0.0684
+                    ],
+                    [
+                        0.008,
+                        0.078
+                    ],
+                    [
+                        0.025,
+                        -0.0808
+                    ],
+                    [
+                        0.08,
+                        -0.112
+                    ],
+                    [
+                        0.25,
+                        -0.0153
+                    ],
+                    [
+                        0.8,
+                        0.095
+                    ],
+                    [
+                        2.53,
+                        0.11
+                    ],
+                    [
+                        8.0,
+                        0.21
+                    ]
                 ],
-                [
-                    0.008,
-                    -0.0118
-                ],
-                [
-                    0.025,
-                    -0.002
-                ],
-                [
-                    0.08,
-                    -0.0258
-                ],
-                [
-                    0.25,
-                    0.046
-                ],
-                [
-                    0.8,
-                    0.021
-                ],
-                [
-                    2.53,
-                    0.08
-                ],
-                [
-                    8.0,
-                    0.042
-                ]
-            ],
-            "IC50": 5.72259,
-            "IC90": 8.71137,
-            "EC50": 1.96821,
-            "Einf": 0.119041,
-            "AUC": 1.48035,
-            "fitted_mae": 0.0308152
-        },
-        ];
+                "IC50": 4.65995,
+                "IC90": 8.61,
+                "EC50": 1.42824,
+                "Einf": 0.284276,
+                "AUC": 5.15445,
+                "fitted_mae": 0.0659728
+            }];
         var jsonObj6 =[{
             "standard_drug_name": "(-)-gallocatechin-3-monogallate",
             "synonyms": "gallocatechin gallate;L-GCG;GCG",
@@ -295,9 +384,45 @@
                 "info": "CCLE"
             },
         ];
-        {#var jsonObj8 = [#}
-        {#    "A1BG", "A1BG-AS1", "A1CF", "A2M", "A2M-AS1", "A2ML1", "A2ML1-AS1", "A2ML1-AS2", "A2MP1", "A3GALT2", "A4GALT", "A4GNT"#}
-        {#];#}
+        var jsonObj8 = {
+            "genes": [
+                "A1BG",
+                "A1BG-AS1",
+                "A1CF",
+                "A2M",
+                "A2M-AS1",
+                "A2ML1",
+                "A2ML1-AS1",
+                "A2ML1-AS2",
+                "A2MP1",
+                "A3GALT2",
+                "A4GALT",
+                "A4GNT",
+                "AAAS",
+                "AACS",
+                "AACSP1",
+                "AADAC",
+                "AADACL2",
+                "AADACL2-AS1",
+                "AADACL3",
+                "AADACL4",
+                "AADACP1",
+                "AADAT",
+                "AAGAB",
+                "AAK1",
+                "AAMDC",
+                "AAMP",
+                "AANAT",
+                "AAR2",
+                "AARD",
+                "AARS1",
+                "AARS1P1",
+                "AARS2",
+                "AARSD1",
+                "AASDH",
+                "AASDHPPT",
+                "AASS","..."]
+        };
         var jsonObj9 = [{
             "standard_drug_name": "GSK-J4",
             "gene": "EGFR",
@@ -409,12 +534,12 @@
 
         document.getElementById("result-1").innerHTML = "<pre>"+JSON.stringify(jsonObj1,null, 4) +"</pre>"
         document.getElementById("result-2").innerHTML = "<pre>"+JSON.stringify(jsonObj2,null, 4) +"</pre>"
-        {#document.getElementById("result-3").innerHTML = "<pre>"+JSON.stringify(jsonObj3) +"</pre>"#}
-        {#document.getElementById("result-4").innerHTML = "<pre>"+JSON.stringify(jsonObj4) +"</pre>"#}
+        document.getElementById("result-3").innerHTML = "<pre>"+JSON.stringify(jsonObj3,null, 4) +"</pre>"
+        document.getElementById("result-4").innerHTML = "<pre>"+JSON.stringify(jsonObj4,null, 4) +"</pre>"
         document.getElementById("result-5").innerHTML = "<pre>"+JSON.stringify(jsonObj5,null, 4) +"</pre>"
         document.getElementById("result-6").innerHTML = "<pre>"+JSON.stringify(jsonObj6,null, 4) +"</pre>"
         document.getElementById("result-7").innerHTML = "<pre>"+JSON.stringify(jsonObj7,null, 4) +"</pre>"
-        {#document.getElementById("result-8").innerHTML = "<pre>"+JSON.stringify(jsonObj8) +"</pre>"#}
+        document.getElementById("result-8").innerHTML = "<pre>"+JSON.stringify(jsonObj8,null, 4) +"</pre>"
         document.getElementById("result-9").innerHTML = "<pre>"+JSON.stringify(jsonObj9,null, 4) +"</pre>"
         document.getElementById("result-10").innerHTML = "<pre>"+JSON.stringify(jsonObj10,null, 4) +"</pre>"
         document.getElementById("result-11").innerHTML = "<pre>"+JSON.stringify(jsonObj11,null, 4) +"</pre>"

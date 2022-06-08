@@ -1,0 +1,48 @@
+{% extends "base_doc.html" %}
+
+{% block doc_content %}
+
+    <div class=" mb-4 p-2" id="content1">
+        <h2 class="h4 mb-4"> <span style="color:#17a2b8"> Select cell line name </span></h2>
+        (fill form -> auto fill) <br><br>
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="card-body p-4">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_1.png') }} alt="..." width="450">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" mb-4 p-2" id="content2">
+        <h2 class="h4 mb-4"> <span style="color:#17a2b8"> Cell Line Information </span></h2>
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="card-body p-4">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_2.png') }} alt="..." width="400"><br>
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_3.png') }} alt="..." width="1000">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_4.png') }} alt="..." width="400">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_5.png') }} alt="..." width="400">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_6.png') }} alt="..." width="400">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" mb-4 p-2" id="content3">
+        <h2 class="h4 mb-4"> <span style="color:#17a2b8"> Experiment cell line & drug </span></h2>
+        (click on table or below picture ic50/ic90/AUC -> show experiment) <br><br>
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="card-body p-4">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_7.png') }} alt="..." width="300">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_8.png') }} alt="..." width="600">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_9.png') }} alt="..." width="220">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/cl_10.png') }} alt="..." width="350">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

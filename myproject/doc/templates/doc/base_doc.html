@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row gy-5">
+                <div class="col-lg-3 order-2 order-lg-1">
+{#                    <h2 class="h3 mb-4 pb-1">Filter</h2>#}
+                    <div class="card border-0 shadow-sm mb-4 p-2">
+                        <div class="card-body">
+                            <h2 class="h5 mb-4">Choose tag</h2>
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item m-1"><a class="btn btn-light" href={{ url_for('doc.information') }}>Over All</a></li><br>
+                                <li class="list-inline-item m-1"><a class="btn btn-light" href={{ url_for('doc.cell_line') }}>Cell Line</a></li><br>
+                                <li class="list-inline-item m-1"><a class="btn btn-light" href={{ url_for('doc.drug') }}>Drug</a></li><br>
+                                <li class="list-inline-item m-1"><a class="btn btn-light" href={{ url_for('doc.cancer_type') }}>Cancer Type</a></li><br>
+                                <li class="list-inline-item m-1"><a class="btn btn-light" href={{ url_for('doc.gene') }}>Gene</a></li><br>
+                                <li class="list-inline-item m-1"><a class="btn btn-light" href={{ url_for('doc.biomarker') }}>BioMarker</a></li><br>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Listing-->
+                <div class="col-lg-9 order-2 order-lg-1">
+                    {% block doc_content %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- #### for show/hide div -->
+
+{#    <script type="text/javascript">#}
+{#        var first = true;#}
+{#        $('input[type="checkbox"][name^=chk]').change(function () {#}
+{#            var $target = $('#content' + this.id.replace('chk', '')).toggle(this.checked);#}
+{#            if (first) {#}
+{#                $('p[id^=content]').not($target).hide();#}
+{#                first = false;#}
+{#            }#}
+{#        })#}
+{#    </script>#}
+
+
+
+{% endblock %}

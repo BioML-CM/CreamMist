@@ -1,0 +1,62 @@
+{% extends "base_doc.html" %}
+
+{% block doc_content %}
+
+    <div class=" mb-4 p-2" id="content1">
+        <h2 class="h4 mb-4"> <span style="color:#17a2b8"> Select drug name </span></h2>
+        (fill form -> auto fill) <br><br>
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="card-body p-4">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_1.png') }} alt="..." width="450">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" mb-4 p-2" id="content2">
+        <h2 class="h4 mb-4"> <span style="color:#17a2b8"> Drug Information </span></h2>
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="card-body p-4">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_2.png') }} alt="..." width="300"><br>
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_3.png') }} alt="..." width="1000">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_4.png') }} alt="..." width="400">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_5.png') }} alt="..." width="400">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_6.png') }} alt="..." width="400"><br>
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_7.png') }} alt="..." width="400">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_8.png') }} alt="..." width="400">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" mb-4 p-2" id="content3">
+        <h2 class="h4 mb-4"> <span style="color:#17a2b8"> Experiment drug & cell line </span></h2>
+        (click on table or below picture ic50/ic90/AUC -> show experiment) <br><br>
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="card-body p-4">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_9.png') }} alt="..." width="300">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_10.png') }} alt="..." width="600">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_11.png') }} alt="..." width="220">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_12.png') }} alt="..." width="350">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" mb-4 p-2" id="content4">
+        <h2 class="h4 mb-4"> <span style="color:#17a2b8"> BioMarker drug & gene </span></h2>
+        (click below picture associated genes -> show biomarker) <br><br>
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="card-body p-4">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_13.png') }} alt="..." width="300">
+                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/d_14.png') }} alt="..." width="1000">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

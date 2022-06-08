@@ -1,0 +1,27 @@
+{% extends "base_doc.html" %}
+
+{% block doc_content %}
+
+                    <div class=" mb-4 p-2" id="content1">
+                        <h2 class="h4 mb-4"> Cell line dataset</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <div class="card-body p-4">
+                                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/number_cellline.svg') }} alt="..." width="1000">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" mb-4 p-2" id="content2">
+                        <h2 class="h4 mb-4"> Drug dataset</h2>
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <div class="card-body p-4">
+                                    <img class="img-fluid" src={{ url_for('static', filename='img/doc/number_drug.svg') }} alt="..." width="1000">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}

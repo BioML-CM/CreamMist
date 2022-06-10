@@ -1,5 +1,6 @@
 from myproject import db
 
+
 class CellLine(db.Model):
     __tablename__ = 'cell_lines'
 
@@ -17,7 +18,8 @@ class CellLine(db.Model):
 
     experiments_of_cell_line = db.relationship('Experiment', backref='cell_line', lazy='dynamic')
 
-    def __init__(self, site, cellosaurus_id, cellosaurus_index, ccle_name, ctrp1_name, ctrp2_name, gdsc1_name, gdsc2_name):
+    def __init__(self, site, cellosaurus_id, cellosaurus_index, ccle_name, ctrp1_name, ctrp2_name, gdsc1_name,
+                 gdsc2_name):
         self.site = site
         self.ccle_name = ccle_name
         self.ctrp1_name = ctrp1_name
@@ -31,8 +33,8 @@ class CellLine(db.Model):
 class Drug(db.Model):
     __tablename__ = 'drugs'
 
-    #id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    standard_drug_name = db.Column(db.String(64), primary_key=True,)
+    # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    standard_drug_name = db.Column(db.String(64), primary_key=True, )
     synonyms = db.Column(db.String(128))
     target = db.Column(db.String(64))
     pathway = db.Column(db.String(256))
@@ -81,6 +83,7 @@ class Experiment(db.Model):
     jags_sampling = db.relationship('JagsSampling', backref='experiment', lazy='dynamic')
     sensitivity_score = db.relationship('SensitivityScore', backref='experiment', lazy='dynamic')
     provided_sensitivity_score = db.relationship('ProvidedSensitivityScore', backref='experiment', lazy='dynamic')
+
     # drug_table = db.relationship('DrugTable', backref='exp', lazy='dynamic')
     # cell_line_table = db.relationship('CellLineTable', backref='exp', lazy='dynamic')
     # mutation = db.relationship('Mutation', backref='experiment', lazy='dynamic')
@@ -140,7 +143,6 @@ class JagsSampling(db.Model):
 
     # Connect the exp.
 
-
     def __init__(self, n_dosage, min_dosage, max_dosage, beta0_mode, beta0_HDI_low, beta0_HDI_high, beta1_mode,
                  beta1_HDI_low, beta1_HDI_high, ic90_mode, ic90_HDI_low, ic90_HDI_high,
                  ec50_mode, ec50_HDI_low, ec50_HDI_high, ecinf_mode, ecinf_HDI_low, ecinf_HDI_high,
@@ -186,7 +188,6 @@ class SensitivityScore(db.Model):
     ec50_calculate = db.Column(db.Float)
     einf_calculate = db.Column(db.Float)
     auc_calculate = db.Column(db.Float)
-
 
     # Connect the exp.
     # exp_id = db.Column(db.Integer, db.ForeignKey('experiments.id'), nullable=False)
@@ -323,6 +324,7 @@ class GeneSimilarity(db.Model):
         self.gene_x = gene_x
         self.gene_y = gene_y
         self.similarity = similarity
+
 
 class MutExpMetadata(db.Model):
     __tablename__ = 'mut_exp_metadata'

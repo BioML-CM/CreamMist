@@ -6,10 +6,9 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
 
-    <style >
-        .ui-autocomplete
-        {
-            max-height:320px;
+    <style>
+        .ui-autocomplete {
+            max-height: 320px;
             overflow: scroll;
             background-color: #fcdce7;
             overflow-y: scroll;
@@ -24,25 +23,28 @@
                 <div class="col-lg-7 mx-auto text-center">
                     <p class="h6 text-uppercase text-primary mb-3">DRUG</p>
                     <h2 class="mb-5">Search by drug name</h1>
-                    <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('drug.select') }}"  method="POST">
-                        <div class="input-group">
-                            {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="For example, Lapatinib")}} <br>
+                        <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('drug.select') }}"
+                              method="POST">
+                            <div class="input-group">
+                                {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="For example, Lapatinib") }}
+                                <br>
 
-                            <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
-                        </div>
-                        <script>
-                            $(function() {
-                                $.ajax({
-                                    url: '{{ url_for("drug.autocomplete") }}'
-                                }).done(function (data){
-                                    $('#drug_autocomplete').autocomplete({
-                                        source: data,
-                                        minLength: 1
+                                <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <script>
+                                $(function () {
+                                    $.ajax({
+                                        url: '{{ url_for("drug.autocomplete") }}'
+                                    }).done(function (data) {
+                                        $('#drug_autocomplete').autocomplete({
+                                            source: data,
+                                            minLength: 1
+                                        });
                                     });
                                 });
-                            });
-                        </script>
-                    </form>
+                            </script>
+                        </form>
                 </div>
             </div>
         </div>

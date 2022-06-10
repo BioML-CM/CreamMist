@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, SelectField, FloatField, HiddenField
 
-class BiomarkerForm(FlaskForm):
 
+class BiomarkerForm(FlaskForm):
     gene_name = StringField('Gene :', id='biomarker_autocomplete')
     drug_name = StringField('Standard drug name :', id='biomarker_autocomplete_drug')
     # hidden_name = HiddenField(id='hidden')

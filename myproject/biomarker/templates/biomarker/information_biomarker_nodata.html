@@ -3,7 +3,8 @@
 {% block content %}
     <div class="jumbotron" style="background-color: #A65D8C95;">
         <h1 style="color:#59364A">BIOMARKER</h1>
-        <p class="lead"> Gene : <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', score =score, cancer_type=cancer_type) }}">{{ gene }} </a><br>
+        <p class="lead"> Gene :
+            <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', score =score, cancer_type=cancer_type) }}">{{ gene }} </a><br>
             Drug Name : <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
             Cancer type : {{ cancer_type }}<br>
             Score : {{ score }}</p>
@@ -11,11 +12,14 @@
 
     <div class="container">
         <div class="row">
-            <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,score=score,cancer_type=cancer_type) }}" method="POST">
-                {{ form.cancer_type.label }} &nbsp;&nbsp;  {{ form.cancer_type }} <br>
-                {{ form.score.label }} &nbsp;&nbsp;  {{ form.score }}<br>
-                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>
-            </form><br><br>
+            <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,score=score,cancer_type=cancer_type) }}"
+                  method="POST">
+                {{ form.cancer_type.label }} &nbsp;&nbsp; {{ form.cancer_type }} <br>
+                {{ form.score.label }} &nbsp;&nbsp; {{ form.score }}<br>
+                <button class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit
+                </button>
+            </form>
+            <br><br>
         </div>
 
         <p> No data!!</p>

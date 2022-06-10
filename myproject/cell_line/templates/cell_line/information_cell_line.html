@@ -3,8 +3,10 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
 
     {% block scripts %}
         <script>
@@ -23,33 +25,44 @@
                     <!-- Listing sorting-->
                     <div class="row mb-4 align-items-center">
                         <div class="col-md-4">
-                                    <form action="{{ url_for('cell_line.information_cell_line',cell_line=cell_line, dataset=dataset) }}" method="POST">
-                                        {{ form.dataset.label }} : {{ form.dataset }} <br><br>
-                                        <button class="btn btn-primary w-10" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
-                                     </form><br><br>
+                            <form action="{{ url_for('cell_line.information_cell_line',cell_line=cell_line, dataset=dataset) }}"
+                                  method="POST">
+                                {{ form.dataset.label }} : {{ form.dataset }} <br><br>
+                                <button class="btn btn-primary w-10" type="submit"><i
+                                        class="fas fa-search me-2 small"></i>Search
+                                </button>
+                            </form>
+                            <br><br>
                         </div>
 
                         <div class="col-md-8 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                             <div class="card-body p-lg-5">
                                 <h4>Information card </h4>
-{#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
-{#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
+                                {#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
+                                {#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
 
-                                <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                                <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
+                                       name="chk2" checked>
                                 <label class="form-check-label" for="chk2">Experiment Information</label>&nbsp;&nbsp;
 
-                                <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                                <input class="form-check-input" type="checkbox" id="chk3" , data-ptag="content3"
+                                       name="chk3" checked>
                                 <label class="form-check-label" for="chk3">IC50</label>&nbsp;&nbsp
 
-                                <input class="form-check-input" type="checkbox" id="chk4", data-ptag="content4" name="chk4" checked>
+                                <input class="form-check-input" type="checkbox" id="chk4" , data-ptag="content4"
+                                       name="chk4" checked>
                                 <label class="form-check-label" for="chk4">IC90</label>&nbsp;&nbsp;
 
-                                <input class="form-check-input" type="checkbox" id="chk5", data-ptag="content5" name="chk5" checked>
+                                <input class="form-check-input" type="checkbox" id="chk5" , data-ptag="content5"
+                                       name="chk5" checked>
                                 <label class="form-check-label" for="chk5">AUC</label>&nbsp;&nbsp;<br><br>
 
                                 <div style="float: right;">
-                                    <form action="{{ url_for('cell_line.download',cell_line=cell_line, dataset=dataset) }}" method="POST">
-                                        <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>All Cell Line Data</button>
+                                    <form action="{{ url_for('cell_line.download',cell_line=cell_line, dataset=dataset) }}"
+                                          method="POST">
+                                        <button class="btn btn-info w-10" type="submit"><i
+                                                class="fa fa-download me-2 small"></i>All Cell Line Data
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -59,17 +72,19 @@
                     <!-- Listing items-->
                     <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                        <h2 class="h4 mb-4">Cell Line Information : <mark style="background: #ffc107"> {{ cell_line_info.cellosaurus_id }}</mark></h2>
+                            <h2 class="h4 mb-4">Cell Line Information :
+                                <mark style="background: #ffc107"> {{ cell_line_info.cellosaurus_id }}</mark>
+                            </h2>
                             <p><b>Cellosaurus Index : </b>{{ cell_line_info.cellosaurus_index }}<br>
                                 <b>Cellosaurus ID :</b> {{ cell_line_info.cellosaurus_id }}<br><br>
 
-                            {% for i in name_list %}
-                                <b>{{ i[0][0] }}</b>
-                                {% for n in i[0][1:] %}
-                                    , {{ n }}
-                                {% endfor %}
-                                : {{i[1]}} <br>
-                            {% endfor %}<br>
+                                {% for i in name_list %}
+                                    <b>{{ i[0][0] }}</b>
+                                    {% for n in i[0][1:] %}
+                                        , {{ n }}
+                                    {% endfor %}
+                                    : {{ i[1] }} <br>
+                                {% endfor %}<br>
 
                                 <b>TISSUE :</b> {{ cell_line_info.site }} <br>
                                 <b>Data set :</b> {{ dataset }}</p>
@@ -97,11 +112,15 @@
                                         {% for e,j,s in data %}
                                             <tr>
                                                 <td>{{ e.cellosaurus_id }}</td>
-                                                <td><a href="{{ url_for('drug.information_drug', drug=e.standard_drug_name, dataset='All') }}">{{ e.standard_drug_name }} </a></td>
+                                                <td>
+                                                    <a href="{{ url_for('drug.information_drug', drug=e.standard_drug_name, dataset='All') }}">{{ e.standard_drug_name }} </a>
+                                                </td>
                                                 <td>{{ e.info }}</td>
                                                 <td>{{ "%.4f" | format(j.min_dosage) }}</td>
                                                 <td>{{ "%.4f" | format(j.max_dosage) }}</td>
-                                                <td><a href="{{ url_for('cell_line.view_logistic', exp=e.id) }}">view</a></td>
+                                                <td>
+                                                    <a href="{{ url_for('cell_line.view_logistic', exp=e.id) }}">view</a>
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -114,7 +133,7 @@
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     10 highest and lowest IC50
-                                    <div  id="chart1">
+                                    <div id="chart1">
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +143,7 @@
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     10 highest and lowest IC90
-                                    <div  id="chart2">
+                                    <div id="chart2">
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +153,7 @@
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     10 highest and lowest AUC
-                                    <div  id="chart3">
+                                    <div id="chart3">
                                     </div>
                                 </div>
                             </div>
@@ -147,17 +166,17 @@
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
-        var graph1= {{ graph1Jason | safe}};
+        var graph1 = {{ graph1Jason | safe}};
         Plotly.plot('chart1', graph1, {})
 
-        var graph2= {{ graph2Jason | safe}};
+        var graph2 = {{ graph2Jason | safe}};
         Plotly.plot('chart2', graph2, {})
 
-        var graph3= {{ graph3Jason | safe}};
+        var graph3 = {{ graph3Jason | safe}};
         Plotly.plot('chart3', graph3, {})
     </script>
 
-   <!-- #### for show/hide div -->
+    <!-- #### for show/hide div -->
 
     <script type="text/javascript">
         var first = true;

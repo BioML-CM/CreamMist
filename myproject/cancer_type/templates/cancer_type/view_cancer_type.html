@@ -1,38 +1,41 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="jumbotron">
-    <h1>Analysis</h1>
-    <p> Standard cell line name : <a href="{{ url_for('cell_line.information_cell_line', cell_line=experiment.standard_cell_line_name, dataset='All') }}"> {{ experiment.standard_cell_line_name }} </a> <br>
-        Standard drug name : {{ experiment.standard_drug_name }} <br>
-        Data set : {{ experiment.info }} <br></p>
+    <div class="jumbotron">
+        <h1>Analysis</h1>
+        <p> Standard cell line name : <a
+                href="{{ url_for('cell_line.information_cell_line', cell_line=experiment.standard_cell_line_name, dataset='All') }}"> {{ experiment.standard_cell_line_name }} </a>
+            <br>
+            Standard drug name : {{ experiment.standard_drug_name }} <br>
+            Data set : {{ experiment.info }} <br></p>
 
 
+    </div>
 
-</div>
+    <div class="container">
+        <div class="row">
 
-<div class="container">
-    <div class="row">
+            <form action="" method="POST">
+                {# This hidden_tag is a CSRF security feature. #}
+                {{ form.hidden_tag() }}
+                {{ form.dataset.label }} &nbsp;&nbsp; {{ form.dataset }} &nbsp;&nbsp;
+                {{ form.submit() }}
+            </form>
+            <br><br>
+            <div id="chart1"></div>
 
-        <form action="" method="POST">
-            {# This hidden_tag is a CSRF security feature. #}
-            {{ form.hidden_tag() }}
-            {{ form.dataset.label }} &nbsp;&nbsp;  {{ form.dataset }} &nbsp;&nbsp;
-            {{ form.submit() }}
-        </form><br><br>
-        <div id="chart1"></div>
-
-        <form action="" method="POST">
-            {# This hidden_tag is a CSRF security feature. #}
-            {{ form1.hidden_tag() }}
-            {{ form1.value.label }} {{ form1.value() }} <br>
-            {{ form1.submit() }}
-        </form><br><br>
-        <div class="col" id="chart5">
+            <form action="" method="POST">
+                {# This hidden_tag is a CSRF security feature. #}
+                {{ form1.hidden_tag() }}
+                {{ form1.value.label }} {{ form1.value() }} <br>
+                {{ form1.submit() }}
+            </form>
+            <br><br>
+            <div class="col" id="chart5">
+            </div>
         </div>
     </div>
-</div>
 
-{#    <div id="chart1"></div>#}
+    {#    <div id="chart1"></div>#}
 
 
     <div class="container">
@@ -43,32 +46,32 @@
             </div>
             <div class="col-sm" id="chart4">
             </div>
-{#            <div class="col" id="chart5">#}
-{#            </div>#}
+            {#            <div class="col" id="chart5">#}
+            {#            </div>#}
         </div>
     </div>
 
 
-{#    <div id="chart2"></div>#}
-{#    <div id="chart3"></div>#}
-{#    <div id="chart4"></div>#}
+    {#    <div id="chart2"></div>#}
+    {#    <div id="chart3"></div>#}
+    {#    <div id="chart4"></div>#}
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script type="text/javascript">
-    var graph1= {{ graph1Jason | safe}};
-    Plotly.plot('chart1', graph1, {})
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        var graph1 = {{ graph1Jason | safe}};
+        Plotly.plot('chart1', graph1, {})
 
-    var graph2= {{ graph2Jason | safe}};
-    Plotly.plot('chart2', graph2, {})
+        var graph2 = {{ graph2Jason | safe}};
+        Plotly.plot('chart2', graph2, {})
 
-    var graph3= {{ graph3Jason | safe}};
-    Plotly.plot('chart3', graph3, {})
+        var graph3 = {{ graph3Jason | safe}};
+        Plotly.plot('chart3', graph3, {})
 
-    var graph4= {{ graph4Jason | safe}};
-    Plotly.plot('chart4', graph4, {})
+        var graph4 = {{ graph4Jason | safe}};
+        Plotly.plot('chart4', graph4, {})
 
-    var graph5= {{ graph5Jason | safe}};
-    Plotly.plot('chart5', graph5, {})
-</script>
+        var graph5 = {{ graph5Jason | safe}};
+        Plotly.plot('chart5', graph5, {})
+    </script>
 
 {% endblock %}

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-{#    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">#}
+    {#    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">#}
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-{#    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>#}
-{#    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>#}
+    {#    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>#}
+    {#    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>#}
 
     <section class="py-5">
         <div class="container py-5">
@@ -12,7 +12,7 @@
                 <!-- Listing-->
                 <div class="col-lg-6 order-2 order-lg-1">
                     <div class=" mb-4 p-2" id="content1">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/celllines</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/celllines</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/celllines </span>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content2">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/celllines/{cellosaurus_id}</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/celllines/{cellosaurus_id}</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/celllines/1321N1 </span>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content3">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/cancertypes</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/cancertypes</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/cancertypes </span>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content4">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/cancertypes/{cancer_type}</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/cancertypes/{cancer_type}</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/cancertypes/stomach </span>
@@ -52,7 +52,8 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content5">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/experiments/{cellosaurus_id}/<br>{standard_drug_name}</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>
+                            api/experiments/{cellosaurus_id}/<br>{standard_drug_name}</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/experiments/1321N1/Lapatinib </span>
@@ -62,7 +63,7 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content6">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/drugs</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/drugs</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/drugs </span>
@@ -75,7 +76,7 @@
                 </div>
                 <div class="col-lg-6 order-2 order-lg-1">
                     <div class=" mb-4 p-2" id="content7">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/drugs/{standard_drug_name}</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/drugs/{standard_drug_name}</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/drugs/Lapatinib </span>
@@ -85,7 +86,7 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content8">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/genes</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/genes</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/genes </span>
@@ -95,7 +96,8 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content9">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/gene/<br>{gene}/{pos|neg}/{n_top}</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>
+                            api/biomarker/{exp|mut}/{cancer_type}/gene/<br>{gene}/{pos|neg}/{n_top}</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/biomarker/exp/pancan/gene/EGFR/pos/10 </span>
@@ -105,7 +107,8 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content10">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/drug/<br>{standard_drug_name}/{pos|neg}/{n_top}</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>
+                            api/biomarker/{exp|mut}/{cancer_type}/drug/<br>{standard_drug_name}/{pos|neg}/{n_top}</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/biomarker/exp/pancan/drug/Lapatinib/pos/10 </span>
@@ -115,7 +118,8 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content11">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/biomarker/{exp|mut}/{cancer_type}/info/<br>{gene}/{standard_drug_name}</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>
+                            api/biomarker/{exp|mut}/{cancer_type}/info/<br>{gene}/{standard_drug_name}</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/biomarker/mut/pancan/info/EGFR/Lapatinib </span>
@@ -125,7 +129,7 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content12">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span>api/mutation/{cellosaurus_id} </h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>api/mutation/{cellosaurus_id} </h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/mutation/A-172 </span>
@@ -135,7 +139,8 @@
                         </div>
                     </div>
                     <div class=" mb-4 p-2" id="content13">
-                        <h2 class="h5 mb-4"> <span style="color:#ef5285"> GET </span> api/expression/{cellosaurus_id}</h2>
+                        <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/expression/{cellosaurus_id}
+                        </h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
                                 <span style="color:#17a2b8"> http://127.0.0.1:5000/api/expression/A-172 </span>
@@ -205,7 +210,7 @@
                 "info": "CCLE"
             },
         ];
-        var jsonObj3={
+        var jsonObj3 = {
             "cancer_types": [
                 "adrenal_gland",
                 "autonomic_ganglia",
@@ -241,7 +246,7 @@
                 "pancan"
             ]
         };
-        var jsonObj4 ={
+        var jsonObj4 = {
             "cell_lines": [
                 "23132/87",
                 "AGS",
@@ -342,7 +347,7 @@
                 "AUC": 5.15445,
                 "fitted_mae": 0.0659728
             }];
-        var jsonObj6 =[{
+        var jsonObj6 = [{
             "standard_drug_name": "(-)-gallocatechin-3-monogallate",
             "synonyms": "gallocatechin gallate;L-GCG;GCG",
             "target": "",
@@ -365,7 +370,7 @@
                 "gdsc2_drug_name": ""
             },
         ];
-        var jsonObj7 =[{
+        var jsonObj7 = [{
             "standard_drug_name": "Lapatinib",
             "cellosaurus_id": "1321N1",
             "dataset": "CCLE",
@@ -421,7 +426,7 @@
                 "AARSD1",
                 "AASDH",
                 "AASDHPPT",
-                "AASS","..."]
+                "AASS", "..."]
         };
         var jsonObj9 = [{
             "standard_drug_name": "GSK-J4",
@@ -451,7 +456,7 @@
                 "n_cell_line": 52
             },
         ];
-        var jsonObj10 =[{
+        var jsonObj10 = [{
             "standard_drug_name": "Lapatinib",
             "gene": "POLR2L",
             "dataset": "All",
@@ -479,7 +484,7 @@
                 "n_cell_line": 1130
             },
         ];
-        var jsonObj11 ={
+        var jsonObj11 = {
             "standard_drug_name": "Lapatinib",
             "gene": "EGFR",
             "dataset": "All",
@@ -489,7 +494,7 @@
             "n_mut": 106,
             "n_wt": 981
         };
-        var jsonObj12 =[{
+        var jsonObj12 = [{
             "gene": "GIMAP1",
             "values": 0.0
         },
@@ -510,7 +515,7 @@
                 "values": 0.0
             },
         ];
-        var jsonObj13 =[{
+        var jsonObj13 = [{
             "gene": "A1BG",
             "values": 1.5
         },
@@ -532,19 +537,19 @@
             },
         ];
 
-        document.getElementById("result-1").innerHTML = "<pre>"+JSON.stringify(jsonObj1,null, 4) +"</pre>"
-        document.getElementById("result-2").innerHTML = "<pre>"+JSON.stringify(jsonObj2,null, 4) +"</pre>"
-        document.getElementById("result-3").innerHTML = "<pre>"+JSON.stringify(jsonObj3,null, 4) +"</pre>"
-        document.getElementById("result-4").innerHTML = "<pre>"+JSON.stringify(jsonObj4,null, 4) +"</pre>"
-        document.getElementById("result-5").innerHTML = "<pre>"+JSON.stringify(jsonObj5,null, 4) +"</pre>"
-        document.getElementById("result-6").innerHTML = "<pre>"+JSON.stringify(jsonObj6,null, 4) +"</pre>"
-        document.getElementById("result-7").innerHTML = "<pre>"+JSON.stringify(jsonObj7,null, 4) +"</pre>"
-        document.getElementById("result-8").innerHTML = "<pre>"+JSON.stringify(jsonObj8,null, 4) +"</pre>"
-        document.getElementById("result-9").innerHTML = "<pre>"+JSON.stringify(jsonObj9,null, 4) +"</pre>"
-        document.getElementById("result-10").innerHTML = "<pre>"+JSON.stringify(jsonObj10,null, 4) +"</pre>"
-        document.getElementById("result-11").innerHTML = "<pre>"+JSON.stringify(jsonObj11,null, 4) +"</pre>"
-        document.getElementById("result-12").innerHTML = "<pre>"+JSON.stringify(jsonObj12,null, 4) +"</pre>"
-        document.getElementById("result-13").innerHTML = "<pre>"+JSON.stringify(jsonObj13,null, 4) +"</pre>"
+        document.getElementById("result-1").innerHTML = "<pre>" + JSON.stringify(jsonObj1, null, 4) + "</pre>"
+        document.getElementById("result-2").innerHTML = "<pre>" + JSON.stringify(jsonObj2, null, 4) + "</pre>"
+        document.getElementById("result-3").innerHTML = "<pre>" + JSON.stringify(jsonObj3, null, 4) + "</pre>"
+        document.getElementById("result-4").innerHTML = "<pre>" + JSON.stringify(jsonObj4, null, 4) + "</pre>"
+        document.getElementById("result-5").innerHTML = "<pre>" + JSON.stringify(jsonObj5, null, 4) + "</pre>"
+        document.getElementById("result-6").innerHTML = "<pre>" + JSON.stringify(jsonObj6, null, 4) + "</pre>"
+        document.getElementById("result-7").innerHTML = "<pre>" + JSON.stringify(jsonObj7, null, 4) + "</pre>"
+        document.getElementById("result-8").innerHTML = "<pre>" + JSON.stringify(jsonObj8, null, 4) + "</pre>"
+        document.getElementById("result-9").innerHTML = "<pre>" + JSON.stringify(jsonObj9, null, 4) + "</pre>"
+        document.getElementById("result-10").innerHTML = "<pre>" + JSON.stringify(jsonObj10, null, 4) + "</pre>"
+        document.getElementById("result-11").innerHTML = "<pre>" + JSON.stringify(jsonObj11, null, 4) + "</pre>"
+        document.getElementById("result-12").innerHTML = "<pre>" + JSON.stringify(jsonObj12, null, 4) + "</pre>"
+        document.getElementById("result-13").innerHTML = "<pre>" + JSON.stringify(jsonObj13, null, 4) + "</pre>"
     </script>
 
 

@@ -11,26 +11,35 @@
                     <!-- Listing sorting-->
                     <div class="row mb-4 align-items-center">
                         <div class="col-md-6">
-                            <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,cancer_type=cancer_type) }}" method="POST">
-                                {{ form.cancer_type.label }} &nbsp;&nbsp;  {{ form.cancer_type }} <br><br>
+                            <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,cancer_type=cancer_type) }}"
+                                  method="POST">
+                                {{ form.cancer_type.label }} &nbsp;&nbsp; {{ form.cancer_type }} <br><br>
 
-                                <button class="btn btn-primary w-10" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
-                            </form><br><br>
+                                <button class="btn btn-primary w-10" type="submit"><i
+                                        class="fas fa-search me-2 small"></i>Search
+                                </button>
+                            </form>
+                            <br><br>
                         </div>
                         <div class="col-md-6 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                             <div class="card-body p-lg-5">
                                 <h4>Information card </h4>
-{#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
-{#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
+                                {#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
+                                {#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
 
-                                <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                                <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
+                                       name="chk2" checked>
                                 <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
 
-                                <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                                <input class="form-check-input" type="checkbox" id="chk3" , data-ptag="content3"
+                                       name="chk3" checked>
                                 <label class="form-check-label" for="chk3">Gene expression</label>&nbsp;<br><br>
                                 <div style="float: right;">
-                                    <form action="{{ url_for('biomarker.download',gene=gene,drug=drug, cancer_type=cancer_type) }}" method="POST">
-                                        <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                    <form action="{{ url_for('biomarker.download',gene=gene,drug=drug, cancer_type=cancer_type) }}"
+                                          method="POST">
+                                        <button class="btn btn-info w-10" type="submit"><i
+                                                class="fa fa-download me-2 small"></i>Data
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -40,9 +49,12 @@
                     <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
                             <h2 class="h4 mb-4">BioMarker Information : </h2>
-                            <b>Gene :</b> <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
-                            <b>Drug Name :</b> <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
-                            <b>Cancer type :</b> <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>
+                            <b>Gene :</b>
+                            <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
+                            <b>Drug Name :</b>
+                            <a href="{{ url_for('drug.information_drug', drug=drug, dataset='All') }}">{{ drug }} </a><br>
+                            <b>Cancer type :</b>
+                            <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>
                         </div>
                     </div>
                     <div class="row mb-4 gy-4">
@@ -50,28 +62,28 @@
                         <div class="col-lg-6" id="content2">
                             <h2 class="h4 mb-4">Mutation</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart1">
+                                <div class="card-body p-4" , id="chart1">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" id="content3">
                             <h2 class="h4 mb-4">Gene expression</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart2">
+                                <div class="card-body p-4" , id="chart2">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" >
+                        <div class="col-lg-6">
                             <h2 class="h4 mb-4">Mutation box plot</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart3">
+                                <div class="card-body p-4" , id="chart3">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" >
+                        <div class="col-lg-6">
                             <h2 class="h4 mb-4">Gene expression scatter plot</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4", id="chart4">
+                                <div class="card-body p-4" , id="chart4">
                                 </div>
                             </div>
                         </div>
@@ -84,22 +96,23 @@
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
-        var graph1= {{ graph1Jason | safe}};
-        graph1.config = {'displaylogo': false,
+        var graph1 = {{ graph1Jason | safe}};
+        graph1.config = {
+            'displaylogo': false,
             {#'modebar_remove': ['zoom', 'pan', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']#}
             {#'displayModeBar': false#}
         }
         Plotly.plot('chart1', graph1, {})
 
 
-        var graph2= {{ graph2Jason | safe}};
+        var graph2 = {{ graph2Jason | safe}};
         {#graph2.config = {'displayModeBar': false}#}
         Plotly.plot('chart2', graph2, {})
 
-        var graph3= {{ graph3Jason | safe}};
+        var graph3 = {{ graph3Jason | safe}};
         Plotly.plot('chart3', graph3, {})
 
-        var graph4= {{ graph4Jason | safe}};
+        var graph4 = {{ graph4Jason | safe}};
         Plotly.plot('chart4', graph4, {})
 
     </script>

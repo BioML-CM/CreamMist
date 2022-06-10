@@ -3,8 +3,10 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
 
     {% block scripts %}
         <script>
@@ -24,38 +26,51 @@
                     <!-- Listing sorting-->
                     <div class="row mb-4 align-items-center">
                         <div class="col-md-4">
-                            <form action="{{ url_for('drug.information_drug',drug=drug, dataset=dataset) }}" method="POST">
+                            <form action="{{ url_for('drug.information_drug',drug=drug, dataset=dataset) }}"
+                                  method="POST">
                                 {{ form.dataset.label }} : {{ form.dataset }} <br><br>
-                                <button class="btn btn-primary w-10" type="submit"> <i class="fas fa-search me-2 small"></i>Search</button>
-                            </form><br><br>
+                                <button class="btn btn-primary w-10" type="submit"><i
+                                        class="fas fa-search me-2 small"></i>Search
+                                </button>
+                            </form>
+                            <br><br>
                         </div>
                         <div class="col-md-8 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                             <div class="card-body p-lg-5">
                                 <h4>Information card </h4>
-{#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
-{#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
+                                {#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
+                                {#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
 
-                                <input class="form-check-input" type="checkbox" id="chk2", data-ptag="content2" name="chk2" checked>
+                                <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
+                                       name="chk2" checked>
                                 <label class="form-check-label" for="chk2">Experiment Information</label>&nbsp;&nbsp;
 
-                                <input class="form-check-input" type="checkbox" id="chk3", data-ptag="content3" name="chk3" checked>
+                                <input class="form-check-input" type="checkbox" id="chk3" , data-ptag="content3"
+                                       name="chk3" checked>
                                 <label class="form-check-label" for="chk3">IC50</label>&nbsp;&nbsp
 
-                                <input class="form-check-input" type="checkbox" id="chk4", data-ptag="content4" name="chk4" checked>
+                                <input class="form-check-input" type="checkbox" id="chk4" , data-ptag="content4"
+                                       name="chk4" checked>
                                 <label class="form-check-label" for="chk4">IC90</label>&nbsp;&nbsp;
 
-                                <input class="form-check-input" type="checkbox" id="chk5", data-ptag="content5" name="chk5" checked>
+                                <input class="form-check-input" type="checkbox" id="chk5" , data-ptag="content5"
+                                       name="chk5" checked>
                                 <label class="form-check-label" for="chk5">AUC</label>&nbsp;&nbsp;<br>
 
-                                <input class="form-check-input" type="checkbox" id="chk6", data-ptag="content6" name="chk6" checked>
+                                <input class="form-check-input" type="checkbox" id="chk6" , data-ptag="content6"
+                                       name="chk6" checked>
                                 <label class="form-check-label" for="chk6">Associated Genes (Mutation)</label>&nbsp;&nbsp;
 
-                                <input class="form-check-input" type="checkbox" id="chk7", data-ptag="content7" name="chk7" checked>
+                                <input class="form-check-input" type="checkbox" id="chk7" , data-ptag="content7"
+                                       name="chk7" checked>
                                 <label class="form-check-label" for="chk7">Associated Genes (Gene Expression)</label>&nbsp;&nbsp;<br><br>
 
                                 <div style="float: right;">
-                                    <form action="{{ url_for('drug.download',drug=drug, dataset=dataset) }}" method="POST">
-                                        <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>All Drug Data</button>
+                                    <form action="{{ url_for('drug.download',drug=drug, dataset=dataset) }}"
+                                          method="POST">
+                                        <button class="btn btn-info w-10" type="submit"><i
+                                                class="fa fa-download me-2 small"></i>All Drug Data
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -65,15 +80,17 @@
                     <!-- Listing items-->
                     <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h4 mb-4">Drug Information : <mark style="background: #ffc107">{{ drug_info.standard_drug_name  }}</mark></h2>
+                            <h2 class="h4 mb-4">Drug Information :
+                                <mark style="background: #ffc107">{{ drug_info.standard_drug_name }}</mark>
+                            </h2>
                             <p>
-                            {% for i in name_list %}
-                                <b>{{ i[0][0] }}</b>
-                                {% for n in i[0][1:] %}
-                                   <b>, {{ n }}</b>
-                                {% endfor %}
-                                : {{i[1]}} <br>
-                            {% endfor %} <br>
+                                {% for i in name_list %}
+                                    <b>{{ i[0][0] }}</b>
+                                    {% for n in i[0][1:] %}
+                                        <b>, {{ n }}</b>
+                                    {% endfor %}
+                                    : {{ i[1] }} <br>
+                                {% endfor %} <br>
 
                                 <b>Data set :</b> {{ dataset }} <br>
                                 <b>SYNONYMS :</b> {{ drug_info.synonyms }} <br>
@@ -103,11 +120,15 @@
                                         {% for e,j,s in data %}
                                             <tr>
                                                 <td>{{ e.standard_drug_name }}</td>
-                                                <td><a href="{{ url_for('cell_line.information_cell_line', cell_line=e.cellosaurus_id, dataset='All') }}">{{ e.cellosaurus_id }} </a></td>
+                                                <td>
+                                                    <a href="{{ url_for('cell_line.information_cell_line', cell_line=e.cellosaurus_id, dataset='All') }}">{{ e.cellosaurus_id }} </a>
+                                                </td>
                                                 <td>{{ e.info }}</td>
                                                 <td>{{ "%.4f" | format(j.min_dosage) }}</td>
                                                 <td>{{ "%.4f" | format(j.max_dosage) }}</td>
-                                                <td><a href="{{ url_for('cell_line.view_logistic', exp=e.id, input_dose=2) }}">view</a></td>
+                                                <td>
+                                                    <a href="{{ url_for('cell_line.view_logistic', exp=e.id, input_dose=2) }}">view</a>
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -121,7 +142,7 @@
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     10 highest and lowest IC50
-                                    <div  id="chart1">
+                                    <div id="chart1">
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +152,7 @@
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     10 highest and lowest IC90
-                                    <div  id="chart2">
+                                    <div id="chart2">
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +162,7 @@
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
                                     10 highest and lowest AUC
-                                    <div  id="chart3">
+                                    <div id="chart3">
                                     </div>
                                 </div>
                             </div>
@@ -154,11 +175,17 @@
                             <h2 class="h4 mb-4">Associated Genes (Mutation)</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}"> pancan </a> data, 10 highest and lowest ranksum's effect size <br>between the presence mutation and IC50
-                                    <div  id="chart4">
+                                    For <a
+                                        href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}">
+                                    pancan </a> data, 10 highest and lowest ranksum's effect size <br>between the
+                                    presence mutation and IC50
+                                    <div id="chart4">
                                         <div style="float: right;">
-                                            <form action="{{ url_for('drug.download_mutation',drug=drug, dataset=dataset) }}" method="POST">
-                                                <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                            <form action="{{ url_for('drug.download_mutation',drug=drug, dataset=dataset) }}"
+                                                  method="POST">
+                                                <button class="btn btn-info w-10" type="submit"><i
+                                                        class="fa fa-download me-2 small"></i>Data
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
@@ -171,11 +198,17 @@
                             <h2 class="h4 mb-4">Associated Genes (Gene expression) </h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    For <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}"> pancan </a> data, 10 highest and lowest spearman correlation between gene expression and IC50
-                                    <div  id="chart5">
+                                    For <a
+                                        href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}">
+                                    pancan </a> data, 10 highest and lowest spearman correlation between gene expression
+                                    and IC50
+                                    <div id="chart5">
                                         <div style="float: right;">
-                                            <form action="{{ url_for('drug.download_express',drug=drug, dataset=dataset) }}" method="POST">
-                                                <button class="btn btn-info w-10" type="submit"> <i class="fa fa-download me-2 small"></i>Data</button>
+                                            <form action="{{ url_for('drug.download_express',drug=drug, dataset=dataset) }}"
+                                                  method="POST">
+                                                <button class="btn btn-info w-10" type="submit"><i
+                                                        class="fa fa-download me-2 small"></i>Data
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
@@ -191,19 +224,19 @@
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
-        var graph1= {{ graph1Jason | safe}};
+        var graph1 = {{ graph1Jason | safe}};
         Plotly.plot('chart1', graph1, {})
 
-        var graph2= {{ graph2Jason | safe}};
+        var graph2 = {{ graph2Jason | safe}};
         Plotly.plot('chart2', graph2, {})
 
-        var graph3= {{ graph3Jason | safe}};
+        var graph3 = {{ graph3Jason | safe}};
         Plotly.plot('chart3', graph3, {})
 
-        var graph4= {{ graph4Jason | safe}};
+        var graph4 = {{ graph4Jason | safe}};
         Plotly.plot('chart4', graph4, {})
 
-        var graph5= {{ graph5Jason | safe}};
+        var graph5 = {{ graph5Jason | safe}};
         Plotly.plot('chart5', graph5, {})
     </script>
 

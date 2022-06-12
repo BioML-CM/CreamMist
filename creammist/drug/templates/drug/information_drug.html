@@ -11,7 +11,14 @@
     {% block scripts %}
         <script>
             $(document).ready(function () {
-                $('#data').DataTable();
+                $('#data').DataTable({
+                    // "aaSorting": [],
+                    columnDefs: [{
+                        orderable: false,
+                        targets: 5
+                    }]
+                });
+                $('.dataTables_length').addClass('bs-select');
             });
         </script>
     {% endblock %}

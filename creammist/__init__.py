@@ -28,13 +28,13 @@ Migrate(app, db, compare_type=True)
 # NOTE! These imports need to come after you've defined db, otherwise you will
 # get errors in your models.py files.
 ## Grab the blueprints from the other views.py files for each "app"
-from myproject.cell_line.views import cell_line_blueprint
-from myproject.drug.views import drug_blueprint
-from myproject.cancer_type.views import cancer_type_blueprint
-from myproject.biomarker.views import biomarker_blueprint
-from myproject.gene.views import gene_blueprint
-from myproject.api.views import api_blueprint
-from myproject.doc.views import doc_blueprint
+from creammist.cell_line.views import cell_line_blueprint
+from creammist.drug.views import drug_blueprint
+from creammist.cancer_type.views import cancer_type_blueprint
+from creammist.biomarker.views import biomarker_blueprint
+from creammist.gene.views import gene_blueprint
+from creammist.api.views import api_blueprint
+from creammist.doc.views import doc_blueprint
 
 app.register_blueprint(cell_line_blueprint,url_prefix="/cell_line")
 app.register_blueprint(drug_blueprint,url_prefix="/drug")

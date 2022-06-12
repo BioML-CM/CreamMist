@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, Response
-from myproject import db
-from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine
-from myproject.cancer_type.forms import CancerForm, DatasetChoiceForm
+from creammist import db
+from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine
+from creammist.cancer_type.forms import CancerForm, DatasetChoiceForm
 
 from flask import request, send_file
 
-from myproject.cancer_type import plot_data
+from creammist.cancer_type import plot_data
 
 import pandas as pd
 import json

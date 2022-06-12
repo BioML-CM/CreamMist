@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, redirect, url_for, Response
-from myproject import db
-from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, \
+from creammist import db
+from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, \
     GeneExpression, Gene, MutExpMetadata
-from myproject.biomarker.forms import BiomarkerForm, ChoiceForm
+from creammist.biomarker.forms import BiomarkerForm, ChoiceForm
 
 from flask import request, send_file
 
 import scipy.stats as stats
-from myproject.biomarker import plot_data
+from creammist.biomarker import plot_data
 from scipy.stats import skewnorm
 import numpy as np
 import pandas as pd

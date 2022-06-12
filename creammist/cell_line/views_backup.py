@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for
-from myproject import db
-from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore
-from myproject.cell_line.forms import AddForm, ChoiceForm, Logistic_Form, InputForm
+from creammist import db
+from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore
+from creammist.cell_line.forms import AddForm, ChoiceForm, Logistic_Form, InputForm
 
 import scipy.stats as stats
-from myproject.cell_line import plot_data
+from creammist.cell_line import plot_data
 from scipy.stats import skewnorm
 import numpy as np
 import pandas as pd

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, Response
-from myproject import db
-from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, MutExpMetadata, Drug, \
+from creammist import db
+from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, MutExpMetadata, Drug, \
     Gene, GeneExpression, Mutation
 
 from flask import request, send_file, jsonify

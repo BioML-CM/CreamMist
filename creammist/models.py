@@ -1,4 +1,4 @@
-from myproject import db
+from creammist import db
 
 
 class CellLine(db.Model):

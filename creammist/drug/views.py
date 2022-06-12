@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, redirect, url_for, Response
-from myproject import db
-from myproject.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, Drug, Mutation, GeneExpression
-from myproject.drug.forms import DrugForm, DatasetChoiceForm
+from creammist import db
+from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, Drug, Mutation, GeneExpression
+from creammist.drug.forms import DrugForm, DatasetChoiceForm
 
 from flask import request, send_file
 
 import scipy.stats as stats
-from myproject.drug import plot_data
+from creammist.drug import plot_data
 from scipy.stats import skewnorm
 import numpy as np
 import pandas as pd

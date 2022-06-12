@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
                     <p class="h6 text-uppercase text-primary mb-3">GENE</p>
-                    <h2 class="mb-5">Search by gene name</h2>
+                    <h2 class="mb-5">Search by Gene</h2>
                     <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('gene.select') }}" method="POST">
                         <div class="input-group">
                             {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="For example, EGFR") }}
@@ -43,10 +43,53 @@
                             });
                         </script>
                     </form>
+                    <br>
+                    <span style="float:left;">For example,
+                        <a href="#" id="link-id1">EGFR</a>&nbsp; -
+                        <a href="#" id="link-id2">AAAS</a>&nbsp; -
+                        <a href="#" id="link-id3">BAAT</a>&nbsp; -
+                        <a href="#" id="link-id4">CHAD</a></span>
                 </div>
             </div>
         </div>
     </section>
+
+<script type="text/javascript">
+    $(function(){
+        $("#link-id1").click(function(){
+            $('#gene_autocomplete').val($(this).html());
+            $('#gene_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id2").click(function(){
+            $('#gene_autocomplete').val($(this).html());
+            $('#gene_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id3").click(function(){
+            $('#gene_autocomplete').val($(this).html());
+            $('#gene_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id4").click(function(){
+            $('#gene_autocomplete').val($(this).html());
+            $('#gene_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
 {% endblock %}
 
 

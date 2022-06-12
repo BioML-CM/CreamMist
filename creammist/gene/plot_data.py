@@ -43,7 +43,7 @@ def plot_statistic(df, score):
 
     fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
     fig.update_xaxes(tickangle=-45)
-    fig.update_xaxes(title_text="Drug name")
+    fig.update_xaxes(title_text="Drug Name")
     return fig
 
 

@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
                     <p class="h6 text-uppercase text-primary mb-3">CANCER TYPE</p>
-                    <h2 class="mb-5">Search by cancer type</h2>
+                    <h2 class="mb-5">Search by Cancer Type</h2>
                     <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('cancer_type.select') }}"
                           method="POST">
                         <div class="input-group">
@@ -44,10 +44,54 @@
                             });
                         </script>
                     </form>
+                    <br>
+                    <span style="float:left;">For example,
+                        <a href="#" id="link-id1">pancan</a>&nbsp; -
+                        <a href="#" id="link-id2">lung</a>&nbsp; -
+                        <a href="#" id="link-id2">breast</a>&nbsp; -
+                        <a href="#" id="link-id2">bone</a>
+
                 </div>
             </div>
         </div>
     </section>
+
+<script type="text/javascript">
+    $(function(){
+        $("#link-id1").click(function(){
+            $('#cancer_type_autocomplete').val($(this).html());
+            $('#cancer_type_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id2").click(function(){
+            $('#cancer_type_autocomplete').val($(this).html());
+            $('#cancer_type_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id3").click(function(){
+            $('#cancer_type_autocomplete').val($(this).html());
+            $('#cancer_type_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id4").click(function(){
+            $('#cancer_type_autocomplete').val($(this).html());
+            $('#cancer_type_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
 {% endblock %}
 
 

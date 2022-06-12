@@ -94,11 +94,12 @@ def plot_distribution_ic50(data_list, m, M):
     fig.update_layout(showlegend=False)
     fig.update_yaxes(rangemode="tozero", visible=False)
     # fig.update_layout(title='IC50 Distribution')
-    fig['layout'].update({'template': 'simple_white', 'width': 400, 'height': 500})
+    fig['layout'].update({'template': 'simple_white', 'width': 300})
     fig.update_xaxes(title_text="Log2 Concentration (\u03bcM)")
     fig.update_traces(hoverinfo='none', selector=dict(type="scatter", ))
     fig.update_traces(hovertemplate='<b>Bin-range</b> : ' + '%{x}' + '<br><b>Density</b> : ' + '%{y:.2f}',
                       selector=dict(type="histogram", ), hoverlabel=dict(bgcolor='#FFF4ED'))
+    fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     return fig
 
 
@@ -150,7 +151,7 @@ def plot_ic_auc_mode(df, type):
         # fig['data'][0]['x'][i] = "<a href='http://127.0.0.1:5000/cell_line/view/{}' style='color:ef5285;'>{}</a>".format(df['id'][i],fig['data'][0]['x'][i])
     fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
     fig.update_xaxes(tickangle=-45)
-    fig.update_xaxes(title_text="Drug name")
+    fig.update_xaxes(title_text="Drug Name")
     fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     return fig
 
@@ -232,4 +233,7 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
     fig.update_yaxes(title_text="Response", range=(-0.27, 1.27), titlefont_size=18)
     # fig.update_layout(title='Dose Response Curve', titlefont_size=20)
     fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 500, })
+    fig.update_layout(xaxis = dict(tickfont=dict( size=14)),
+                        yaxis = dict(tickfont=dict( size=14))),
+    fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     return fig

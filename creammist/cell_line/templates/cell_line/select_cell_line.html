@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
                     <p class="h6 text-uppercase text-primary mb-3">CELL LINES</p>
-                    <h2 class="mb-5">Search by cell line name</h2>
+                    <h2 class="mb-5">Search by Cell Line Name</h2>
                     <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('cell_line.select') }}"
                           method="POST">
                         <div class="input-group">
@@ -45,8 +45,86 @@
                             });
                         </script>
                     </form>
+                    <br>
+                    <span style="float:left;">For example,
+                        <a href="#" id="link-id1">1321N1</a>&nbsp; -
+                        <a href="#" id="link-id2">8-MG-BA</a>&nbsp; -
+                        <a href="#" id="link-id2">A-172</a>&nbsp; -
+                        <a href="#" id="link-id2">BALL-1</a>
                 </div>
             </div>
         </div>
-    </section>
+
+    <div class="container py-5">
+        <div class="row text-center">
+            <div class="col-lg-10 mx-auto">
+                <div class="card border-0 shadow">
+                    <div class="card-body p-4 p-lg-5">
+                        <div class="row gy-4">
+                            <div class="col-lg-4">
+                                <svg class="svg-icon mb-3 text-primary svg-icon-big">
+                                    <use xlink:href="#!list-details-1"> </use>
+                                </svg>
+                                <h2 class="h5">Search your tool</h2>
+                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <svg class="svg-icon mb-3 text-primary svg-icon-big">
+                                    <use xlink:href="#!survey-1"> </use>
+                                </svg>
+                                <h2 class="h5">Gather your info</h2>
+                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <svg class="svg-icon mb-3 text-primary svg-icon-big">
+                                    <use xlink:href="#!stack-1"> </use>
+                                </svg>
+                                <h2 class="h5">Build your startup</h2>
+                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(function(){
+        $("#link-id1").click(function(){
+            $('#cell_line_autocomplete').val($(this).html());
+            $('#cell_line_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id2").click(function(){
+            $('#cell_line_autocomplete').val($(this).html());
+            $('#cell_line_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id3").click(function(){
+            $('#cell_line_autocomplete').val($(this).html());
+            $('#cell_line_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id4").click(function(){
+            $('#cell_line_autocomplete').val($(this).html());
+            $('#cell_line_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+
 {% endblock %}

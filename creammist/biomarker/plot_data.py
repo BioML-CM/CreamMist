@@ -199,7 +199,7 @@ def plot_box_mutation(temp_df, mut_exp_df):
     y = list(mu_score) + list(wt_score)
     df = pd.DataFrame(zip(x, y), columns=['type', 'values'])
 
-    fig = px.box(df, x='type', y='values', color='type')
+    fig = px.box(df, x='type', y='values', color='type', color_discrete_sequence=['#17a2b8','#ffc107'])
     fig.add_annotation(x=0, y=max(y) + 1.5,
                        text=f'n = {len(mu_list)}',
                        showarrow=False)

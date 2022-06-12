@@ -31,7 +31,50 @@ def download(cell_line, dataset):
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
                             'einf_calculate': 'Einf', 'auc_calculate': 'AUC'})
     path = f'cell_line/output/cell_line_{cell_line}_{dataset}_information.csv'
-    df.to_csv('myproject/' + path)
+    df.to_csv('creammist/' + path, index=False)
+    return send_file(path, as_attachment=True)
+
+
+@cell_line_blueprint.route('/download_experiment/<string:exp>', methods=['GET', 'POST'])
+def download_experiment(exp):
+    data = db.session.query(Experiment, JagsSampling, SensitivityScore) \
+        .join(JagsSampling, JagsSampling.exp_id == Experiment.id) \
+        .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(Experiment.id == exp)  # .all()
+
+    df = pd.read_sql(data.statement, db.session.bind)
+
+    cl = str(df['cellosaurus_id'].values[0])
+    drug = str(df['standard_drug_name'].values[0])
+
+    # all dataset
+    cell_line_records = db.session.query(Experiment).filter(Experiment.cellosaurus_id == cl,
+                                                            Experiment.standard_drug_name == drug).distinct()
+
+    exp_id_list = []
+    for r in cell_line_records:
+        if r.dataset != 'All':
+            exp_id_list += [r.id]
+
+
+    list_of_dose_list = []
+
+    for _, row in df.iterrows():
+        if row['dataset'] == 'All':
+            dose_list = db.session.query(DoseResponse).filter(DoseResponse.exp_id.in_(exp_id_list)).all()
+        else:
+            dose_list = DoseResponse.query.filter_by(exp_id=row['exp_id']).all()
+        list_of_dose_list += [[(d.dosage, d.response) for d in dose_list]]
+    df.loc[:, 'dose_response'] = list_of_dose_list
+
+    df = df[['cellosaurus_id', 'standard_drug_name', 'dataset', 'info', 'n_dosage', 'min_dosage', 'max_dosage',
+             'dose_response', 'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate',
+             'fitted_mae']]
+    # print(df)
+    df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
+                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC'})
+
+    path = f'cell_line/output/experiment_{cl}_{drug}_information.csv'
+    df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
 
 

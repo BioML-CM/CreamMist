@@ -32,7 +32,7 @@ def download(drug, dataset):
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
                             'einf_calculate': 'Einf', 'auc_calculate': 'AUC'})
     path = f'drug/output/drug_{drug}_{dataset}_information.csv'
-    df.to_csv('myproject/' + path)
+    df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
 
 
@@ -46,7 +46,7 @@ def download_express(drug, dataset):
         ['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'correlation', 'pvalue', 'n_cell_line']]
 
     path = f'drug/output/gene_expression_{drug}_{dataset}_pancan_information.csv'
-    express_df.to_csv('myproject/' + path)
+    express_df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
 
 
@@ -61,7 +61,7 @@ def download_mutation(drug, dataset):
         ['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'effect_size', 'pvalue', 'n_mut', 'n_wt']]
 
     path = f'drug/output/mutation_{drug}_{dataset}_pancan_information.csv'
-    mutation_df.to_csv('myproject/' + path)
+    mutation_df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
 
 

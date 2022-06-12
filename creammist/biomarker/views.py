@@ -47,7 +47,7 @@ def download(gene, drug, cancer_type):
     df = pd.merge(mutation_df, express_df, on=['dataset'], how='outer')
 
     path = f'gene/output/biomarker_{gene}_{drug}_{cancer_type}_information.csv'
-    df.to_csv('myproject/' + path)
+    df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
 
 
@@ -111,7 +111,7 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
     express_df = pd.read_sql(express_data.statement, db.session.bind)
     express_df = express_df[['dataset', 'correlation', 'pvalue', 'provided_correlation', 'provided_pvalue']]
 
-    # print(mutation_df)
+    # print("db mut/exp complete")
     # print(express_df)
 
     # all dataset
@@ -136,6 +136,8 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
         return redirect(url_for('biomarker.information_biomarker', gene=gene, drug=drug, cancer_type=cancer_type))
 
     # plot graph
+    # print('start plot graph')
+
     fig_mutation_stat, box_plot, mut_plot = plot_data.plot_mutation(mutation_df)
     fig_express_stat, scatt_plot, exp_plot = plot_data.plot_expression(express_df)
     if mut_plot:
@@ -148,7 +150,7 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
     else:
         graph2Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
 
-    # print('before cancer type')
+    # print('finish plot stat')
     # plot information
     # find cell line match cancer type
     if cancer_type == 'pancan':
@@ -157,7 +159,7 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
         cancer_type_records = db.session.query(CellLine.cellosaurus_id).filter(CellLine.site == cancer_type).all()
     cell_line_list = [r.cellosaurus_id for r in cancer_type_records]
 
-    # print('before ic50')
+    # print('query plot info')
     # find ic50
     data = db.session.query(CellLine, Experiment, JagsSampling) \
         .join(Experiment, Experiment.cellosaurus_id == CellLine.cellosaurus_id) \
@@ -168,28 +170,32 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
     df = df[['cellosaurus_index', 'standard_drug_name', 'beta0_mode']]
 
     cell_line_index_list = df['cellosaurus_index']
+    # print('list cell line')
 
-    # print('before mut/exp')
     # find mut/exp values
     mut_exp_data = db.session.query(MutExpMetadata).filter(MutExpMetadata.gene == gene)  # .all()
     mut_exp_df = pd.read_sql(mut_exp_data.statement, db.session.bind)
-    # print(mut_exp_df)
+
     mut_exp_df = mut_exp_df[mut_exp_df['cellosaurus_index'].isin(cell_line_index_list)]
     mut_exp_df = mut_exp_df[['cellosaurus_index', 'gene', 'values', 'score']]
     # print(mut_exp_df)
-    print('before box plot')
+
+    # print('finish query')
+    # print(df.shape, mut_exp_df.shape)
 
     if box_plot:
         fig_box_mutation = plot_data.plot_box_mutation(df, mut_exp_df)
         graph3Jason = json.dumps(fig_box_mutation, cls=plotly.utils.PlotlyJSONEncoder)
     else:
         graph3Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
+    # print("finish plot mut box")
 
     if scatt_plot:
         fig_scatter_expression = plot_data.plot_scatter_expression(df, mut_exp_df)
         graph4Jason = json.dumps(fig_scatter_expression, cls=plotly.utils.PlotlyJSONEncoder)
     else:
         graph4Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
+    # print('before box plot')
 
     return render_template('information_biomarker.html', data=mutation_data, graph1Jason=graph1Jason,
                            graph2Jason=graph2Jason,

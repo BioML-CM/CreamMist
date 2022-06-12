@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
                     <p class="h6 text-uppercase text-primary mb-3">DRUG</p>
-                    <h2 class="mb-5">Search by drug name</h1>
+                    <h2 class="mb-5">Search by Drug Name</h1>
                         <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('drug.select') }}"
                               method="POST">
                             <div class="input-group">
@@ -45,9 +45,52 @@
                                 });
                             </script>
                         </form>
+                        <br>
+                        <span style="float:left;">For example,
+                        <a href="#" id="link-id1">Lapatinib</a>&nbsp; -
+                        <a href="#" id="link-id2">oligomycin A</a>&nbsp; -
+                        <a href="#" id="link-id3">Nilotinib</a>&nbsp; -
+                        <a href="#" id="link-id4">BML-259</a></span>
                 </div>
             </div>
         </div>
     </section>
+
+<script type="text/javascript">
+    $(function(){
+        $("#link-id1").click(function(){
+            $('#drug_autocomplete').val($(this).html());
+            $('#drug_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id2").click(function(){
+            $('#drug_autocomplete').val($(this).html());
+            $('#drug_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id3").click(function(){
+            $('#drug_autocomplete').val($(this).html());
+            $('#drug_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#link-id4").click(function(){
+            $('#drug_autocomplete').val($(this).html());
+            $('#drug_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
 {% endblock %}
 

@@ -9,46 +9,9 @@
                 <!-- Listing-->
                 <div class="col-lg-12 order-1 order-lg-2">
                     <!-- Listing sorting-->
-                    <div class="row mb-4 align-items-center">
-                        <div class="col-md-6">
-                            <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,cancer_type=cancer_type) }}"
-                                  method="POST">
-                                {{ form.cancer_type.label }} &nbsp;&nbsp; {{ form.cancer_type }} <br><br>
-
-                                <button class="btn btn-primary w-10" type="submit"><i
-                                        class="fas fa-search me-2 small"></i>Search
-                                </button>
-                            </form>
-                            <br><br>
-                        </div>
-                        <div class="col-md-6 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
-                            <div class="card-body p-lg-5">
-                                <h4>Information card </h4>
-                                {#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
-                                {#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
-
-                                <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
-                                       name="chk2" checked>
-                                <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
-
-                                <input class="form-check-input" type="checkbox" id="chk3" , data-ptag="content3"
-                                       name="chk3" checked>
-                                <label class="form-check-label" for="chk3">Gene expression</label>&nbsp;<br><br>
-                                <div style="float: right;">
-                                    <form action="{{ url_for('biomarker.download',gene=gene,drug=drug, cancer_type=cancer_type) }}"
-                                          method="POST">
-                                        <button class="btn btn-info w-10" type="submit"><i
-                                                class="fa fa-download me-2 small"></i>Data
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Listing items-->
-                    <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                    <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h4 mb-4">BioMarker Information : </h2>
+                            <h2 class="h4 mb-4">BioMarker : </h2>
                             <b>Gene :</b>
                             <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
                             <b>Drug Name :</b>
@@ -57,33 +20,91 @@
                             <a href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{ cancer_type }} </a></p>
                         </div>
                     </div>
+
+                    <div class="row gy-4">
+                        <div class="col-lg-6" >
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-lg-5">
+                                    <h4>Information card </h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum. Proin ullamcorper sem velit, non vulputate ex finibus nec. Nulla accumsan, sapien eu sodales gravida, leo urna pretium sapien, ac tincidunt tellus ante sit amet ex.</p>
+                                    <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
+                                           name="chk2" checked>
+                                    <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
+
+                                    <input class="form-check-input" type="checkbox" id="chk3" , data-ptag="content3"
+                                           name="chk3" checked>
+                                    <label class="form-check-label" for="chk3">Gene Expression</label>&nbsp;<br><br>
+                                    <div style="float: right;">
+                                        <form action="{{ url_for('biomarker.download',gene=gene,drug=drug, cancer_type=cancer_type) }}"
+                                              method="POST">
+                                            <button class="btn btn-info w-10" type="submit"><i
+                                                    class="fa fa-download me-2 small"></i>Data
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" >
+                            <div class="card shadow-sm border-0 ">
+                                <div class="card-body p-lg-5">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+                                    <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,cancer_type=cancer_type) }}"
+                                          method="POST">
+                                        <b>{{ form.cancer_type.label }} :</b> &nbsp;&nbsp; {{ form.cancer_type(class="btn btn-light bg-white shadow-xs border text-start align-items-center")}} <br><br>
+
+                                        <button class="btn btn-primary w-10" type="submit"><i
+                                                class="fas fa-search me-2 small"></i>Search
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+
+
+                    <!-- Listing items-->
+
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
                         <div class="col-lg-6" id="content2">
                             <h2 class="h4 mb-4">Mutation</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4" , id="chart1">
+                                <div class="card-body p-4" >
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <div id="chart1">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" id="content3">
-                            <h2 class="h4 mb-4">Gene expression</h2>
+                            <h2 class="h4 mb-4">Gene Expression</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4" , id="chart2">
+                                <div class="card-body p-4" >
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <div id="chart2">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <h2 class="h4 mb-4">Mutation box plot</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4" , id="chart3">
+                                <div class="card-body p-4" >
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <div id="chart3">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <h2 class="h4 mb-4">Gene expression scatter plot</h2>
+                            <h2 class="h4 mb-4">Gene Expression scatter plot</h2>
                             <div class="card shadow-sm border-0 ">
-                                <div class="card-body p-4" , id="chart4">
+                                <div class="card-body p-4">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <div id="chart4">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -99,8 +120,6 @@
         var graph1 = {{ graph1Jason | safe}};
         graph1.config = {
             'displaylogo': false,
-            {#'modebar_remove': ['zoom', 'pan', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']#}
-            {#'displayModeBar': false#}
             'toImageButtonOptions': {
                 'format': 'svg',
                 'filename': 'custom_image',
@@ -113,13 +132,42 @@
 
 
         var graph2 = {{ graph2Jason | safe}};
-        {#graph2.config = {'displayModeBar': false}#}
+        graph2.config = {
+            'displaylogo': false,
+            'toImageButtonOptions': {
+                'format': 'svg',
+                'filename': 'custom_image',
+                'height': 500,
+                'width': 700,
+                'scale': 1
+            }
+        }
         Plotly.plot('chart2', graph2, {})
 
         var graph3 = {{ graph3Jason | safe}};
+        graph3.config = {
+            'displaylogo': false,
+            'toImageButtonOptions': {
+                'format': 'svg',
+                'filename': 'custom_image',
+                'height': 500,
+                'width': 700,
+                'scale': 1
+            }
+        }
         Plotly.plot('chart3', graph3, {})
 
         var graph4 = {{ graph4Jason | safe}};
+        graph4.config = {
+            'displaylogo': false,
+            'toImageButtonOptions': {
+                'format': 'svg',
+                'filename': 'custom_image',
+                'height': 500,
+                'width': 700,
+                'scale': 1
+            }
+        }
         Plotly.plot('chart4', graph4, {})
 
     </script>

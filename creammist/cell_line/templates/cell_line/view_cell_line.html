@@ -28,7 +28,7 @@
 
                                 <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
                                        name="chk2" checked>
-                                <label class="form-check-label" for="chk2">Dose Response Curve</label>&nbsp;&nbsp;
+                                <label class="form-check-label" for="chk2">Dose-response Curve</label>&nbsp;&nbsp;
 
                                 <input class="form-check-input" type="checkbox" id="chk3" , data-ptag="content3"
                                        name="chk3" checked>
@@ -36,7 +36,7 @@
 
                                 <input class="form-check-input" type="checkbox" id="chk4" , data-ptag="content4"
                                        name="chk4" checked>
-                                <label class="form-check-label" for="chk4">Drug response
+                                <label class="form-check-label" for="chk4">Drug Sensitivity
                                     Scores</label>&nbsp;&nbsp;<br><br>
                             </div>
                         </div>
@@ -49,13 +49,13 @@
                             <p><b>Cellosaurus ID :</b> <a
                                     href="{{ url_for('cell_line.information_cell_line', cell_line=experiment.cellosaurus_id, dataset='All') }}"> {{ experiment.cellosaurus_id }} </a>
                                 <br>
-                                <b>Standard drug name :</b> <a
+                                <b>Standard Drug Name :</b> <a
                                         href="{{ url_for('drug.information_drug', drug=experiment.standard_drug_name, dataset='All') }}"> {{ experiment.standard_drug_name }} </a>
                                 <br>
                                 {% if experiment.dataset=='All' %}
-                                    <b>Data set :</b> All ({{ experiment.info }})
+                                    <b>Dataset :</b> All ({{ experiment.info }})
                                 {% else %}
-                                    <b>Data set :</b> {{ experiment.dataset }}
+                                    <b>Dataset :</b> {{ experiment.dataset }}
                                 {% endif %}
                             </p>
 
@@ -76,7 +76,7 @@
                         <div class="col-lg-6">
                             <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                                 <div class="card-body p-lg-5" id="content4">
-                                    <h5>Drug Response Scores</h5>
+                                    <h5>Drug Sensitivity Scores</h5>
                                     <div class="rounded overflow-hidden mb-3">
                                         <table class="table" style="border-radius: 5px 5px 5px 5px;">
                                             <tbody>
@@ -123,6 +123,18 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
         var graph1 = {{ graph1Jason | safe}};
+        graph1.config = {
+            'displaylogo': false,
+            {#'modebar_remove': ['zoom', 'pan', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']#}
+            {#'displayModeBar': false#}
+            'toImageButtonOptions': {
+                'format': 'svg',
+                'filename': 'custom_image',
+                'height': 500,
+                'width': 700,
+                'scale': 1
+            }
+        }
         Plotly.plot('chart1', graph1, {})
 
         var graph2 = {{ graph2Jason | safe}};

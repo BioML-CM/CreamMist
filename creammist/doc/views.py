@@ -42,3 +42,7 @@ def gene():  # choose cell line
 @doc_blueprint.route('/biomarker/', methods=['GET', 'POST'])
 def biomarker():  # choose cell line
     return render_template('biomarker_doc.html')
+
+@doc_blueprint.route('/ml_models/', methods=['GET', 'POST'])
+def ml_models():  # choose cell line
+    return render_template('ml_models_doc.html')

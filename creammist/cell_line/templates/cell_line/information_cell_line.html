@@ -14,6 +14,7 @@
                 $('#data').DataTable();
             });
         </script>
+
     {% endblock %}
 
 
@@ -23,21 +24,36 @@
                 <!-- Listing-->
                 <div class="col-lg-12 order-1 order-lg-2">
                     <!-- Listing sorting-->
-                    <div class="row mb-4 align-items-center">
-                        <div class="col-md-4">
-                            <form action="{{ url_for('cell_line.information_cell_line',cell_line=cell_line, dataset=dataset) }}"
-                                  method="POST">
-                                {{ form.dataset.label }} : {{ form.dataset }} <br><br>
-                                <button class="btn btn-primary w-10" type="submit"><i
-                                        class="fas fa-search me-2 small"></i>Search
-                                </button>
-                            </form>
-                            <br><br>
-                        </div>
 
-                        <div class="col-md-8 card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                    <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
+                        <div class="card-body p-lg-5" id="content1">
+                            <h2 class="h4 mb-4">Cell Line :
+                                <mark style="background: #ffc107"> {{ cell_line_info.cellosaurus_id }}</mark>
+                                <!--https://web.expasy.org/cellosaurus/CVCL_1913-->
+                            </h2>
+                            <p><b>Cellosaurus Index : </b>{{ cell_line_info.cellosaurus_index }}<br>
+                                <b>Cellosaurus ID :</b> {{ cell_line_info.cellosaurus_id }}<br><br>
+
+                                {% for i in name_list %}
+                                    <b>{{ i[0][0] }} Name</b>
+                                    {% for n in i[0][1:] %}
+                                        , {{ n }}
+                                    {% endfor %}
+                                    : {{ i[1] }} <br>
+                                {% endfor %}<br>
+
+                                <b>Cancer Type :</b> {{ cell_line_info.site }} <br>
+                                <b>Dataset :</b> {{ dataset }}</p>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-4 align-items-center">
+
+                        <div class="col-md-8 card border-0 shadow-sm mb-4 mb-lg-5 p-4 p-lg-4">
                             <div class="card-body p-lg-5">
                                 <h4>Information card </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum. Proin ullamcorper sem velit, non vulputate ex finibus nec. Nulla accumsan, sapien eu sodales gravida, leo urna pretium sapien, ac tincidunt tellus ante sit amet ex.</p>
                                 {#                            <input class="form-check-input" type="checkbox" id="chk1", data-ptag="content1" name="chk1" checked>#}
                                 {#                            <label class="form-check-label" for="chk1">Information</label> &nbsp;&nbsp;#}
 
@@ -61,36 +77,29 @@
                                     <form action="{{ url_for('cell_line.download',cell_line=cell_line, dataset=dataset) }}"
                                           method="POST">
                                         <button class="btn btn-info w-10" type="submit"><i
-                                                class="fa fa-download me-2 small"></i>All Cell Line Data
+                                                class="fa fa-download me-2 small"></i>Cell Line Data
                                         </button>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Listing items-->
-                    <div class="card border-5 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
-                        <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h4 mb-4">Cell Line Information :
-                                <mark style="background: #ffc107"> {{ cell_line_info.cellosaurus_id }}</mark>
-                            </h2>
-                            <p><b>Cellosaurus Index : </b>{{ cell_line_info.cellosaurus_index }}<br>
-                                <b>Cellosaurus ID :</b> {{ cell_line_info.cellosaurus_id }}<br><br>
-
-                                {% for i in name_list %}
-                                    <b>{{ i[0][0] }}</b>
-                                    {% for n in i[0][1:] %}
-                                        , {{ n }}
-                                    {% endfor %}
-                                    : {{ i[1] }} <br>
-                                {% endfor %}<br>
-
-                                <b>TISSUE :</b> {{ cell_line_info.site }} <br>
-                                <b>Data set :</b> {{ dataset }}</p>
-
+                        <div class="col-md-4 card border-0 shadow-sm mb-4 mb-lg-5 p-4 p-lg-4">
+                            <div class="card-body p-lg-5">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+                                <form action="{{ url_for('cell_line.information_cell_line',cell_line=cell_line, dataset=dataset) }}"
+                                      method="POST">
+                                    <b>{{ form.dataset.label }}</b> : {{ form.dataset }} <br><br>
+                                    <button class="btn btn-primary w-10" type="submit"><i
+                                            class="fas fa-search me-2 small"></i>Search
+                                    </button>
+                                </form>
+                            </div>
                         </div>
+
+
                     </div>
+
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
                         <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0" id="content2">
@@ -105,7 +114,7 @@
                                             <th>Dataset</th>
                                             <th>Min Dose</th>
                                             <th>Max Dose</th>
-                                            <th>View</th>
+                                            <th>Dose-response</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -118,8 +127,8 @@
                                                 <td>{{ e.info }}</td>
                                                 <td>{{ "%.4f" | format(j.min_dosage) }}</td>
                                                 <td>{{ "%.4f" | format(j.max_dosage) }}</td>
-                                                <td>
-                                                    <a href="{{ url_for('cell_line.view_logistic', exp=e.id) }}">view</a>
+                                                <td style="text-align: center">
+                                                    <a href="{{ url_for('cell_line.view_logistic', exp=e.id) }}"><img src="{{ url_for('static', filename='img/database.svg') }}" alt="" width="25"></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}

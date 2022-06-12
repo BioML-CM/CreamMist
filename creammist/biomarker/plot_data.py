@@ -201,12 +201,12 @@ def plot_box_mutation(temp_df, mut_exp_df):
 
     fig = px.box(df, x='type', y='values', color='type')
     fig.add_annotation(x=0, y=max(y) + 1.5,
-                       text=f'#{len(mu_list)}',
+                       text=f'n = {len(mu_list)}',
                        showarrow=False)
     fig.add_annotation(x=1, y=max(y) + 1.5,
-                       text=f'#{len(wt_list)}',
+                       text=f'n = {len(wt_list)}',
                        showarrow=False)
-    fig.update_yaxes(title_text="IC90 Log2 Concentration (\u03bcM)")
+    fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
     fig.update_xaxes(title_text="")
     fig.update(layout_showlegend=False)
     fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})

@@ -101,6 +101,13 @@
             'displaylogo': false,
             {#'modebar_remove': ['zoom', 'pan', 'zoomIn', 'zoomOut', 'autoScale', 'resetScale']#}
             {#'displayModeBar': false#}
+            'toImageButtonOptions': {
+                'format': 'svg',
+                'filename': 'custom_image',
+                'height': 500,
+                'width': 700,
+                'scale': 1
+            }
         }
         Plotly.plot('chart1', graph1, {})
 

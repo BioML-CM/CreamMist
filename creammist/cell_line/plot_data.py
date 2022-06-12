@@ -93,7 +93,7 @@ def plot_distribution_ic50(data_list, m, M):
 
     fig.update_layout(showlegend=False)
     fig.update_yaxes(rangemode="tozero", visible=False)
-    fig.update_layout(title='IC50 Distribution')
+    # fig.update_layout(title='IC50 Distribution')
     fig['layout'].update({'template': 'simple_white', 'width': 400, 'height': 500})
     fig.update_xaxes(title_text="Log2 Concentration (\u03bcM)")
     fig.update_traces(hoverinfo='none', selector=dict(type="scatter", ))
@@ -230,6 +230,6 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
                      range=(np.log2(min_dosage) - 1, np.log2(max_dosage) + 1),
                      titlefont_size=18)
     fig.update_yaxes(title_text="Response", range=(-0.27, 1.27), titlefont_size=18)
-    fig.update_layout(title='Dose Response Curve', titlefont_size=20)
+    # fig.update_layout(title='Dose Response Curve', titlefont_size=20)
     fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 500, })
     return fig

@@ -41,42 +41,8 @@ def inv_logistic(y, k, a):
 ####################################
 ####################################
 ####################################
-
-
 from plotly.subplots import make_subplots
 
-
-# def plot_distribution(data_list,bin,hdi,title_name):
-#
-#     # fig = go.Figure()
-#     hist_data = [data_list]
-#     group_labels = [''] # name of the dataset
-#     data_array = np.array(data_list)
-#
-#     m, M = az.hdi(data_array, hdi_prob=hdi)
-#
-#
-#     skew, mu, sigma = stats.skewnorm.fit(data_array)
-#     x = np.linspace(min(data_list), max(data_list), 1000)
-#     p = stats.skewnorm.pdf(x,skew, mu, sigma)
-#
-#
-#     fig = make_subplots(specs=[[{"secondary_y": True}]])
-#
-#     fig2 = ff.create_distplot(hist_data, group_labels,bin_size=bin)
-#     fig.add_trace(go.Histogram(fig2['data'][0], hoverinfo='none'), secondary_y=False)
-#
-#     fig.add_trace(go.Scatter(x=x, y=p, mode='lines', line_color="red", opacity=0.2, hoverinfo='none', line_width=2), secondary_y=True,)
-#     fig.add_vline(x=m, line_dash="dash", line_color="green", line_width=2)
-#     fig.add_vline(x=M, line_dash="dash", line_color="green", line_width=2)
-#
-#     fig.update_layout(showlegend=False)
-#     fig.update_yaxes(rangemode="tozero", visible=False, secondary_y=True)
-#     fig.update_layout(title='Distribution of {}'.format(title_name))
-#
-#     fig['layout'].update({'template': 'simple_white', 'width': 300, 'height': 400})
-#
-#     return fig
 
 def plot_distribution_ic50(data_list, m, M):
     # fig = go.Figure()
@@ -105,53 +71,55 @@ def plot_distribution_ic50(data_list, m, M):
 
 def plot_ic_auc_mode(df, type):
     n = 10
-    color_list = ['#17a2b8', '#ffc107'] * (n)
-    # color_list =['#59364A','#A65D8C']*(n)  #ef5285
+    color_list = ['#17a2b8', '#ffc107'] * 5 + ['black'] + ['#17a2b8', '#ffc107'] * 5
     fig = go.Figure()
+
     if type == 'auc':
-        df = pd.concat(
-            [df.sort_values('auc_calculate').head(n), df.sort_values('auc_calculate').tail(n)]).drop_duplicates(
-            'exp_id').reset_index(drop=True)
-        fig.add_traces(go.Bar(x=df['standard_drug_name'], y=df['auc_calculate'],
-                              marker_color=color_list, width=1, name='',
-                              hovertemplate='<b>Cell line</b> : %{x} <br>'
-                                            '<b>AUC </b> : %{y:.2f}%',
-                              hoverlabel=dict(bgcolor='#FFF4ED')))
-
-        fig.update_yaxes(title_text="AUC (%)")
-        # fig.update_layout(title="10 highest and lowest AUC")
-
+        col='auc_calculate'
+        hov_label = 'AUC'
+        title_text =  'AUC (%)'
     elif type == 'ic50':
-        df = pd.concat([df.sort_values('ic50_mode').head(n), df.sort_values('ic50_mode').tail(n)]).drop_duplicates(
-            'exp_id').reset_index(drop=True)
-        fig.add_traces(go.Bar(x=df['standard_drug_name'], y=df['ic50_mode'],
-                              marker_color=color_list, width=1, name='',
-                              hovertemplate='<b>Cell line</b> : %{x} <br>'
-                                            '<b>IC50 </b> : %{y:.2f}',
-                              hoverlabel=dict(bgcolor='#FFF4ED')))
-        fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
-        # fig.update_layout(title="10 highest and lowest IC50")
-
+        col='ic50_mode'
+        hov_label = 'IC50'
+        title_text =  'IC50 Log2 Concentration (\u03bcM)'
     elif type == 'ic90':
+        col='ic90_calculate'
+        hov_label = 'IC90'
+        title_text =  'IC90 Log2 Concentration (\u03bcM)'
+
+   #preprocess df
+    if df.shape[0]>=(2*n):
+        top_df = df.sort_values(col).head(n)
+        new_row = {'standard_drug_name':'', col:''}
+        #append row to the dataframe
+        top_df = top_df.append(new_row, ignore_index=True)
         df = pd.concat(
-            [df.sort_values('ic90_calculate').head(n), df.sort_values('ic90_calculate').tail(n)]).drop_duplicates(
+            [top_df, df.sort_values(col).tail(n)]).reset_index(drop=True)
+    else:
+        df = pd.concat(
+            [df.sort_values(col).head(n), df.sort_values(col).tail(n)]).drop_duplicates(
             'exp_id').reset_index(drop=True)
-        fig.add_traces(go.Bar(x=df['standard_drug_name'], y=df['ic90_calculate'],
-                              marker_color=color_list, width=1, name='',
-                              hovertemplate='<b>Cell line</b> : %{x} <br>'
-                                            '<b>IC90 </b> : %{y:.2f}',
-                              hoverlabel=dict(bgcolor='#FFF4ED')))
-        fig.update_yaxes(title_text="IC90 Log2 Concentration (\u03bcM)")
-        # fig.update_layout(title="10 highest and lowest IC90")
 
+    #plot
+    fig.add_traces(go.Bar(x=df['standard_drug_name'], y=df[col],
+                          marker_color=color_list, width=1, name='',
+                          hovertemplate='<b>Drug Name</b> : %{x} <br>'
+                                        f'<b>{hov_label} </b>'' : %{y:.2f}%',
+                          hoverlabel=dict(bgcolor='#FFF4ED')))
+
+    fig.update_yaxes(title_text=title_text)
+    # fig.update_layout(title="10 highest and lowest AUC")
+
+    #xtick
     for i in range(df.shape[0]):
-        fig['data'][0]['x'][
-            i] = f"<a href='http://127.0.0.1:5000/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
+        if i==10:
+            fig['data'][0]['x'][i] = f"—"
+        else:
+            fig['data'][0]['x'][i] = f"<a href='https://creammist.mtms.dev/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
-        # fig['data'][0]['x'][i] = "<a href='http://127.0.0.1:5000/cell_line/view/{}' style='color:ef5285;'>{}</a>".format(df['id'][i],fig['data'][0]['x'][i])
-    fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
+    fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
     fig.update_xaxes(tickangle=-45)
-    fig.update_xaxes(title_text="Drug Name")
+    fig.update_xaxes(title_text="Drug Name",showline=False,tickcolor='white')
     fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     return fig
 
@@ -188,9 +156,6 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
             new_response += [response[i]]
             # marker_list += ['circle']
 
-    # custom_text = []
-    # for i,j in zip(dosage,response):
-    #     custom_text += [list([i,j])]
 
     fig = go.Figure()
 
@@ -203,14 +168,13 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
     fig.add_trace(go.Scatter(x=x, y=func_x_mode, mode='lines', line_color="#d63384",
                              showlegend=False, hoverinfo='none'))
     # plot response
-
     for i in range(len(new_response)):
         fig.add_trace(go.Scatter(x=np.array(np.log2(dosage[i])), y=np.array(new_response[i]),
                                  mode='markers', text=[dosage[i]], customdata=[response[i]],
                                  marker_color=color_plot[i], marker_symbol=marker_plot[i], name='',
                                  marker=dict(size=10),
-                                 hovertemplate='<b>dosage</b> : %{text:.4f} uM' +
-                                               '<br><b>response</b> : %{customdata:.2f}',
+                                 hovertemplate='<b>Dosage</b> : %{text:.4f} uM' +
+                                               '<br><b>Response</b> : %{customdata:.2f}',
                                  hoverlabel=dict(bgcolor='#FFF4ED'),
                                  legendgroup=dataset_plot[i], showlegend=False))
 
@@ -222,10 +186,6 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
 
     fig.add_hline(y=0.5, line_width=2, line_dash="dash", line_color="#A64E65")
     fig.add_vline(x=sens[0].ic50_mode, line_width=2, line_dash="dash", line_color="#A64E65")
-
-    # fig.add_hline(y=sens[0].einf_calculate, line_width=1, line_dash="dot", line_color="#59364A")
-    # fig.add_vline(x=sens[0].ic90_calculate, line_width=1, line_dash="dot", line_color="#59364A")
-    # fig.add_vline(x=sens[0].ec50_calculate, line_width=1, line_dash="dot", line_color="#59364A")
 
     fig.update_xaxes(title_text="Log2 Concentration (\u03bcM)",
                      range=(np.log2(min_dosage) - 1, np.log2(max_dosage) + 1),

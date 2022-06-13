@@ -5,9 +5,13 @@ import plotly.express as px
 
 
 def plot_ic_auc_mode(df, type):
+    # new_row = {'standard_drug_name':'', type:0}
+    # #append row to the dataframe
+    # df = df.append(new_row, ignore_index=True)
+
     my_order1 = list(df.groupby(by=['standard_drug_name'])[type].median().sort_values().index[0:10])
     my_order2 = list(df.groupby(by=['standard_drug_name'])[type].median().sort_values().index[-10:])
-    my_order = my_order1 + my_order2
+    my_order = my_order1  + my_order2
 
     df = df[df['standard_drug_name'].isin(my_order)].reset_index()
 
@@ -51,6 +55,6 @@ def plot_ic_auc_mode(df, type):
 
     fig.update_layout(layout)
     fig.update_layout(hoverlabel_bgcolor='#FFF4ED')
-    fig['layout'].update({'template': 'simple_white', 'width': 600, 'height': 400})
+    fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
     fig.update_xaxes(title_text="Drug Name")
     return fig

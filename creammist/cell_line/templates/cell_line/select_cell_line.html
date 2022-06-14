@@ -1,87 +1,88 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
+{#
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
 
-    <style>
-        .ui-autocomplete {
-            max-height: 320px;
-            overflow: scroll;
-            background-color: #fcdce7;
-            overflow-y: scroll;
-            scrollbar-color: #D6B2A7;
-            scrollbar-width: thin;
-        }
-    </style>
+<style>
+    .ui-autocomplete {
+        max-height: 320px;
+        overflow: scroll;
+        background-color: #fcdce7;
+        overflow-y: scroll;
+        scrollbar-color: #D6B2A7;
+        scrollbar-width: thin;
+    }
+</style>
 
-    <section class="hero-home py-5">
-        <div class="container pt-5">
-            <div class="row">
-                <div class="col-lg-7 mx-auto text-center">
-                    <p class="h6 text-uppercase text-primary mb-3">CELL LINES</p>
-                    <h2 class="mb-5">Search by Cell Line Name</h2>
-                    <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('cell_line.select') }}"
-                          method="POST">
-                        <div class="input-group">
-                            {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="For example, A-172") }}
-                            <br>
+<section class="hero-home py-5">
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-lg-7 mx-auto text-center">
+                <p class="h6 text-uppercase text-primary mb-3">CELL LINES</p>
+                <h2 class="mb-5">Search by Cell Line Name</h2>
+                <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('cell_line.select') }}"
+                      method="POST">
+                    <div class="input-group">
+                        {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="For example, A-172") }}
+                        <br>
 
-                            <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
-                        </div>
-                        <script>
-                            $(function () {
-                                $.ajax({
-                                    url: '{{ url_for("cell_line.autocomplete") }}'
-                                }).done(function (data) {
-                                    $('#cell_line_autocomplete').autocomplete({
-                                        source: data,
-                                        minLength: 1
-                                    });
+                        <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                    <script>
+                        $(function () {
+                            $.ajax({
+                                url: '{{ url_for("cell_line.autocomplete") }}'
+                            }).done(function (data) {
+                                $('#cell_line_autocomplete').autocomplete({
+                                    source: data,
+                                    minLength: 1
                                 });
                             });
-                        </script>
-                    </form>
-                    <br>
-                    <span style="float:left;">For example,
+                        });
+                    </script>
+                </form>
+                <br>
+                <span style="float:left;">For example,
                         <a href="#" id="link-id1">1321N1</a>&nbsp; -
                         <a href="#" id="link-id2">8-MG-BA</a>&nbsp; -
-                        <a href="#" id="link-id2">A-172</a>&nbsp; -
-                        <a href="#" id="link-id2">BALL-1</a>
-                </div>
+                        <a href="#" id="link-id3">A-172</a>&nbsp; -
+                        <a href="#" id="link-id4">BALL-1</a>
             </div>
         </div>
+    </div>
 
     <div class="container py-5">
-        <div class="row text-center">
+        <div class="row ">
             <div class="col-lg-10 mx-auto">
                 <div class="card border-0 shadow">
                     <div class="card-body p-4 p-lg-5">
                         <div class="row gy-4">
-                            <div class="col-lg-4">
-                                <svg class="svg-icon mb-3 text-primary svg-icon-big">
-                                    <use xlink:href="#!list-details-1"> </use>
-                                </svg>
-                                <h2 class="h5">Search your tool</h2>
-                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                            </div>
-                            <div class="col-lg-4">
-                                <svg class="svg-icon mb-3 text-primary svg-icon-big">
-                                    <use xlink:href="#!survey-1"> </use>
-                                </svg>
-                                <h2 class="h5">Gather your info</h2>
-                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                            </div>
-                            <div class="col-lg-4">
-                                <svg class="svg-icon mb-3 text-primary svg-icon-big">
-                                    <use xlink:href="#!stack-1"> </use>
-                                </svg>
-                                <h2 class="h5">Build your startup</h2>
-                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                            </div>
+                            <h5>All Cell Line Name</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum
+                                ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+
+                            <table id="example" class="display" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Cell Line Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for c in data %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ url_for('cell_line.information_cell_line', cell_line=c, dataset='All') }}">{{ c }} </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -91,8 +92,8 @@
 </section>
 
 <script type="text/javascript">
-    $(function(){
-        $("#link-id1").click(function(){
+    $(function () {
+        $("#link-id1").click(function () {
             $('#cell_line_autocomplete').val($(this).html());
             $('#cell_line_autocomplete').submit();
             return false;
@@ -100,8 +101,8 @@
     });
 </script>
 <script type="text/javascript">
-    $(function(){
-        $("#link-id2").click(function(){
+    $(function () {
+        $("#link-id2").click(function () {
             $('#cell_line_autocomplete').val($(this).html());
             $('#cell_line_autocomplete').submit();
             return false;
@@ -109,8 +110,8 @@
     });
 </script>
 <script type="text/javascript">
-    $(function(){
-        $("#link-id3").click(function(){
+    $(function () {
+        $("#link-id3").click(function () {
             $('#cell_line_autocomplete').val($(this).html());
             $('#cell_line_autocomplete').submit();
             return false;
@@ -118,11 +119,29 @@
     });
 </script>
 <script type="text/javascript">
-    $(function(){
-        $("#link-id4").click(function(){
+    $(function () {
+        $("#link-id4").click(function () {
             $('#cell_line_autocomplete').val($(this).html());
             $('#cell_line_autocomplete').submit();
             return false;
+        });
+    });
+</script>
+
+
+<!--- for table -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='table/datatables.min.css')}}">
+<script src="{{ url_for('static', filename='table/datatables.min.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='table/dataTables.alphabetSearch.css')}}">
+<script src="{{ url_for('static', filename='table/dataTables.alphabetSearch.min.js')}}"></script>
+
+<script>
+    $(document).ready(function () {
+        var table = $('#example').DataTable({
+            dom: 'Alfrtip',
+            alphabetSearch: {
+                column: 0
+            }
         });
     });
 </script>

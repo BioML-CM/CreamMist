@@ -56,12 +56,15 @@ def autocomplete():
 
 
 @gene_blueprint.route('/select/', methods=['GET', 'POST'])
-def select():  # choose cell line
+def select():
+    gene_records = db.session.query(Gene.gene_name).all()
+    gene_name_db = [r.gene_name for r in gene_records]
+
     form = GeneForm()
     if request.method == 'POST':
         gene = request.form.get('name')
         return redirect(url_for('gene.information_gene', gene=gene, dataset='All', cancer_type='pancan'))
-    return render_template('select_gene.html', form=form)
+    return render_template('select_gene.html', form=form,data=gene_name_db)
 
 
 @gene_blueprint.route("/<string:dataset>/<string:gene>/<string:cancer_type>", methods=['GET', 'POST'])

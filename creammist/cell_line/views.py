@@ -88,11 +88,14 @@ def autocomplete():
 
 @cell_line_blueprint.route('/select/', methods=['GET', 'POST'])
 def select():  # choose cell line
+    cell_line_records = db.session.query(Experiment.cellosaurus_id).distinct()
+    cell_line_name_db = [r.cellosaurus_id for r in cell_line_records]
+
     form = CellLineForm()
     if request.method == 'POST':
         name = request.form.get('name')
         return redirect(url_for('cell_line.information_cell_line', cell_line=name, dataset='All'))
-    return render_template('select_cell_line.html', form=form)
+    return render_template('select_cell_line.html', form=form, data=cell_line_name_db)
 
 
 @cell_line_blueprint.route("/<string:dataset>/<string:cell_line>", methods=['GET', 'POST'])

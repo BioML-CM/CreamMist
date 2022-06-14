@@ -52,6 +52,38 @@
                 </div>
             </div>
         </div>
+        <div class="container py-5">
+            <div class="row ">
+                <div class="col-lg-10 mx-auto">
+                    <div class="card border-0 shadow">
+                        <div class="card-body p-4 p-lg-5">
+                            <div class="row gy-4">
+                                <h5>All Gene</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum
+                                    ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+
+                                <table id="example" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th> Gene</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for g in data %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ url_for('gene.information_gene', gene=g, dataset='All', cancer_type='pancan') }}">{{ g }} </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 <script type="text/javascript">
@@ -90,6 +122,24 @@
         });
     });
 </script>
+
+<!--- for table -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='table/datatables.min.css')}}">
+<script src="{{ url_for('static', filename='table/datatables.min.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='table/dataTables.alphabetSearch.css')}}">
+<script src="{{ url_for('static', filename='table/dataTables.alphabetSearch.min.js')}}"></script>
+
+<script>
+    $(document).ready(function () {
+        var table = $('#example').DataTable({
+            dom: 'Alfrtip',
+            alphabetSearch: {
+                column: 0
+            }
+        });
+    });
+</script>
+
 {% endblock %}
 
 

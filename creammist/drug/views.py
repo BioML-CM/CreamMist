@@ -75,12 +75,15 @@ def autocomplete():
 
 @drug_blueprint.route('/select/', methods=['GET', 'POST'])
 def select():  # choose drug
+    drug_records = db.session.query(Experiment.standard_drug_name).distinct()
+    drug_name_db = [r.standard_drug_name for r in drug_records]
+
     form = DrugForm()
     if request.method == 'POST':
         name = request.form.get('name')
         # print(name)
         return redirect(url_for('drug.information_drug', drug=name, dataset='All'))
-    return render_template('select_drug.html', form=form)
+    return render_template('select_drug.html', form=form, data=drug_name_db)
 
 
 @drug_blueprint.route("/<string:dataset>/<string:drug>", methods=['GET', 'POST'])

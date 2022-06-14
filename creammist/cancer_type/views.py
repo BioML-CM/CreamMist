@@ -54,11 +54,17 @@ def autocomplete():
 
 @cancer_type_blueprint.route('/select/', methods=['GET', 'POST'])
 def select():  # choose cell line
+    cellline_record = db.session.query(Experiment.cellosaurus_id).distinct()
+    cellline_list = [r.cellosaurus_id for r in cellline_record]
+
+    cancer_type_records = db.session.query(CellLine.site).filter(CellLine.cellosaurus_id.in_(cellline_list)).distinct()
+    cancer_type_name_db = [r.site for r in cancer_type_records] + ['pancan']
+
     form = CancerForm()
     if request.method == 'POST':
         name = request.form.get('name')
         return redirect(url_for('cancer_type.information_cancer_type', cancer_type=name, dataset='All'))
-    return render_template('select_cancer_type.html', form=form)
+    return render_template('select_cancer_type.html', form=form, data=cancer_type_name_db )
 
 
 @cancer_type_blueprint.route("/<string:dataset>/<string:cancer_type>", methods=['GET', 'POST'])

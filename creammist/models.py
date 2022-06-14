@@ -325,6 +325,20 @@ class GeneSimilarity(db.Model):
         self.gene_y = gene_y
         self.similarity = similarity
 
+class OmicsProfiles(db.Model): #OmicsProfiles
+    __tablename__ = 'omics_profiles'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    cellosaurus_id = db.Column(db.String(64), db.ForeignKey('cell_lines.cellosaurus_id'), nullable=False)
+    gene = db.Column(db.String(64), db.ForeignKey('genes.gene_name'))
+    values = db.Column(db.Float)
+    score = db.Column(db.String(64))
+
+    def __init__(self, cellosaurus_id, gene, values, score):
+        self.cellosaurus_id = cellosaurus_id
+        self.gene = gene
+        self.values = values
+        self.score = score
 
 class MutExpMetadata(db.Model): #OmicsProfiles
     __tablename__ = 'mut_exp_metadata'

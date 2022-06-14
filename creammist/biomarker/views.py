@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, Response
 from creammist import db
 from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, \
-    GeneExpression, Gene, MutExpMetadata
+    GeneExpression, Gene, MutExpMetadata, OmicsProfiles
 from creammist.biomarker.forms import BiomarkerForm, ChoiceForm
 
 from flask import request, send_file
@@ -167,17 +167,17 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
                                                                          Experiment.dataset == 'All')  # .all()
     df = pd.read_sql(data.statement, db.session.bind)
     df = df[df['cellosaurus_id'].isin(cell_line_list)]
-    df = df[['cellosaurus_index', 'standard_drug_name', 'beta0_mode']]
+    df = df[['cellosaurus_id', 'standard_drug_name', 'beta0_mode']]
 
-    cell_line_index_list = df['cellosaurus_index']
+    # cell_line_index_list = df['cellosaurus_index']
     # print('list cell line')
 
     # find mut/exp values
-    mut_exp_data = db.session.query(MutExpMetadata).filter(MutExpMetadata.gene == gene)  # .all()
+    mut_exp_data = db.session.query(OmicsProfiles).filter(OmicsProfiles.gene == gene)  # .all()
     mut_exp_df = pd.read_sql(mut_exp_data.statement, db.session.bind)
 
-    mut_exp_df = mut_exp_df[mut_exp_df['cellosaurus_index'].isin(cell_line_index_list)]
-    mut_exp_df = mut_exp_df[['cellosaurus_index', 'gene', 'values', 'score']]
+    mut_exp_df = mut_exp_df[mut_exp_df['cellosaurus_id'].isin(cell_line_list)]
+    mut_exp_df = mut_exp_df[['cellosaurus_id', 'gene', 'values', 'score']]
     # print(mut_exp_df)
 
     # print('finish query')

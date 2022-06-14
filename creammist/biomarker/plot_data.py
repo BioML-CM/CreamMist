@@ -189,11 +189,11 @@ def plot_expression(df):
 
 def plot_box_mutation(temp_df, mut_exp_df):
     mut_exp_df = mut_exp_df[mut_exp_df['score'] == 'mutation']
-    mu_list = mut_exp_df[mut_exp_df['values'] >= 0.2]['cellosaurus_index']
-    wt_list = mut_exp_df[mut_exp_df['values'] < 0.2]['cellosaurus_index']
+    mu_list = mut_exp_df[mut_exp_df['values'] >= 0.2]['cellosaurus_id']
+    wt_list = mut_exp_df[mut_exp_df['values'] < 0.2]['cellosaurus_id']
 
-    mu_score = temp_df[temp_df['cellosaurus_index'].isin(mu_list)]['beta0_mode']
-    wt_score = temp_df[temp_df['cellosaurus_index'].isin(wt_list)]['beta0_mode']
+    mu_score = temp_df[temp_df['cellosaurus_id'].isin(mu_list)]['beta0_mode']
+    wt_score = temp_df[temp_df['cellosaurus_id'].isin(wt_list)]['beta0_mode']
 
     x = ['mutation'] * len(mu_score) + ['wildtype'] * len(wt_score)
     y = list(mu_score) + list(wt_score)
@@ -216,10 +216,13 @@ def plot_box_mutation(temp_df, mut_exp_df):
 
 def plot_scatter_expression(temp_df, mut_exp_df):
     mut_exp_df = mut_exp_df[mut_exp_df['score'] == 'gene_expression']
-    mut_exp_df = mut_exp_df.set_index('cellosaurus_index')
-    temp_df = temp_df.set_index('cellosaurus_index')
 
-    cell_line_list = list(set(mut_exp_df.index))
+    mut_exp_df = mut_exp_df.set_index('cellosaurus_id')
+    temp_df = temp_df.set_index('cellosaurus_id')
+    # print(temp_df.index)
+
+    cell_line_list = list(set(mut_exp_df.index).intersection(set(temp_df.index)))
+
     count = mut_exp_df[mut_exp_df['values'] >= 1]['values'].count()
 
     if count >= 5:

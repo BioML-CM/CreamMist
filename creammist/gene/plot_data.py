@@ -25,7 +25,7 @@ def plot_statistic(df, score):
         fig.add_traces(go.Bar(x=df['standard_drug_name'], y=df[score], customdata=df['pvalue'],
                               marker_color=color_list, width=1, name='',
                               hovertemplate='<b>Drug Name</b> : %{x} <br>'
-                                            '<b>Effect Size </b> : %{y:.4f}%<br>'
+                                            '<b>Effect Size </b> : %{y:.4f}<br>'
                                             '<b>Pvalue</b> : ' + '%{customdata:.4f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 
@@ -50,7 +50,7 @@ def plot_statistic(df, score):
         fig.add_traces(go.Bar(x=df['standard_drug_name'], y=df[score], customdata=df['pvalue'],
                               marker_color=color_list, width=1, name='',
                               hovertemplate='<b>Drug Name</b> : %{x} <br>'
-                                            '<b>Correlation </b> : %{y:.4f}%<br>'
+                                            '<b>Correlation </b> : %{y:.4f}<br>'
                                             '<b>Pvalue</b> : ' + '%{customdata:.4f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 

@@ -12,7 +12,7 @@ def plot_ic_auc_mode(df, type):
 
     if type == 'auc':
         col='auc_calculate'
-        hov_label = 'AUC'
+        hov_label = 'AUC (%)'
         title_text =  'AUC (%)'
     elif type == 'ic50':
         col='ic50_mode'
@@ -40,7 +40,7 @@ def plot_ic_auc_mode(df, type):
     fig.add_traces(go.Bar(x=df['cellosaurus_id'], y=df[col],
                           marker_color=color_list, width=1, name='',
                           hovertemplate='<b>Cell Line Name</b> : %{x} <br>'
-                                        f'<b>{hov_label} </b>'' : %{y:.2f}%',
+                                        f'<b>{hov_label} </b>'' : %{y:.2f}',
                           hoverlabel=dict(bgcolor='#FFF4ED')))
 
     fig.update_yaxes(title_text=title_text)

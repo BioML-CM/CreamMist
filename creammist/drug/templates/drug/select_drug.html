@@ -77,7 +77,7 @@
                                     {% for c in data %}
                                     <tr>
                                         <td>
-                                            <a href="{{ url_for('drug.information_drug', drug=name, dataset='All') }}">{{ c }} </a>
+                                            <a href="{{ url_for('drug.information_drug', drug=c, dataset='All') }}">{{ c }} </a>
                                         </td>
                                     </tr>
                                     {% endfor %}

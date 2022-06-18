@@ -32,8 +32,8 @@ def download(gene, drug, cancer_type):
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
     mutation_df = mutation_df[['dataset', 'statistic', 'pvalue', 'provided_statistic', 'provided_pvalue']]
     mutation_df = mutation_df.rename(
-        columns={'statistic': 'effect_size_mutation', 'provided_statistic': 'provided_effect_size_mutation',
-                 'pvalue': 'pvalue_mutation', 'provided_pvalue': 'provided_pvalue_mutation'})
+        columns={'statistic': 'creammist_effect_size_mutation', 'provided_statistic': 'original_source_effect_size_mutation',
+                 'pvalue': 'creammist_pvalue_mutation', 'provided_pvalue': 'original_source_pvalue_mutation'})
 
     express_data = db.session.query(GeneExpression).filter(GeneExpression.gene == gene,
                                                            GeneExpression.standard_drug_name == drug,
@@ -41,8 +41,8 @@ def download(gene, drug, cancer_type):
     express_df = pd.read_sql(express_data.statement, db.session.bind)
     express_df = express_df[['dataset', 'correlation', 'pvalue', 'provided_correlation', 'provided_pvalue']]
     express_df = express_df.rename(
-        columns={'correlation': 'correlation_expression', 'provided_correlation': 'provided_correlation_expression',
-                 'pvalue': 'pvalue_expression', 'provided_pvalue': 'provided_pvalue_expression'})
+        columns={'correlation': 'creammist_correlation_expression', 'provided_correlation': 'original_source_correlation_expression',
+                 'pvalue': 'creammist_pvalue_expression', 'provided_pvalue': 'original_source_pvalue_expression'})
 
     df = pd.merge(mutation_df, express_df, on=['dataset'], how='outer')
 
@@ -103,13 +103,13 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
     mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug,
                                                       Mutation.cancer_type == cancer_type)  # .all()
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
-    mutation_df = mutation_df[['dataset', 'statistic', 'pvalue', 'provided_statistic', 'provided_pvalue']]
-
+    # mutation_df = mutation_df[['dataset', 'statistic', 'pvalue', 'provided_statistic', 'provided_pvalue']]
+    print(mutation_df)
     express_data = db.session.query(GeneExpression).filter(GeneExpression.gene == gene,
                                                            GeneExpression.standard_drug_name == drug,
                                                            GeneExpression.cancer_type == cancer_type)  # .all()
     express_df = pd.read_sql(express_data.statement, db.session.bind)
-    express_df = express_df[['dataset', 'correlation', 'pvalue', 'provided_correlation', 'provided_pvalue']]
+    # express_df = express_df[['dataset', 'correlation', 'pvalue', 'provided_correlation', 'provided_pvalue']]
 
     # print("db mut/exp complete")
     # print(express_df)
@@ -137,7 +137,6 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
 
     # plot graph
     # print('start plot graph')
-
     fig_mutation_stat, box_plot, mut_plot = plot_data.plot_mutation(mutation_df)
     fig_express_stat, scatt_plot, exp_plot = plot_data.plot_expression(express_df)
     if mut_plot:

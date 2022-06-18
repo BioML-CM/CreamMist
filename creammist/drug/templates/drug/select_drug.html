@@ -29,7 +29,7 @@
                         <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('drug.select') }}"
                               method="POST">
                             <div class="input-group">
-                                {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="For example, Lapatinib") }}
+                                {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="Example: Lapatinib") }}
                                 <br>
 
                                 <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i>
@@ -49,11 +49,12 @@
                             </script>
                         </form>
                         <br>
-                        <span style="float:left;">For example,
+                        <span style="float:left;">Examples:
                         <a href="#" id="link-id1">Lapatinib</a>&nbsp; -
                         <a href="#" id="link-id2">oligomycin A</a>&nbsp; -
                         <a href="#" id="link-id3">Nilotinib</a>&nbsp; -
-                        <a href="#" id="link-id4">BML-259</a></span>
+                        <a href="#" id="link-id4">BML-259</a>
+                        </span>
                 </div>
             </div>
         </div>
@@ -63,9 +64,8 @@
                     <div class="card border-0 shadow">
                         <div class="card-body p-4 p-lg-5">
                             <div class="row gy-4">
-                                <h5>All Drug Name</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum
-                                    ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+                                <h5>Browse Drugs</h5>
+                                <p>Click on drug name to query drug, drug response, and associated genes information.</p>
 
                                 <table id="example" class="display" cellspacing="0" width="100%">
                                     <thead>
@@ -90,6 +90,13 @@
             </div>
         </div>
     </section>
+
+<div class="container py-5 col-lg-12 ">
+    <div class="card-body p-4 p-lg-5">
+    </div>
+</div>
+
+
 
 <script type="text/javascript">
     $(function(){

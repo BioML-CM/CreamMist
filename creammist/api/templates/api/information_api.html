@@ -11,17 +11,18 @@
             <div class="row gy-5">
                 <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                     <div class="card-body p-lg-5" id="content1">
-                        <h2 class="h4 mb-4">API : </h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum. Proin ullamcorper sem velit, non vulputate ex finibus nec. Nulla accumsan, sapien eu sodales gravida, leo urna pretium sapien, ac tincidunt tellus ante sit amet ex.</p>
+                        <h2 class="h4 mb-4">API  </h2>
+                        <p>CREAMMIST provides API for accessing the different kinds of data such as cell lines, drugs, dose-response relationships, dose-response curves, and statistics.</p>
                     </div>
                 </div>
                 <!-- Listing-->
                 <div class="col-lg-6 order-2 order-lg-1">
                     <div class=" mb-4 p-2" id="content1">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/celllines</h2>
+                        <p>List of available cell lines and their description</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/celllines </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/celllines </span>
                                 <div class="card-body p-4" id="result-1">
                                 </div>
                             </div>
@@ -29,9 +30,10 @@
                     </div>
                     <div class=" mb-4 p-2" id="content2">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/celllines/{cellosaurus_id}</h2>
+                        <p>List of drugs tested for a specific cell line</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/celllines/1321N1 </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/celllines/1321N1 </span>
                                 <div class="card-body p-4" id="result-2">
                                 </div>
                             </div>
@@ -39,9 +41,10 @@
                     </div>
                     <div class=" mb-4 p-2" id="content3">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/cancertypes</h2>
+                        <p>List of available cancer types</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/cancertypes </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/cancertypes </span>
                                 <div class="card-body p-4" id="result-3">
                                 </div>
                             </div>
@@ -49,9 +52,10 @@
                     </div>
                     <div class=" mb-4 p-2" id="content4">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/cancertypes/{cancer_type}</h2>
+                        <p>List of cell lines for a specific cancer type</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/cancertypes/stomach </span>
+                                <span style="color:#17a2b8">https://creammist.mtms.dev/api/cancertypes/stomach </span>
                                 <div class="card-body p-4" id="result-4">
                                 </div>
                             </div>
@@ -60,9 +64,10 @@
                     <div class=" mb-4 p-2" id="content5">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>
                             api/experiments/{cellosaurus_id}/<br>{standard_drug_name}</h2>
+                        <p>Dose-response information for a given pair of cell line and drug.</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/experiments/1321N1/Lapatinib </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/experiments/1321N1/Lapatinib </span>
                                 <div class="card-body p-4" id="result-5">
                                 </div>
                             </div>
@@ -70,9 +75,10 @@
                     </div>
                     <div class=" mb-4 p-2" id="content6">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/drugs</h2>
+                        <p>List of available drugs and their description</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/drugs </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/drugs </span>
                                 <div class="card-body p-4" id="result-6">
                                 </div>
                             </div>
@@ -83,9 +89,10 @@
                 <div class="col-lg-6 order-2 order-lg-1">
                     <div class=" mb-4 p-2" id="content7">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/drugs/{standard_drug_name}</h2>
+                        <p>List of cell lines tested for a specific drug</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/drugs/Lapatinib </span>
+                                <span style="color:#17a2b8">https://creammist.mtms.dev/api/drugs/Lapatinib </span>
                                 <div class="card-body p-4" id="result-7">
                                 </div>
                             </div>
@@ -93,9 +100,10 @@
                     </div>
                     <div class=" mb-4 p-2" id="content8">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/genes</h2>
+                        <p>List of available genes</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/genes </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/genes </span>
                                 <div class="card-body p-4" id="result-8">
                                 </div>
                             </div>
@@ -104,9 +112,10 @@
                     <div class=" mb-4 p-2" id="content9">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>
                             api/biomarker/{exp|mut}/{cancer_type}/gene/<br>{gene}/{pos|neg}/{n_top}</h2>
+                        <p>List of top associated drugs given a gene name. The list is ranked by either Spearman correlation (i.e., gene expression vs IC50) or Ranksum’s effect size (i.e., IC50 of wild type vs mutant). </p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/biomarker/exp/pancan/gene/EGFR/pos/10 </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/biomarker/exp/pancan/gene/EGFR/pos/10 </span>
                                 <div class="card-body p-4" id="result-9">
                                 </div>
                             </div>
@@ -115,9 +124,10 @@
                     <div class=" mb-4 p-2" id="content10">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>
                             api/biomarker/{exp|mut}/{cancer_type}/drug/<br>{standard_drug_name}/{pos|neg}/{n_top}</h2>
+                        <p>List of top associated genes given a drug name. The list is ranked by either Spearman correlation (i.e., gene expression vs IC50) or Ranksum’s effect size (i.e., IC50 of wild type vs mutant). </p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/biomarker/exp/pancan/drug/Lapatinib/pos/10 </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/biomarker/exp/pancan/drug/Lapatinib/pos/10 </span>
                                 <div class="card-body p-4" id="result-10">
                                 </div>
                             </div>
@@ -126,9 +136,10 @@
                     <div class=" mb-4 p-2" id="content11">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>
                             api/biomarker/{exp|mut}/{cancer_type}/info/<br>{gene}/{standard_drug_name}</h2>
+                        <p>Association information for a given pair of drug and gene. </p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/biomarker/mut/pancan/info/EGFR/Lapatinib </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/biomarker/mut/pancan/info/EGFR/Lapatinib </span>
                                 <div class="card-body p-4" id="result-11">
                                 </div>
                             </div>
@@ -136,9 +147,10 @@
                     </div>
                     <div class=" mb-4 p-2" id="content12">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span>api/mutation/{cellosaurus_id} </h2>
+                        <p>A mutation profile of a given cell line</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/mutation/A-172 </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/mutation/A-172 </span>
                                 <div class="card-body p-4" id="result-12">
                                 </div>
                             </div>
@@ -147,9 +159,10 @@
                     <div class=" mb-4 p-2" id="content13">
                         <h2 class="h5 mb-4"><span style="color:#ef5285"> GET </span> api/expression/{cellosaurus_id}
                         </h2>
+                        <p>A gene expression profile (TMM) of a given cell line</p>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <span style="color:#17a2b8"> http://127.0.0.1:5000/api/expression/A-172 </span>
+                                <span style="color:#17a2b8"> https://creammist.mtms.dev/api/expression/A-172 </span>
                                 <div class="card-body p-4" id="result-13">
                                 </div>
                             </div>

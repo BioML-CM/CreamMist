@@ -29,7 +29,7 @@ def download(cell_line, dataset):
     df = df[['cellosaurus_id', 'standard_drug_name', 'dataset', 'info', 'n_dosage', 'min_dosage', 'max_dosage',
              'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate', 'fitted_mae']]
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
-                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC'})
+                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC', 'info':'original_datasets'})
     path = f'cell_line/output/cell_line_{cell_line}_{dataset}_information.csv'
     df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
@@ -224,4 +224,4 @@ def view_logistic(exp):
     # graph5Jason = json.dumps(fig_input_dose, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('view_cell_line.html', experiment=experiment, graph1Jason=graph1Jason,
-                           graph2Jason=graph2Jason, form=form, data=sens)
+                           graph2Jason=graph2Jason, form=form, data=sens,cl=c,drug=drug)

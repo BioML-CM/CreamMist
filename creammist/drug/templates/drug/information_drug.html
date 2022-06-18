@@ -34,15 +34,15 @@
                     <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
                             <h2 class="h4 mb-4">Drug :
-                                <mark style="background: #ffc107">{{ drug_info.standard_drug_name }}</mark>
+                                <mark style="background: #ffc107">{{ drug_info.standard_drug_name.title() }}</mark>
                             </h2>
                             <p>
                                 {% for i in name_list %}
                                 <b>{{ i[0][0] }} Name</b>
                                 {% for n in i[0][1:] %}
-                                <b>, {{ n }}</b>
+                                <b>, {{ n }} Name</b>
                                 {% endfor %}
-                                : {{ i[1] }} <br>
+                                : {{ i[1] }}<br>
                                 {% endfor %} <br>
 
                                 <b>Dataset :</b> {{ dataset }} <br>
@@ -57,8 +57,8 @@
                         <div class="col-lg-6" >
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-lg-5">
-                                    <h4>Information card </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum. Proin ullamcorper sem velit, non vulputate ex finibus nec. Nulla accumsan, sapien eu sodales gravida, leo urna pretium sapien, ac tincidunt tellus ante sit amet ex.</p>
+                                    <h4>Information Cards</h4>
+                                    <p>Click to show/hide information cards below or download all drug response information.</p>
 
                                     <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
                                            name="chk2" checked>
@@ -99,7 +99,7 @@
                         <div class="col-lg-6" >
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-lg-5">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+                                    <p>Information cards below will change according to the dataset selected. The default dataset is “All”, which means information in the cards is based on the integration. If “All” is not selected, information cards will contain drug response information preprocessed for each dataset independently.</p>
                                     <form action="{{ url_for('drug.information_drug',drug=drug, dataset=dataset) }}"
                                           method="POST">
                                         <b>{{ form.dataset.label }} :</b> {{ form.dataset(class="btn btn-light bg-white shadow-xs border text-start align-items-center")}} <br><br>
@@ -118,8 +118,8 @@
                         <!-- Gallery-->
                         <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                             <div class="card-body p-lg-5" id="content2">
-                                <h2 class="h4 mb-4">Experiment Information</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum. Proin ullamcorper sem velit, non vulputate ex finibus nec. Nulla accumsan, sapien eu sodales gravida, leo urna pretium sapien, ac tincidunt tellus ante sit amet ex.</p>
+                                <h2 class="h4 mb-4">Experimental information</h2>
+                                <p>Experimental information from “All” dataset, includes drug name, cell line name,  and minimum and maximum dosages used in each experiment. Click on Dose-response to query more detail for each experiment.</p>
                                 <div class="rounded overflow-hidden mb-3">
                                     <table id="data" class="table table-striped" style="width:100%">
                                         <thead>
@@ -157,7 +157,8 @@
                             <h2 class="h4 mb-4">IC50</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    10 highest and lowest IC50
+                                    IC50 indicates how much drug dosage is needed to inhibit the cells by 50%, in vitro, compared to the control well.<br><br>
+                                    Cell lines  with highest and lowest IC50
                                     <div id="chart1">
                                     </div>
                                 </div>
@@ -167,7 +168,8 @@
                             <h2 class="h4 mb-4">IC90</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    10 highest and lowest IC90
+                                    IC90 indicates how much drug dosage is needed to inhibit the cells by 90%, in vitro, compared to the control well.<br><br>
+                                    Cell lines  with highest and lowest IC90
                                     <div id="chart2">
                                     </div>
                                 </div>
@@ -177,7 +179,8 @@
                             <h2 class="h4 mb-4">AUC</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    10 highest and lowest AUC
+                                    AUC represents the area under a dose-response curve, where 0% indicates no activity and 100% indicates that a drug completely inhibits the cells across testing dosages.<br><br>
+                                    Cell lines  with highest and lowest AUC
                                     <div id="chart3">
                                     </div>
                                 </div>
@@ -191,10 +194,9 @@
                             <h2 class="h4 mb-4">Associated Genes (Mutation)</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    For <a
+                                    Genes with the largest and lowest Racksum’s effect sizes, calculated by comparing IC50 between the mutant and wide type cell lines using cell lines from <a
                                         href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}">
-                                    pancan </a> data, 10 highest and lowest ranksum's effect size <br>between the
-                                    presence mutation and IC50
+                                    pancan </a> data.
                                     <div id="chart4">
                                         <div style="float: right;">
                                             <form action="{{ url_for('drug.download_mutation',drug=drug, dataset=dataset) }}"
@@ -214,10 +216,9 @@
                             <h2 class="h4 mb-4">Associated Genes (Gene Expression) </h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    For <a
+                                    Genes with the highest and lowest Spearman correlations, calculated by comparing gene expression and IC50 across cell lines from <a
                                         href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type='pancan') }}">
-                                    pancan </a> data, 10 highest and lowest spearman correlation between gene expression
-                                    and IC50
+                                    pancan </a> data.
                                     <div id="chart5">
                                         <div style="float: right;">
                                             <form action="{{ url_for('drug.download_express',drug=drug, dataset=dataset) }}"

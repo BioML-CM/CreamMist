@@ -27,13 +27,13 @@
                     <h2 class="mb-5">Search by Gene and Drug Name</h2>
                     <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('biomarker.select') }}"
                           method="POST">
-                        {#                        <div class="input-group">#}
-                        {{ form.gene_name(class="form-control border-1 me-2 shadow-0",placeholder="Gene : For example, EGFR") }}
+<!--                        {#                        <div class="input-group">#}-->
+                        {{ form.gene_name(class="form-control border-1 me-2 shadow-0",placeholder="(Gene Name) Example: EGFR") }}
                         <br>
-                        {{ form.drug_name(class="form-control border-1 me-2 shadow-0",placeholder="Drug : For example, Lapatinib") }}
+                        {{ form.drug_name(class="form-control border-1 me-2 shadow-0",placeholder="(Drug Name) Example: Lapatinib") }}
                         <br>
                         <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
-                        {#                        </div>#}
+<!--                        {#                        </div>#}-->
                         <script>
                             $(function () {
                                 $.ajax({
@@ -64,79 +64,128 @@
                             }
                         </script>
                     </form>
+                    <br>
+                    <span style="float:left;">Examples:
+                        <a href="#" id="link-id1">EGFR</a>&nbsp; &
+                        <a href="#" id="link-id2">Lapatinib</a>&nbsp; -
+                        <a href="#" id="link-id3">AAAS</a>&nbsp; &
+                        <a href="#" id="link-id4">LY-2183240</a>
+                </span>
                 </div>
             </div>
         </div>
     </section>
+
+<div class="container py-5 col-lg-12 ">
+    <div class="card-body p-4 p-lg-5">
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#link-id1").click(function () {
+            $('#biomarker_autocomplete').val($(this).html());
+            $('#biomarker_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#link-id2").click(function () {
+            $('#biomarker_autocomplete_drug').val($(this).html());
+            $('#biomarker_autocomplete_drug').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#link-id3").click(function () {
+            $('#biomarker_autocomplete').val($(this).html());
+            $('#biomarker_autocomplete').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#link-id4").click(function () {
+            $('#biomarker_autocomplete_drug').val($(this).html());
+            $('#biomarker_autocomplete_drug').submit();
+            return false;
+        });
+    });
+</script>
 {% endblock %}
 
-{##}
-{##}
-{#{% block content %}#}
-{##}
-{#    <div class="jumbotron" style="background-color: #A65D8C95;">#}
-{#        <h1 style="color:#59364A">SELECT CELL LINE  </h1><br>#}
-{#        <div class="lead">#}
-{#            <form action="{{ url_for('biomarker.select') }}"  method="POST">#}
-{##}
-{#                {{ form.gene_name.label }} {{ form.gene_name }} <br>#}
-{#                {{ form.drug_name.label }} {{ form.drug_name }} <br>#}
-{#                {{ form.hidden_name }}#}
-{#                <script>#}
-{#                    $(function() {#}
-{#                        $.ajax({#}
-{#                            url: '{{ url_for("biomarker.autocomplete") }}'#}
-{#                        }).done(function(data){#}
-{#                            $('#biomarker_autocomplete').autocomplete({#}
-{#                                source: data,#}
-{#                                minLength: 2#}
-{#                            });#}
-{#                        });#}
-{#                    });#}
-{#                </script>#}
-{#                <script>#}
-{#                    var gene_select = document.getElementById('biomarker_autocomplete');#}
-{#var hidden_value = document.getElementById('hidden').value;#}
-{##}
-{#                    gene_select.onchange = function () {#}
-{#                        console.log(gene_select.value);#}
-{#document.getElementById('biomarker_autocomplete').value = gene_select.value;#}
-{#document.getElementById('hidden').value = gene_select.value;#}
-{#alert(document.getElementById('hidden').value);#}
-{#console.log(document.getElementById('hidden').value);#}
-{#                        $.ajax({#}
-{#url: '{{ url_for("biomarker.autocomplete_drug", gene="GENE111") }}',#}
-{#                            url: '{{ url_for("biomarker.autocomplete_drug") }}' + '?gene=' + gene_select.value,#}
-{##}
-{#                        }).done(function(data){#}
-{#                            $('#biomarker_autocomplete_drug').autocomplete({#}
-{#                                source: data,#}
-{#                                minLength: 1#}
-{#                            });#}
-{#                        });#}
-{#                    }#}
-{#                </script>#}
-{#                <script>#}
-{#                    $(function() {#}
-{#                        $.ajax({#}
-{#                            url: '{{ url_for("biomarker.autocomplete_drug" ) }}',#}
-{##}
-{#                        }).done(function(data){#}
-{#                            $('#biomarker_autocomplete_drug').autocomplete({#}
-{#                                source: data,#}
-{#                                minLength: 1#}
-{#                            });#}
-{#                        });#}
-{#                    });#}
-{#                </script>#}
-{##}
-{##}
-{##}
-{##}
-{##}
-{#      {{ form.submit() }}#}
-{#                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>#}
-{#            </form>#}
-{#        </div>#}
-{#    </div>#}
-{#{% endblock %}#}
+<!--{##}-->
+<!--{##}-->
+<!--{#{% block content %}#}-->
+<!--{##}-->
+<!--{#    <div class="jumbotron" style="background-color: #A65D8C95;">#}-->
+<!--{#        <h1 style="color:#59364A">SELECT CELL LINE  </h1><br>#}-->
+<!--{#        <div class="lead">#}-->
+<!--{#            <form action="{{ url_for('biomarker.select') }}"  method="POST">#}-->
+<!--{##}-->
+<!--{#                {{ form.gene_name.label }} {{ form.gene_name }} <br>#}-->
+<!--{#                {{ form.drug_name.label }} {{ form.drug_name }} <br>#}-->
+<!--{#                {{ form.hidden_name }}#}-->
+<!--{#                <script>#}-->
+<!--{#                    $(function() {#}-->
+<!--{#                        $.ajax({#}-->
+<!--{#                            url: '{{ url_for("biomarker.autocomplete") }}'#}-->
+<!--{#                        }).done(function(data){#}-->
+<!--{#                            $('#biomarker_autocomplete').autocomplete({#}-->
+<!--{#                                source: data,#}-->
+<!--{#                                minLength: 2#}-->
+<!--{#                            });#}-->
+<!--{#                        });#}-->
+<!--{#                    });#}-->
+<!--{#                </script>#}-->
+<!--{#                <script>#}-->
+<!--{#                    var gene_select = document.getElementById('biomarker_autocomplete');#}-->
+<!--{#var hidden_value = document.getElementById('hidden').value;#}-->
+<!--{##}-->
+<!--{#                    gene_select.onchange = function () {#}-->
+<!--{#                        console.log(gene_select.value);#}-->
+<!--{#document.getElementById('biomarker_autocomplete').value = gene_select.value;#}-->
+<!--{#document.getElementById('hidden').value = gene_select.value;#}-->
+<!--{#alert(document.getElementById('hidden').value);#}-->
+<!--{#console.log(document.getElementById('hidden').value);#}-->
+<!--{#                        $.ajax({#}-->
+<!--{#url: '{{ url_for("biomarker.autocomplete_drug", gene="GENE111") }}',#}-->
+<!--{#                            url: '{{ url_for("biomarker.autocomplete_drug") }}' + '?gene=' + gene_select.value,#}-->
+<!--{##}-->
+<!--{#                        }).done(function(data){#}-->
+<!--{#                            $('#biomarker_autocomplete_drug').autocomplete({#}-->
+<!--{#                                source: data,#}-->
+<!--{#                                minLength: 1#}-->
+<!--{#                            });#}-->
+<!--{#                        });#}-->
+<!--{#                    }#}-->
+<!--{#                </script>#}-->
+<!--{#                <script>#}-->
+<!--{#                    $(function() {#}-->
+<!--{#                        $.ajax({#}-->
+<!--{#                            url: '{{ url_for("biomarker.autocomplete_drug" ) }}',#}-->
+<!--{##}-->
+<!--{#                        }).done(function(data){#}-->
+<!--{#                            $('#biomarker_autocomplete_drug').autocomplete({#}-->
+<!--{#                                source: data,#}-->
+<!--{#                                minLength: 1#}-->
+<!--{#                            });#}-->
+<!--{#                        });#}-->
+<!--{#                    });#}-->
+<!--{#                </script>#}-->
+<!--{##}-->
+<!--{##}-->
+<!--{##}-->
+<!--{##}-->
+<!--{##}-->
+<!--{#      {{ form.submit() }}#}-->
+<!--{#                <button  class="btn btn-primary btn-sm" style="background-color: #59364A; border-color:#59364A;">Submit</button>#}-->
+<!--{#            </form>#}-->
+<!--{#        </div>#}-->
+<!--{#    </div>#}-->
+<!--{#{% endblock %}#}-->

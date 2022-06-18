@@ -41,9 +41,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <!-- Navbar link--><a class="nav-link" href={{ url_for('index') }}>Home</a>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        &lt;!&ndash; Navbar link&ndash;&gt;<a class="nav-link" href={{ url_for('index') }}>Home</a>-->
+<!--                    </li>-->
                     <li class="nav-item">
                         <!-- Navbar link--><a class="nav-link" href={{ url_for('cell_line.select') }}>Cell Line</a>
                     </li>
@@ -63,7 +63,7 @@
                         <!-- Navbar link--><a class="nav-link" href={{ url_for('api.information') }}>API</a>
                     </li>
                     <li class="nav-item">
-                        <!-- Navbar link--><a class="nav-link" href={{ url_for('doc.information') }}>Doc</a>
+                        <!-- Navbar link--><a class="nav-link" href={{ url_for('doc.information') }}>Documentation</a>
                     </li>
 
                 </ul>
@@ -78,6 +78,8 @@
 
 
 </body>
+
+
 
 
 <!-- JavaScript files-->
@@ -117,4 +119,21 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
       integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+
+
+<footer style="background: #111;">
+    <div class="copyrights py-4" style="background: #0e0e0e">
+        <div class="container">
+            <div class="row text-center gy-2">
+                <div class="col-sm-6 text-lg-start">
+                    <p class="mb-0 text-muted mb-0 text-sm">&copy; 2021 All rights reserved.</p>
+                </div>
+                <div class="col-sm-6 text-md-end">
+                    <p class="mb-0 text-muted mb-0 text-sm">Template designed by <a class="reset-anchor text-primary" href="https://bootstrapious.com/p/listings-bootstrap-directory-theme">Bootstrapious</a>.</p>
+                    <!-- If you want to remove the backlink, please purchase the Attribution-Free License.-->
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 </html>

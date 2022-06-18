@@ -9,31 +9,34 @@
                     {#                    <h2 class="h3 mb-4 pb-1">Filter</h2>#}
                     <div class="card border-0 shadow-sm mb-4 p-2">
                         <div class="card-body">
-                            <h2 class="h5 mb-4">Choose tag</h2>
+                            <h2 class="h5 mb-4">Topics</h2>
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item m-1"><a class="btn btn-light"
-                                                                    href={{ url_for('doc.information') }}>Over All</a>
+                                                                    href={{ url_for('doc.information') }}>Data statistics</a>
                                 </li>
                                 <br>
                                 <li class="list-inline-item m-1"><a class="btn btn-light"
-                                                                    href={{ url_for('doc.cell_line') }}>Cell Line</a>
+                                                                    href={{ url_for('doc.dose_response_curve') }}>A dose-response curve</a>
                                 </li>
                                 <br>
                                 <li class="list-inline-item m-1"><a class="btn btn-light"
-                                                                    href={{ url_for('doc.drug') }}>Drug</a></li>
+                                                                    href={{ url_for('doc.cell_line') }}>Query by cell line </a>
+                                </li>
                                 <br>
                                 <li class="list-inline-item m-1"><a class="btn btn-light"
-                                                                    href={{ url_for('doc.cancer_type') }}>Cancer
-                                    Type</a></li>
+                                                                    href={{ url_for('doc.drug') }}>Query by drug</a></li>
                                 <br>
                                 <li class="list-inline-item m-1"><a class="btn btn-light"
-                                                                    href={{ url_for('doc.gene') }}>Gene</a></li>
+                                                                    href={{ url_for('doc.cancer_type') }}>Query by cancer type</a></li>
                                 <br>
                                 <li class="list-inline-item m-1"><a class="btn btn-light"
-                                                                    href={{ url_for('doc.biomarker') }}>Biomarker</a>
+                                                                    href={{ url_for('doc.gene') }}>Query by gene</a></li>
+                                <br>
+                                <li class="list-inline-item m-1"><a class="btn btn-light"
+                                                                    href={{ url_for('doc.biomarker') }}>Query by drug and gene</a>
                                 </li>
                                 <li class="list-inline-item m-1"><a class="btn btn-light"
-                                                                    href={{ url_for('doc.ml_models') }}>ML Models</a>
+                                                                    href={{ url_for('api.information') }}>API</a>
                                 </li>
                                 <br>
                             </ul>

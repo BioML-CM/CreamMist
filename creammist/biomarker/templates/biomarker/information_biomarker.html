@@ -11,7 +11,9 @@
                     <!-- Listing sorting-->
                     <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
-                            <h2 class="h4 mb-4">BioMarker : </h2>
+                            <h2 class="h4 mb-4">Biomarker information </h2>
+                            Drug-gene associations based on IC50 and mutation (or gene expression) profile. IC50 value was estimated using the <a href={{ url_for('doc.dose_response_curve') }}>integrated dose-response curve</a>.
+                            <br><br>
                             <b>Gene :</b>
                             <a href="{{ url_for('gene.information_gene', gene=gene, dataset='All', cancer_type=cancer_type) }}">{{ gene }} </a><br>
                             <b>Drug Name :</b>
@@ -25,8 +27,8 @@
                         <div class="col-lg-6" >
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-lg-5">
-                                    <h4>Information card </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum. Proin ullamcorper sem velit, non vulputate ex finibus nec. Nulla accumsan, sapien eu sodales gravida, leo urna pretium sapien, ac tincidunt tellus ante sit amet ex.</p>
+                                    <h4>Information Cards</h4>
+                                    <p>Click to show/hide information cards below or download ...</p>
                                     <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
                                            name="chk2" checked>
                                     <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
@@ -69,40 +71,40 @@
                     <div class="row mb-4 gy-4">
                         <!-- Gallery-->
                         <div class="col-lg-6" id="content2">
-                            <h2 class="h4 mb-4">Mutation</h2>
+                            <h2 class="h4 mb-4">Drug-gene assoication (IC50 vs mutation)</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4" >
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <p>Racksum’s effect size was calculated by comparing IC50 between 19 mutant and 160 wide type cell lines <a href={{ url_for('doc.biomarker') }}>(more detail)</a>.</p>
                                     <div id="chart1">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6" id="content3">
-                            <h2 class="h4 mb-4">Gene Expression</h2>
+                            <h2 class="h4 mb-4">Drug-gene assoication (IC50 vs gene expression)</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4" >
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <p>Spearman correlation was calculated by comparing IC50 and gene expression (TMM) across XXX cell lines <a href={{ url_for('doc.biomarker') }}>(more detail)</a>.</p>
                                     <div id="chart2">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <h2 class="h4 mb-4">Mutation box plot</h2>
+                            <h2 class="h4 mb-4">IC50 vs mutation</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4" >
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<!--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
                                     <div id="chart3">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <h2 class="h4 mb-4">Gene Expression scatter plot</h2>
+                            <h2 class="h4 mb-4">IC50 vs gene expression</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<!--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
                                     <div id="chart4">
                                     </div>
                                 </div>

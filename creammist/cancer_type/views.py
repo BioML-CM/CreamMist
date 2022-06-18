@@ -35,7 +35,7 @@ def download(dataset, cancer_type):
     df = df[['cancer_type', 'cellosaurus_id', 'standard_drug_name', 'dataset', 'info',
              'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate']]
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
-                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC'})
+                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC','info':'original_datasets'})
     path = f'cancer_type/output/cancer_type_{cancer_type}_{dataset}_information.csv'
     df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
@@ -75,6 +75,7 @@ def information_cancer_type(cancer_type, dataset):  # show information cell line
     else:
         cancer_type_records = db.session.query(CellLine.cellosaurus_id).filter(CellLine.site == cancer_type).all()
     cell_line_list = [r.cellosaurus_id for r in cancer_type_records]
+    n_cl = len(cell_line_list)
 
     data = db.session.query(Experiment, SensitivityScore) \
         .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(
@@ -112,4 +113,4 @@ def information_cancer_type(cancer_type, dataset):  # show information cell line
     graph3Jason = json.dumps(fig_auc, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('information_cancer_type.html', data=data, graph1Jason=graph1Jason, graph2Jason=graph2Jason,
-                           graph3Jason=graph3Jason, form=form, cancer_type=cancer_type, dataset=dataset)
+                           graph3Jason=graph3Jason, form=form, cancer_type=cancer_type, dataset=dataset,n_cl=n_cl)

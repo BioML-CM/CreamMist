@@ -10,10 +10,14 @@
                 <div class="col-lg-12 order-1 order-lg-2">
                     <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                         <div class="card-body p-lg-5" id="content1">
+                            <h2 class="h4 mb-4">Cell Line vs Drug :
+                                <mark style="background: #ffc107"> {{ cl }}</mark> vs
+                                <mark style="background: #ffc107"> {{ drug }}</mark>
+                            </h2>
                             <p><b>Cellosaurus ID :</b> <a
                                     href="{{ url_for('cell_line.information_cell_line', cell_line=experiment.cellosaurus_id, dataset='All') }}"> {{ experiment.cellosaurus_id }} </a>
                                 <br>
-                                <b>Standard Drug Name :</b> <a
+                                <b>Drug Name :</b> <a
                                         href="{{ url_for('drug.information_drug', drug=experiment.standard_drug_name, dataset='All') }}"> {{ experiment.standard_drug_name }} </a>
                                 <br>
                                 {% if experiment.dataset=='All' %}
@@ -30,8 +34,8 @@
                         <div class="col-lg-6" >
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-lg-5">
-                                    <h4>Information card </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum. Proin ullamcorper sem velit, non vulputate ex finibus nec. Nulla accumsan, sapien eu sodales gravida, leo urna pretium sapien, ac tincidunt tellus ante sit amet ex.</p>
+                                    <h4>Information Cards</h4>
+                                    <p>Click to show/hide information cards below or download the experimental information.</p>
                                     <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
                                            name="chk2" checked>
                                     <label class="form-check-label" for="chk2">Dose-response Curve</label>&nbsp;&nbsp;
@@ -60,7 +64,7 @@
                         <div class="col-lg-6" >
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-lg-5">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+                                    <p>Information cards below will change according to the dataset selected. The default dataset is “All”, which means information in the cards is based on the integration. If “All” is not selected, information cards will contain drug response information preprocessed for each dataset independently.</p>
                                     <form action="{{ url_for('cell_line.view_logistic',exp=experiment.id) }}" method="POST">
                                         <b>{{ form.dataset.label }} :</b> {{ form.dataset(class="btn btn-light bg-white shadow-xs border text-start align-items-center")}} <br><br>
                                         <button class="btn btn-primary w-10" type="submit"><i
@@ -76,10 +80,10 @@
 
                     <div class="row mb-4 align-items-center">
                         <div class="col-lg-8" id="content2">
-                        <h2 class="h4 mb-4">Dose-response Curve</h2>
+                        <h2 class="h4 mb-4">Dose Response Relationship</h2>
                         <div class="card shadow-sm border-0">
                             <div class="card-body p-4">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <p>Each dot indicates drug response at different dosages, and each color represents the original datasets. A pink line is an integrated dose-response curve. Grey lines represent alternative dose-response curves resulting from a Bayesian curve fitting. A horizontal dashed line represents 50% cell inhibitions. A vertical dashed line represents ????.</p>
                                 <div id="chart1">
                                 </div>
                             </div>
@@ -89,7 +93,7 @@
                             <h2 class="h4 mb-4">IC50 Distribution</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <p>Distribution of drug dosage needed to inhibit the cells by 50%. Dashed lines represent 95% high-density interval (HDI). </p>
                                     <div id="chart2">
                                     </div>
                                 </div>
@@ -106,7 +110,7 @@
                                             <tbody>
                                             {% for s in data %}
                                                 <tr>
-                                                    <th style="color:#ef5285">IC50</th>
+                                                    <th >IC50</th>
                                                     <td>{{ "%.4f" | format(s.ic50_mode) }} </td>
                                                     <td>log2 Concentration (&mu;M)</td>
                                                 </tr>
@@ -116,7 +120,7 @@
                                                     <td>log2 Concentration (&mu;M)</td>
                                                 </tr>
                                                 <tr>
-                                                    <th style="color:#ef5285">AUC</th>
+                                                    <th >AUC</th>
                                                     <td>{{ "%.4f" | format(s.auc_calculate) }} </td>
                                                     <td>%</td>
                                                 </tr>

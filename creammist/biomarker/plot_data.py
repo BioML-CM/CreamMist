@@ -32,11 +32,11 @@ def plot_mutation(df):
             print('ignore val')
         else:
             fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#17a2b8", name='',
-                                     legendgroup='effect size', showlegend=False,
+                                     legendgroup='CREAMMIST', showlegend=False,
                                      marker=dict(size=-np.log(pval_list[i] + 0.01) + 10), customdata=[pval_list[i]],
-                                     hovertemplate='<b>effect size</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                     hovertemplate='<b>CREAMMIST</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
                                      hoverlabel=dict(bgcolor='#FFF4ED')))
-            label_dict['effect size'] = ['#17a2b8']
+            label_dict['CREAMMIST'] = ['#17a2b8']
             mut_plot = True
 
     for i in range(len(provided_stat_list)):
@@ -44,12 +44,12 @@ def plot_mutation(df):
             print('ignore val')
         else:
             fig.add_trace(go.Scatter(x=[provided_stat_list[i]], y=[i], mode='markers', line_color="#ffc107", name='',
-                                     legendgroup='provided effect size', showlegend=False,
+                                     legendgroup='Original source', showlegend=False,
                                      marker=dict(size=-np.log(provided_pval_list[i] + 0.01) + 10),
                                      customdata=[provided_pval_list[i]],
-                                     hovertemplate='<b>provided effect size</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                     hovertemplate='<b>Original source</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
                                      hoverlabel=dict(bgcolor='#FFF4ED')))
-            label_dict['provided effect size'] = ['#ffc107']
+            label_dict['Original source'] = ['#ffc107']
             mut_plot = True
 
     fig.add_vline(x=0, line_width=1, line_dash="dot", line_color="#59364A")
@@ -68,8 +68,10 @@ def plot_mutation(df):
             ticktext=df['dataset'],
             range=[-1, len(stat_list) + 0.5],
             title_text="Dataset"
-        )
+        ),
+        xaxis=dict(title_text="Effect size")
     )
+
 
     range_list = list(set(stat_list).union(set(provided_stat_list)))
     range_list = [x for x in range_list if pd.isnull(x) == False]
@@ -123,11 +125,11 @@ def plot_expression(df):
             print('ignore val')
         else:
             fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#17a2b8", name='',
-                                     legendgroup='correlation', showlegend=False,
+                                     legendgroup='CREAMMIST', showlegend=False,
                                      marker=dict(size=-np.log(pval_list[i] + 0.01) + 10), customdata=[pval_list[i]],
-                                     hovertemplate='<b>correlation</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                     hovertemplate='<b>CREAMMIST</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
                                      hoverlabel=dict(bgcolor='#FFF4ED')))
-            label_dict['correlation'] = ['#17a2b8']
+            label_dict['CREAMMIST'] = ['#17a2b8']
             exp_plot = True
 
     for i in range(len(provided_stat_list)):
@@ -135,12 +137,12 @@ def plot_expression(df):
             print('ignore val')
         else:
             fig.add_trace(go.Scatter(x=[provided_stat_list[i]], y=[i], mode='markers', line_color="#ffc107", name='',
-                                     legendgroup='provided correlation', showlegend=False,
+                                     legendgroup='Original source', showlegend=False,
                                      marker=dict(size=-np.log(provided_pval_list[i] + 0.01) + 10),
                                      customdata=[provided_pval_list[i]],
-                                     hovertemplate='<b>provided correlation</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                     hovertemplate='<b>Original source</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
                                      hoverlabel=dict(bgcolor='#FFF4ED')))
-            label_dict['provided correlation'] = ['#ffc107']
+            label_dict['Original source'] = ['#ffc107']
             exp_plot = True
 
     fig.add_vline(x=0, line_width=1, line_dash="dot", line_color="#59364A")
@@ -160,7 +162,8 @@ def plot_expression(df):
             ticktext=df['dataset'],
             range=[-1, len(stat_list) + 0.5],
             title_text="Dataset"
-        )
+        ),
+    xaxis=dict(title_text="Spearman correlation")
     )
 
     range_list = list(set(stat_list).union(set(provided_stat_list)))
@@ -195,16 +198,16 @@ def plot_box_mutation(temp_df, mut_exp_df):
     mu_score = temp_df[temp_df['cellosaurus_id'].isin(mu_list)]['beta0_mode']
     wt_score = temp_df[temp_df['cellosaurus_id'].isin(wt_list)]['beta0_mode']
 
-    x = ['mutation'] * len(mu_score) + ['wildtype'] * len(wt_score)
+    x = ['Mutant'] * len(mu_score) + ['Wild-type'] * len(wt_score)
     y = list(mu_score) + list(wt_score)
     df = pd.DataFrame(zip(x, y), columns=['type', 'values'])
 
     fig = px.box(df, x='type', y='values', color='type', color_discrete_sequence=['#17a2b8','#ffc107'])
     fig.add_annotation(x=0, y=max(y) + 1.5,
-                       text=f'n = {len(mu_list)}',
+                       text=f'N = {len(mu_list)}',
                        showarrow=False)
     fig.add_annotation(x=1, y=max(y) + 1.5,
-                       text=f'n = {len(wt_list)}',
+                       text=f'N = {len(wt_list)}',
                        showarrow=False)
     fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
     fig.update_xaxes(title_text="")
@@ -235,7 +238,7 @@ def plot_scatter_expression(temp_df, mut_exp_df):
             fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
             fig.update_layout(
                 yaxis=dict(title_text="IC50 Log2 Concentration (\u03bcM)"),
-                xaxis=dict(title_text="Gene expression")
+                xaxis=dict(title_text="Gene expression (TMM)")
             )
         else:
             fig = plot_nodata()

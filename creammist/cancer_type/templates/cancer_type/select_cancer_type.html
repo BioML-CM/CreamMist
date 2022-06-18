@@ -28,7 +28,7 @@
                     <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('cancer_type.select') }}"
                           method="POST">
                         <div class="input-group">
-                            {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="For example, pancan") }}
+                            {{ form.name(class="form-control border-0 me-2 shadow-0",placeholder="Example: pancan") }}
                             <br>
 
                             <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
@@ -47,12 +47,12 @@
                         </script>
                     </form>
                     <br>
-                    <span style="float:left;">For example,
+                    <span style="float:left;">Examples:
                         <a href="#" id="link-id1">pancan</a>&nbsp; -
                         <a href="#" id="link-id2">lung</a>&nbsp; -
                         <a href="#" id="link-id3">breast</a>&nbsp; -
                         <a href="#" id="link-id4">bone</a>
-
+                    </span>
                 </div>
             </div>
         </div>
@@ -62,9 +62,8 @@
                     <div class="card border-0 shadow">
                         <div class="card-body p-4 p-lg-5">
                             <div class="row gy-4">
-                                <h5>All Cancer Type</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum
-                                    ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+                                <h5>Browse Cancer Types</h5>
+                                <p>Click on cancer type to query drug, drug response, and associated genes information</p>
 
                                 <table id="example" class="display" cellspacing="0" width="100%">
                                     <thead>
@@ -75,7 +74,7 @@
                                     <tbody>
                                     {% for c in data %}
                                     <tr>
-                                        <td><a href="{{ url_for('cancer_type.information_cancer_type', cancer_type=c, dataset='All') }}">{{ c }} </a>
+                                        <td><a href="{{ url_for('cancer_type.information_cancer_type', cancer_type=c, dataset='All') }}">{{ c.replace('_',' ') }} </a>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -88,6 +87,12 @@
             </div>
         </div>
     </section>
+<div class="container py-5 col-lg-12 ">
+    <div class="card-body p-4 p-lg-5">
+    </div>
+</div>
+
+
 
 <script type="text/javascript">
     $(function(){

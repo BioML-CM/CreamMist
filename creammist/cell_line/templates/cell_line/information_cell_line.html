@@ -47,7 +47,7 @@
                                 {% for i in name_list %}
                                     <b>{{ i[0][0] }} Name</b>
                                     {% for n in i[0][1:] %}
-                                        , {{ n }}
+                                     <b>, {{ n }} Name</b>
                                     {% endfor %}
                                     : {{ i[1] }} <br>
                                 {% endfor %}<br>
@@ -62,8 +62,8 @@
                         <div class="col-lg-6" >
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-lg-5">
-                                    <h4>Information card </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum. Proin ullamcorper sem velit, non vulputate ex finibus nec. Nulla accumsan, sapien eu sodales gravida, leo urna pretium sapien, ac tincidunt tellus ante sit amet ex.</p>
+                                    <h4>Information Cards</h4>
+                                    <p>Click to show/hide information cards below or download all drug response information.</p>
 
                                     <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
                                            name="chk2" checked>
@@ -94,7 +94,7 @@
                         </div><div class="col-lg-6" >
                         <div class="card shadow-sm border-0 ">
                             <div class="card-body p-lg-5">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+                                <p>Information cards below will change according to the dataset selected. The default dataset is “All”, which means information in the cards is based on the integration. If “All” is not selected, information cards will contain drug response information preprocessed for each dataset independently.</p>
                                 <form action="{{ url_for('cell_line.information_cell_line',cell_line=cell_line, dataset=dataset) }}"
                                       method="POST">
                                     <b>{{ form.dataset.label }} :</b> {{ form.dataset(class="btn btn-light bg-white shadow-xs border text-start  align-items-center")}} <br><br>
@@ -110,8 +110,8 @@
                     <div class="row mb-4 gy-4">
                         <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0" id="content2">
                             <div class="card-body p-lg-5">
-                                <h2 class="h4 mb-4">Experiment Information</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum. Proin ullamcorper sem velit, non vulputate ex finibus nec. Nulla accumsan, sapien eu sodales gravida, leo urna pretium sapien, ac tincidunt tellus ante sit amet ex.</p>
+                                <h2 class="h4 mb-4">Experimental information</h2>
+                                <p>Experimental information from “All” dataset, includes cell line name, drug name, and minimum and maximum dosages used in each experiment. Click on Dose-response to query more detail for each experiment.</p>
                                 <div class="rounded overflow-hidden mb-3">
                                     <table id="data" class="table table-striped" style="width:100%">
                                         <thead>
@@ -148,7 +148,8 @@
                             <h2 class="h4 mb-4">IC50</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    10 highest and lowest IC50
+                                    IC50 indicates how much drug dosage is needed to inhibit the cells by 50%, in vitro, compared to the control well.<br><br>
+                                    Drugs with highest and lowest IC50
                                     <div id="chart1">
                                     </div>
                                 </div>
@@ -158,7 +159,8 @@
                             <h2 class="h4 mb-4">IC90</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    10 highest and lowest IC90
+                                    IC90 indicates how much drug dosage is needed to inhibit the cells by 90%, in vitro, compared to the control well.<br><br>
+                                    Drugs with highest and lowest IC90
                                     <div id="chart2">
                                     </div>
                                 </div>
@@ -168,7 +170,8 @@
                             <h2 class="h4 mb-4">AUC</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    10 highest and lowest AUC
+                                    AUC represents the area under a dose-response curve, where 0% indicates no activity and 100% indicates that a drug completely inhibits the cells across testing dosages.<br><br>
+                                    Drugs with highest and lowest AUC
                                     <div id="chart3">
                                     </div>
                                 </div>

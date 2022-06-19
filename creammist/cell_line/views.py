@@ -27,9 +27,10 @@ def download(cell_line, dataset):
 
     df = pd.read_sql(data.statement, db.session.bind)
     df = df[['cellosaurus_id', 'standard_drug_name', 'dataset', 'info', 'n_dosage', 'min_dosage', 'max_dosage',
-             'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate', 'fitted_mae']]
+             'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate']]
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
-                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC', 'info':'original_datasets'})
+                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC', 'info':'original_datasets',
+                            'standard_drug_name':'drug_name'})
     path = f'cell_line/output/cell_line_{cell_line}_{dataset}_information.csv'
     df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
@@ -67,11 +68,12 @@ def download_experiment(exp):
     df.loc[:, 'dose_response'] = list_of_dose_list
 
     df = df[['cellosaurus_id', 'standard_drug_name', 'dataset', 'info', 'n_dosage', 'min_dosage', 'max_dosage',
-             'dose_response', 'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate',
-             'fitted_mae']]
+             'dose_response','fitted_mae','beta1_mode', 'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate',
+             'auc_calculate',]]
     # print(df)
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
-                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC'})
+                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC','info':'original_datasets','beta1_mode':'slope',
+                            'standard_drug_name':'drug_name'})
 
     path = f'cell_line/output/experiment_{cl}_{drug}_information.csv'
     df.to_csv('creammist/' + path, index=False)

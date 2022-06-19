@@ -9,7 +9,7 @@
 
 <div class=" mb-4 p-2" id="content1">
     <h2 class="h4 mb-4"><span style="color:#17a2b8"> Experimental information </span></h2>
-    For the dose-response relationship, each dot indicates drug response at different dosages, and each color represents the original datasets. A pink line is an integrated dose-response curve. Grey lines represent alternative dose-response curves resulting from a Bayesian curve fitting. A horizontal dashed line represents 50% cell inhibitions. A vertical dashed line represents ????.  <br><br>
+    For the dose-response relationship, each dot indicates drug response at different dosages, and each color represents the original datasets. A pink line is an integrated dose-response curve. Grey lines represent alternative dose-response curves resulting from a Bayesian curve fitting. A horizontal dashed line represents 50% cell inhibitions. A vertical dashed line represents IC50.  <br><br>
     <div class="card shadow-sm border-0">
         <div class="card-body p-4">
             <div class="card-body p-4">
@@ -26,14 +26,13 @@
     </div>
     <br>
 
-    <ul class="fa-ul">
-        <li><span class="fa-li"><i class="fas fa-feather" style="color:#28a745"></i></span>IC50 indicates how much drug dosage is needed to inhibit the cells by 50%, in vitro, compared to the control well.</li>
-        <li><span class="fa-li"><i class="fas fa-feather" style="color:#28a745"></i></span>IC90 indicates how much drug dosage is needed to inhibit the cells by 90%, in vitro, compared to the control well.</li>
-        <li><span class="fa-li"><i class="fas fa-feather" style="color:#28a745"></i></span>AUC represents the area under a dose-response curve, where 0% indicates no activity and 100% indicates that a drug completely inhibits the cells across testing dosages.</li>
-        <li><span class="fa-li"><i class="fas fa-feather" style="color:#28a745"></i></span>EC50 indicates half-maximal effective dosage, which induces a response halfway between the baseline and maximum inhibition.</li>
-        <li><span class="fa-li"><i class="fas fa-feather" style="color:#28a745"></i></span>Einf indicates the response at the highest drug dosage tested.</li>
+    <span style="color: #28a745"><b>IC50</b></span>  indicates how much drug dosage is needed to inhibit the cells by 50%, <i>in vitro</i>, compared to the control well.<br>
+    <span style="color: #28a745"><b>IC90</b></span>  indicates how much drug dosage is needed to inhibit the cells by 90%, <i>in vitro</i>, compared to the control well.<br>
+        <span style="color: #28a745"><b>AUC</b></span>  represents the area under a dose-response curve, where 0% indicates no activity and 100% indicates that a drug completely inhibits the cells across testing dosages.<br>
+            <span style="color: #28a745"><b>EC50</b></span>  indicates half-maximal effective dosage, which induces a response halfway between the baseline and maximum inhibition.<br>
+                <span style="color: #28a745"><b>Einf</b></span>  indicates the response at the highest drug dosage tested.<br>
 
-    </ul>
+
 
 </div>
 <div class=" mb-4 p-2" id="content2">
@@ -41,21 +40,22 @@
     <div class="card shadow-sm border-0">
         <div class="card-body p-4">
             <div class="card-body p-4">
-                <h5>Obtaining response information at different dosage</h5>
+                <h5>Obtaining response information at different dosages</h5>
                 <ul class="fa-ul">
                     <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>CCLE</li>
                     dosage = dosage <br>
                     response = response &#215; -0.01<br><br>
-                    <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>GDSC1, GDSC2</li>
+                    <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>GDSC 1 and 2</li>
                     neg control = NC-0 <br>
-                    Pos control = B <br>
+                    pos control = B <br>
 
-                    dosage = conic <br>
-                      response = (neg_val-intensity) &#247; (neg_val-pos_val)<br><br>
+                    dosage = conc <br>
+                    response = (neg_val-intensity) &#247; (neg_val-pos_val)<br><br>
 
-                    <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>CTRP1, CTRP2</li>
-                        response = 1- cpd_avg_pv<br>
-                        dosage = cpd_conc_umol
+                    <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>CTRP 1 and 2</li>
+                    dosage = cpd_conc_umol<br>
+                    response = 1- cpd_avg_pv
+
                 </ul>
                 <br>
 
@@ -64,78 +64,74 @@
                 <h5>A Bayesian curve fitting</h5>
                 <ul class="fa-ul">
                     <li><span class="fa-li"><i class="fas fa-marker" style="color:#6c757d"></i></span>Logistic equation and parameter description</li>
-                    \[f(x) = \displaystyle\frac{1}{2^{-k(x-a)}}\]
+                    \[f(x) = \displaystyle\frac{1}{1+2^{-k(x-a)}}\]
 
-                    <li><span class="fa-li"><i class="fas fa-marker" style="color:#6c757d"></i></span>We used JAGS to estimate a dose-response curve for each cell line. Initial parameters:</li>
+                    <li><span class="fa-li"><i class="fas fa-marker" style="color:#6c757d"></i></span>
+                        We used <a href="https://mcmc-jags.sourceforge.io/">JAGS</a> to estimate a dose-response curve for each cell line. Initial parameters:</li>
                     <br>
-                    <table class="table" style="border-radius: 5px 5px 5px 5px;">
+                    <table class="table table-bordered" style="border-radius: 5px 5px 5px 5px;">
                         <thead>
                         <tr>
                             <th>Parameter</th>
                             <th>Value</th>
-                            <th>Note</th>
+                            <th>Description</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>n iter</td>
+                            <td>n_iter</td>
                             <td>5000</td>
-                            <td>...</td>
+                            <td>Number of samplings</td>
                         </tr>
                         <tr>
-                            <td>burn in</td>
+                            <td>burn_in</td>
                             <td>500</td>
-                            <td>...</td>
+                            <td>Burn in samplings</td>
                         </tr>
                         <tr>
-                            <td>n chain </td>
+                            <td>n_chain </td>
                             <td>3</td>
-                            <td>...</td>
-                        </tr>
-                        <tr>
-                            <td>k_priors </td>
-                            <td>dnorm(2 , 0.01)</td>
-                            <td>...</td>
-                        </tr>
-                        <tr>
-                            <td>k_lambda_priors </td>
-                            <td>dnorm(1 , 0.01)</td>
-                            <td>...</td>
-                        </tr>
-                        <tr>
-                            <td>nu_priors </td>
-                            <td>dnorm(250 , 0.001)</td>
-                            <td>...</td>
-                        </tr>
-                        <tr>
-                            <td>sigma_priors </td>
-                            <td>dunif(0.01 , 0.1)</td>
-                            <td>...</td>
+                            <td>Number of chains</td>
                         </tr>
                         <tr>
                             <td>k </td>
-                            <td>dgamma(k_lambda_prior, k_prior)</td>
-                            <td>...</td>
+                            <td>dgamma(k_r, k_lambda)</td>
+                            <td rowspan="3" style="vertical-align: middle">A gamma distribution of slope</td>
+                        </tr>
+                        <tr>
+                            <td>k_lambda </td>
+                            <td>dnorm(2 , 0.01)</td>
+                        </tr>
+                        <tr>
+                            <td>k_r </td>
+                            <td>dnorm(1 , 0.01)</td>
+                        </tr>
+                        <tr>
+                            <td>a </td>
+                            <td>dnorm(a_mu , \((\frac{1}{a\_sigma})^2\) )</td>
+                            <td rowspan="3" style="vertical-align: middle">A normal distribution of location (IC50)</td>
                         </tr>
                         <tr>
                             <td>a_mu </td>
                             <td>dnorm(0 , 1)</td>
-                            <td>...</td>
                         </tr>
                         <tr>
                             <td>a_sigma </td>
                             <td>dunif(0.01 , 5)</td>
-                            <td>...</td>
                         </tr>
-                        <tr>
-                            <td>a </td>
-                            <td>dnorm(a_mu , \((\frac{1}{a\_sigma})^2\)</td>
-                            <td>...</td>
-                        </tr>
+
                         <tr>
                             <td>f(x) </td>
-                            <td>dt( \(\frac{1}{2^{-k(x-a)}}\) , \((\frac{1}{sigma\_priors})^2\) , nu_priors)</td>
-                            <td>...</td>
+                            <td>dt( \(\frac{1}{1+2^{-k(x-a)}}\) , \((\frac{1}{sigma})^2\) , nu)</td>
+                            <td rowspan="3" style="vertical-align: middle"> A student's t-distribution of dose response curve fitting</td>
+                        </tr>
+                        <tr>
+                            <td>nu </td>
+                            <td>dnorm(250 , 0.001)</td>
+                        </tr>
+                        <tr>
+                            <td>sigma </td>
+                            <td>dunif(0.01 , 0.1)</td>
                         </tr>
 
                         </tbody>

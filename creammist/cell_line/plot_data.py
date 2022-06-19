@@ -115,7 +115,7 @@ def plot_ic_auc_mode(df, type):
         if i==10:
             fig['data'][0]['x'][i] = f"—"
         else:
-            fig['data'][0]['x'][i] = f"<a href='https://creammist.mtms.dev/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][i] = f"<a href='https://creammist.mtms.dev/cell_line/view/{df['id'][i]}' target='_self' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
     fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
     fig.update_xaxes(tickangle=-45)

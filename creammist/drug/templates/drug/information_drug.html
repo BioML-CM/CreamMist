@@ -119,14 +119,14 @@
                         <div class="card border-0 shadow-sm mb-4 mb-lg-5 p-2 p-lg-0">
                             <div class="card-body p-lg-5" id="content2">
                                 <h2 class="h4 mb-4">Experimental information</h2>
-                                <p>Experimental information from “All” dataset, includes drug name, cell line name,  and minimum and maximum dosages used in each experiment. Click on Dose-response to query more detail for each experiment.</p>
+                                <p>Experimental information from {{ dataset }} dataset, including drug name, cell line name,  and minimum and maximum dosages used in each experiment. Click on Dose-response to query more detail for each experiment.</p>
                                 <div class="rounded overflow-hidden mb-3">
                                     <table id="data" class="table table-striped" style="width:100%">
                                         <thead>
                                         <tr>
                                             <th>Drug name</th>
                                             <th>Cellosaurus ID</th>
-                                            <th>Dataset</th>
+                                            <th>Original Dataset(s)</th>
                                             <th>Min Dose</th>
                                             <th>Max Dose</th>
                                             <th>Dose-response</th>
@@ -157,7 +157,7 @@
                             <h2 class="h4 mb-4">IC50</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    IC50 indicates how much drug dosage is needed to inhibit the cells by 50%, in vitro, compared to the control well.<br><br>
+                                    IC50 indicates how much drug dosage is needed to inhibit the cells by 50%, <i>in vitro</i>, compared to the control well.<br><br>
                                     Cell lines  with highest and lowest IC50
                                     <div id="chart1">
                                     </div>
@@ -168,7 +168,7 @@
                             <h2 class="h4 mb-4">IC90</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-                                    IC90 indicates how much drug dosage is needed to inhibit the cells by 90%, in vitro, compared to the control well.<br><br>
+                                    IC90 indicates how much drug dosage is needed to inhibit the cells by 90%, <i>in vitro</i>, compared to the control well.<br><br>
                                     Cell lines  with highest and lowest IC90
                                     <div id="chart2">
                                     </div>

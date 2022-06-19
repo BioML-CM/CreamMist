@@ -28,9 +28,10 @@ def download(drug, dataset):
 
     df = pd.read_sql(data.statement, db.session.bind)
     df = df[['standard_drug_name', 'cellosaurus_id', 'dataset', 'info', 'n_dosage', 'min_dosage', 'max_dosage',
-             'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate', 'fitted_mae']]
+             'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate']]
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
-                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC','info':'original_datasets'})
+                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC','info':'original_datasets',
+                            'standard_drug_name':'drug_name'})
     path = f'drug/output/drug_{drug}_{dataset}_information.csv'
     df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
@@ -44,6 +45,7 @@ def download_express(drug, dataset):
     express_df = pd.read_sql(express_data.statement, db.session.bind)
     express_df = express_df[
         ['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'correlation', 'pvalue', 'n_cell_line']]
+    express_df = express_df.rename(columns={'standard_drug_name':'drug_name'})
 
     path = f'drug/output/gene_expression_{drug}_{dataset}_pancan_information.csv'
     express_df.to_csv('creammist/' + path, index=False)
@@ -55,10 +57,11 @@ def download_mutation(drug, dataset):
     mutation_data = db.session.query(Mutation).filter(Mutation.standard_drug_name == drug, Mutation.dataset == dataset,
                                                       Mutation.cancer_type == 'pancan')  # .all()
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
-    mutation_df = mutation_df.rename(columns={'statistic': 'effect_size', 'provided_statistic': 'provided_effect_size'})
+    mutation_df = mutation_df.rename(columns={'statistic': 'effect_size', 'provided_statistic': 'provided_effect_size',
+                                              'standard_drug_name':'drug_name'})
 
     mutation_df = mutation_df[
-        ['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'effect_size', 'pvalue', 'n_mut', 'n_wt']]
+        ['drug_name', 'gene', 'dataset', 'cancer_type', 'effect_size', 'pvalue', 'n_mut', 'n_wt']]
 
     path = f'drug/output/mutation_{drug}_{dataset}_pancan_information.csv'
     mutation_df.to_csv('creammist/' + path, index=False)

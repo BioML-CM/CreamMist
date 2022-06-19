@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 
 
 def plot_mutation(df):
+    print(df)
     mut_plot = False
 
     if 'All' in list(df['dataset']):
@@ -24,8 +25,11 @@ def plot_mutation(df):
     pval_list = df[pval].values
     provided_stat_list = df[p_stat].values
     provided_pval_list = df[p_pval].values
+    n_mut_list = list(df['n_mut'].values)
+    n_wt_list = list(df['n_wt'].values)
 
     label_dict = dict()
+
 
     for i in range(len(stat_list)):
         if pd.isna(stat_list[i]) or stat_list[i] is None:
@@ -33,8 +37,11 @@ def plot_mutation(df):
         else:
             fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#17a2b8", name='',
                                      legendgroup='CREAMMIST', showlegend=False,
-                                     marker=dict(size=-np.log(pval_list[i] + 0.01) + 10), customdata=[pval_list[i]],
-                                     hovertemplate='<b>CREAMMIST</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                     marker=dict(size=-np.log(pval_list[i] + 0.01) + 10), customdata=[[pval_list[i],n_mut_list[i],n_wt_list[i]]],
+                                     hovertemplate='<b>Effect Size</b> : ' + '%{x:.4f}' +
+                                                   '<br><b>P-value</b> : ' + '%{customdata[0]:.4f}'+
+                                                   '<br><b># Mutant</b> : ' + '%{customdata[1]:.0f}'+
+                                                   '<br><b># Wild-type</b> : ' + '%{customdata[2]:.0f}',
                                      hoverlabel=dict(bgcolor='#FFF4ED')))
             label_dict['CREAMMIST'] = ['#17a2b8']
             mut_plot = True
@@ -46,8 +53,11 @@ def plot_mutation(df):
             fig.add_trace(go.Scatter(x=[provided_stat_list[i]], y=[i], mode='markers', line_color="#ffc107", name='',
                                      legendgroup='Original source', showlegend=False,
                                      marker=dict(size=-np.log(provided_pval_list[i] + 0.01) + 10),
-                                     customdata=[provided_pval_list[i]],
-                                     hovertemplate='<b>Original source</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                     customdata=[[provided_pval_list[i],n_mut_list[i],n_wt_list[i]]],
+                                     hovertemplate='<b>Effect Size</b> : ' + '%{x:.4f}' +
+                                                   '<br><b>P-value</b> : ' + '%{customdata[0]:.4f}'+
+                                                   '<br><b># Mutant</b> : ' + '%{customdata[1]:.0f}'+
+                                                   '<br><b># Wild-type</b> : ' + '%{customdata[2]:.0f}',
                                      hoverlabel=dict(bgcolor='#FFF4ED')))
             label_dict['Original source'] = ['#ffc107']
             mut_plot = True
@@ -114,8 +124,10 @@ def plot_expression(df):
 
     stat_list = df[stat].values
     pval_list = df[pval].values
-    provided_stat_list = df[p_stat].values
-    provided_pval_list = df[p_pval].values
+    provided_stat_list = list(df[p_stat].values)
+    provided_pval_list = list(df[p_pval].values)
+
+    n_cl_list = list(df['n_cell_line'].values)
 
     label_dict = dict()
     # print(pval_list)
@@ -126,8 +138,10 @@ def plot_expression(df):
         else:
             fig.add_trace(go.Scatter(x=[stat_list[i]], y=[i], mode='markers', line_color="#17a2b8", name='',
                                      legendgroup='CREAMMIST', showlegend=False,
-                                     marker=dict(size=-np.log(pval_list[i] + 0.01) + 10), customdata=[pval_list[i]],
-                                     hovertemplate='<b>CREAMMIST</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                     marker=dict(size=-np.log(pval_list[i] + 0.01) + 10), customdata=[[pval_list[i],n_cl_list[i]]],
+                                     hovertemplate='<b>Correlation</b> : ' + '%{x:.4f}' +
+                                                   '<br><b>P-value</b> : ' + '%{customdata[0]:.4f}'
+                                                   + '<br><b># Cell line</b> : ' + '%{customdata[1]:.0f}',
                                      hoverlabel=dict(bgcolor='#FFF4ED')))
             label_dict['CREAMMIST'] = ['#17a2b8']
             exp_plot = True
@@ -139,8 +153,10 @@ def plot_expression(df):
             fig.add_trace(go.Scatter(x=[provided_stat_list[i]], y=[i], mode='markers', line_color="#ffc107", name='',
                                      legendgroup='Original source', showlegend=False,
                                      marker=dict(size=-np.log(provided_pval_list[i] + 0.01) + 10),
-                                     customdata=[provided_pval_list[i]],
-                                     hovertemplate='<b>Original source</b> : ' + '%{x:.4f}' + '<br><b>pvalue</b> : ' + '%{customdata:.4f}',
+                                     customdata=[[provided_pval_list[i],n_cl_list[i]]],
+                                     hovertemplate='<b>Correlation</b> : ' + '%{x:.4f}' +
+                                                   '<br><b>P-value</b> : ' + '%{customdata[0]:.4f}'
+                                                   + '<br><b># Cell line</b> : ' + '%{customdata[1]:.0f}',
                                      hoverlabel=dict(bgcolor='#FFF4ED')))
             label_dict['Original source'] = ['#ffc107']
             exp_plot = True
@@ -192,11 +208,14 @@ def plot_expression(df):
 
 def plot_box_mutation(temp_df, mut_exp_df):
     mut_exp_df = mut_exp_df[mut_exp_df['score'] == 'mutation']
+
+
     mu_list = mut_exp_df[mut_exp_df['values'] >= 0.2]['cellosaurus_id']
     wt_list = mut_exp_df[mut_exp_df['values'] < 0.2]['cellosaurus_id']
 
     mu_score = temp_df[temp_df['cellosaurus_id'].isin(mu_list)]['beta0_mode']
     wt_score = temp_df[temp_df['cellosaurus_id'].isin(wt_list)]['beta0_mode']
+
 
     x = ['Mutant'] * len(mu_score) + ['Wild-type'] * len(wt_score)
     y = list(mu_score) + list(wt_score)
@@ -204,10 +223,10 @@ def plot_box_mutation(temp_df, mut_exp_df):
 
     fig = px.box(df, x='type', y='values', color='type', color_discrete_sequence=['#17a2b8','#ffc107'])
     fig.add_annotation(x=0, y=max(y) + 1.5,
-                       text=f'N = {len(mu_list)}',
+                       text=f'N = {len(mu_score)}',
                        showarrow=False)
     fig.add_annotation(x=1, y=max(y) + 1.5,
-                       text=f'N = {len(wt_list)}',
+                       text=f'N = {len(wt_score)}',
                        showarrow=False)
     fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
     fig.update_xaxes(title_text="")

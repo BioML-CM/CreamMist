@@ -27,8 +27,8 @@
                         <div class="col-lg-6" >
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-lg-5">
-                                    <h4>Information Cards</h4>
-                                    <p>Click to show/hide information cards below or download ...</p>
+                                    <h4>Asscociation Information </h4>
+                                    <p>Click to show/hide information cards below or download drug gene association information.</p>
                                     <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
                                            name="chk2" checked>
                                     <label class="form-check-label" for="chk2">Mutation</label>&nbsp;&nbsp;
@@ -51,7 +51,7 @@
                         <div class="col-lg-6" >
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-lg-5">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere turpis bibendum ligula tempor ornare. Phasellus sed odio a dolor faucibus interdum.</p>
+                                    <p>Information cards below will change according to the cancer type selected.</p>
                                     <form action="{{ url_for('biomarker.information_biomarker',gene=gene, drug=drug,cancer_type=cancer_type) }}"
                                           method="POST">
                                         <b>{{ form.cancer_type.label }} :</b> &nbsp;&nbsp; {{ form.cancer_type(class="btn btn-light bg-white shadow-xs border text-start align-items-center")}} <br><br>
@@ -74,7 +74,7 @@
                             <h2 class="h4 mb-4">Drug-gene assoication (IC50 vs mutation)</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4" >
-                                    <p>Racksum’s effect size was calculated by comparing IC50 between 19 mutant and 160 wide type cell lines <a href={{ url_for('doc.biomarker') }}>(more detail)</a>.</p>
+                                    <p>Racksum’s effect size was calculated by comparing IC50 between mutant and wide-type cell lines <a href={{ url_for('doc.biomarker') }}>(more detail)</a>.</p>
                                     <div id="chart1">
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                             <h2 class="h4 mb-4">Drug-gene assoication (IC50 vs gene expression)</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4" >
-                                    <p>Spearman correlation was calculated by comparing IC50 and gene expression (TMM) across XXX cell lines <a href={{ url_for('doc.biomarker') }}>(more detail)</a>.</p>
+                                    <p>Spearman correlation was calculated by comparing IC50 and gene expression (TMM) across cell lines <a href={{ url_for('doc.biomarker') }}>(more detail)</a>.</p>
                                     <div id="chart2">
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                             <h2 class="h4 mb-4">IC50 vs mutation</h2>
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4" >
-<!--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
+                                    <p>Relationships between IC50 and mutation profiles base on "All" dataset.</p>
                                     <div id="chart3">
                                     </div>
                                 </div>
@@ -102,9 +102,10 @@
                         </div>
                         <div class="col-lg-6">
                             <h2 class="h4 mb-4">IC50 vs gene expression</h2>
+
                             <div class="card shadow-sm border-0 ">
                                 <div class="card-body p-4">
-<!--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
+                                    <p>Relationships between IC50 and gene expression profiles base on "All" dataset.</p>
                                     <div id="chart4">
                                     </div>
                                 </div>

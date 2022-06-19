@@ -35,7 +35,8 @@ def download(dataset, cancer_type):
     df = df[['cancer_type', 'cellosaurus_id', 'standard_drug_name', 'dataset', 'info',
              'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate']]
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
-                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC','info':'original_datasets'})
+                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC','info':'original_datasets',
+                            'standard_drug_name':'drug_name'})
     path = f'cancer_type/output/cancer_type_{cancer_type}_{dataset}_information.csv'
     df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)

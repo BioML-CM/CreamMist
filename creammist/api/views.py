@@ -36,6 +36,7 @@ def get_drug_with_cl_info(cell_line):
     data = db.session.query(Experiment).filter(Experiment.cellosaurus_id == cell_line)  # .all()
     df = pd.read_sql(data.statement, db.session.bind)
     df = df[['cellosaurus_id', 'standard_drug_name', 'dataset', 'info']]
+    df = df.rename(columns={'standard_drug_name':'drug_name','info':'original_datasets'})
     if df.shape[0] > 0:
         result = df.to_json(orient="records")
         return result, 200
@@ -89,11 +90,12 @@ def get_experiments(cell_line, drug):
     df.loc[:, 'dose_response'] = list_of_dose_list
 
     df = df[['cellosaurus_id', 'standard_drug_name', 'dataset', 'info', 'n_dosage', 'min_dosage', 'max_dosage',
-             'dose_response', 'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate', 'auc_calculate',
-             'fitted_mae']]
+             'dose_response','fitted_mae','beta1_mode', 'ic50_mode', 'ic90_calculate', 'ec50_calculate',
+             'einf_calculate', 'auc_calculate',]]
     # print(df)
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
-                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC'})
+                            'einf_calculate': 'Einf', 'auc_calculate': 'AUC','standard_drug_name':'drug_name',
+                            'info':'original_datasets','beta1_mode':'slope'})
     result = df.to_json(orient="records")
     return result
 
@@ -111,6 +113,8 @@ def get_cl_with_drug_info(drug):
     data = db.session.query(Experiment).filter(Experiment.standard_drug_name == drug)  # .all()
     df = pd.read_sql(data.statement, db.session.bind)
     df = df[['standard_drug_name', 'cellosaurus_id', 'dataset', 'info']]
+    df = df.rename(columns={'standard_drug_name':'drug_name','info':'original_datasets'})
+
     if df.shape[0] > 0:
         result = df.to_json(orient="records")
         return result, 200
@@ -136,6 +140,8 @@ def get_gene_express_mut(exp_mut, cancer_type, gene, pos_neg, n_top):
                                                                GeneExpression.dataset == 'All')  # .all()
         df = pd.read_sql(express_data.statement, db.session.bind)
         df = df[['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'correlation', 'pvalue', 'n_cell_line']]
+        df = df.rename(columns={'standard_drug_name':'drug_name'})
+
         if pos_neg == 'pos':
             df = df[df['correlation'] >= 0].sort_values(by='correlation', ascending=False).head(int(n_top))
         elif pos_neg == 'neg':
@@ -153,6 +159,7 @@ def get_gene_express_mut(exp_mut, cancer_type, gene, pos_neg, n_top):
         df = pd.read_sql(mutation_data.statement, db.session.bind)
         df = df.rename(columns={'statistic': 'effect_size', 'provided_statistic': 'provided_effect_size'})
         df = df[['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'effect_size', 'pvalue', 'n_mut', 'n_wt']]
+        df = df.rename(columns={'standard_drug_name':'drug_name'})
 
         if pos_neg == 'pos':
             df = df[df['effect_size'] >= 0].sort_values(by='effect_size', ascending=False).head(int(n_top))
@@ -176,6 +183,8 @@ def get_drug_express_mut(exp_mut, cancer_type, drug, pos_neg, n_top):
                                                                GeneExpression.dataset == 'All')  # .all()
         df = pd.read_sql(express_data.statement, db.session.bind)
         df = df[['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'correlation', 'pvalue', 'n_cell_line']]
+        df = df.rename(columns={'standard_drug_name':'drug_name'})
+
         if pos_neg == 'pos':
             df = df[df['correlation'] >= 0].sort_values(by='correlation', ascending=False).head(int(n_top))
         elif pos_neg == 'neg':
@@ -194,6 +203,7 @@ def get_drug_express_mut(exp_mut, cancer_type, drug, pos_neg, n_top):
         df = pd.read_sql(mutation_data.statement, db.session.bind)
         df = df.rename(columns={'statistic': 'effect_size', 'provided_statistic': 'provided_effect_size'})
         df = df[['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'effect_size', 'pvalue', 'n_mut', 'n_wt']]
+        df = df.rename(columns={'standard_drug_name':'drug_name'})
 
         if pos_neg == 'pos':
             df = df[df['effect_size'] >= 0].sort_values(by='effect_size', ascending=False).head(int(n_top))
@@ -217,6 +227,7 @@ def get_drug_gene_express_mut(exp_mut, cancer_type, gene, drug):
                                                                GeneExpression.cancer_type == cancer_type)  # .all()
         df = pd.read_sql(express_data.statement, db.session.bind)
         df = df[['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'correlation', 'pvalue', 'n_cell_line']]
+        df = df.rename(columns={'standard_drug_name':'drug_name'})
 
         if df.shape[0] > 0:
             result = df.to_json(orient="records")
@@ -231,6 +242,7 @@ def get_drug_gene_express_mut(exp_mut, cancer_type, gene, drug):
         df = pd.read_sql(mutation_data.statement, db.session.bind)
         df = df.rename(columns={'statistic': 'effect_size', 'provided_statistic': 'provided_effect_size'})
         df = df[['standard_drug_name', 'gene', 'dataset', 'cancer_type', 'effect_size', 'pvalue', 'n_mut', 'n_wt']]
+        df = df.rename(columns={'standard_drug_name':'drug_name'})
 
         if df.shape[0] > 0:
             result = df.to_json(orient="records")
@@ -244,7 +256,7 @@ def get_cl_mutation(cell_line):
     cell_line_records = db.session.query(CellLine.cellosaurus_index).filter(
         CellLine.cellosaurus_id == cell_line).distinct()
     cell_line_list = [c.cellosaurus_index for c in cell_line_records]
-    print(cell_line_list)
+    # print(cell_line_list)
 
     data = db.session.query(MutExpMetadata).filter(MutExpMetadata.cellosaurus_index == cell_line_list[0],
                                                    MutExpMetadata.score == 'mutation')  # .all()

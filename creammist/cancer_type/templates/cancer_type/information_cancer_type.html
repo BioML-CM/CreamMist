@@ -23,7 +23,7 @@
                 <div class="col-lg-6">
                     <div class="card shadow-sm border-0 ">
                         <div class="card-body p-lg-5">
-                            <h4>Information Cards </h4>
+                            <h4>Drug Response Information </h4>
                             <p>Click to show/hide information cards below or download the drug response information for all cell lines  information.</p>
                             <input class="form-check-input" type="checkbox" id="chk2" , data-ptag="content2"
                                    name="chk2" checked>
@@ -71,7 +71,7 @@
                     <h2 class="h4 mb-4">IC50</h2>
                     <div class="card shadow-sm border-0 ">
                         <div class="card-body p-4">
-                            IC50 indicates how much drug dosage is needed to inhibit the cells by 50%, in vitro, compared to the control well.<br><br>
+                            IC50 indicates how much drug dosage is needed to inhibit the cells by 50%, <i>in vitro</i>, compared to the control well.<br><br>
                             Drugs with highest and lowest IC50 across {{ n_cl }} <a
                                 href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{
                             cancer_type.replace('_',' ') }} </a> cell lines.
@@ -84,7 +84,7 @@
                     <h2 class="h4 mb-4">IC90</h2>
                     <div class="card shadow-sm border-0 ">
                         <div class="card-body p-4">
-                            IC90 indicates how much drug dosage is needed to inhibit the cells by 90%, in vitro, compared to the control well.<br><br>
+                            IC90 indicates how much drug dosage is needed to inhibit the cells by 90%, <i>in vitro</i>, compared to the control well.<br><br>
                             Drugs with highest and lowest IC90 across {{ n_cl}} <a
                                 href="{{ url_for('cancer_type.information_cancer_type', dataset='All', cancer_type=cancer_type) }}">{{
                             cancer_type.replace('_',' ') }} </a> cell lines.

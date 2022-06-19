@@ -33,7 +33,7 @@ def plot_ic_auc_mode(df, type):
         fig = px.box(df, x='standard_drug_name', y='auc_calculate', category_orders={'standard_drug_name': my_order},
                      color=list(df['color']),color_discrete_sequence=color_list,
                      custom_data=['standard_drug_name','auc_calculate'], points=False)
-        fig.update_traces(hovertemplate = "<b>standard_drug_name : </b> %{customdata[0]} <br>"
+        fig.update_traces(hovertemplate = "<b>Drug Name : </b> %{customdata[0]} <br>"
                                           "<b> AUC : </b> %{customdata[1]} %", name='')
         fig.update_yaxes(title_text="AUC (%)")
         # fig.update_layout(title=f"Drug with 10 highest and lowest AUC across all cell line <br>in {cancer_type}")
@@ -42,7 +42,7 @@ def plot_ic_auc_mode(df, type):
         fig = px.box(df, x='standard_drug_name', y='ic50_mode', category_orders={'standard_drug_name': my_order},
                      color=list(df['color']),color_discrete_sequence=color_list,
                      custom_data=['standard_drug_name','ic50_mode'])
-        fig.update_traces(hovertemplate = "<b>standard_drug_name : </b> %{customdata[0]} <br>"
+        fig.update_traces(hovertemplate = "<b>Drug Name : </b> %{customdata[0]} <br>"
                                           "<b> IC50 : </b> %{customdata[1]}", name='')
         fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
         # fig.update_layout(title=f"Drug with 10 highest and lowest IC50 across all cell line <br>in {cancer_type}")
@@ -52,7 +52,7 @@ def plot_ic_auc_mode(df, type):
         fig = px.box(df, x='standard_drug_name', y='ic90_calculate', category_orders={'standard_drug_name': my_order},
                      color=list(df['color']),color_discrete_sequence=color_list,
                      custom_data=['standard_drug_name','ic90_calculate'])
-        fig.update_traces(hovertemplate = "<b>standard_drug_name : </b> %{customdata[0]} <br>"
+        fig.update_traces(hovertemplate = "<b>Drug Name : </b> %{customdata[0]} <br>"
                                           "<b> IC90 : </b> %{customdata[1]} ", name='')
         fig.update_yaxes(title_text="IC90 Log2 Concentration (\u03bcM)")
         # fig.update_layout(title=f"Drug with 10 highest and lowest IC90 across all cell line <br>in {cancer_type}")
@@ -64,7 +64,7 @@ def plot_ic_auc_mode(df, type):
             new_xlabel_list += [f"—"]
         else:
             new_xlabel_list += [
-            f"<a href='http://127.0.0.1:5000/drug/All/{xlabel_list[i]}' style='color:#ef5285;'>{xlabel_list[i]}</a>"]
+            f"<a href='http://127.0.0.1:5000/drug/All/{xlabel_list[i]}' target='_self' style='color:#ef5285;'>{xlabel_list[i]}</a>"]
 
     layout = dict(
         boxgap=0,boxgroupgap=0,

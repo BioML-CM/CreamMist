@@ -3,7 +3,7 @@
 {% block doc_content %}
 
     <div class=" mb-4 p-2" id="content1">
-        <h2 class="h4 mb-4"><span style="color:#17a2b8"> Select gene & drug </span></h2>
+        <h2 class="h4 mb-4"><span style="color:#17a2b8"> Select gene and drug </span></h2>
         <div class="card shadow-sm border-0">
             <div class="card-body p-4">
                 <div class="card-body p-4">
@@ -15,13 +15,12 @@
     </div>
     <div class=" mb-4 p-2" id="content2">
         <h2 class="h4 mb-4"><span style="color:#17a2b8"> Drug-gene associations based on IC50 and mutation (or gene expression) profile </span></h2>
-        <ul class="fa-ul">
-            <li><span class="fa-li"><i class="fas fa-feather" style="color:#28a745"></i></span>Racksum’s effect size was calculated by comparing IC50 between the mutant and wide-type cell lines. Mutant cell lines are those that have at least one mutation (allele frequency >= 0.2) in a given gene.</li>
-            <li><span class="fa-li"><i class="fas fa-feather" style="color:#28a745"></i></span>Spearman correlation was calculated by comparing IC50 and gene expression (TMM).</li>
-            <li><span class="fa-li"><i class="fas fa-feather" style="color:#28a745"></i></span>The association scores were calculated only for gene-drug pairs with at least X wild-type and X mutant cell lines, with XXX cell lines for gene expression. The association scores based on IC50 provided by the original source are also provided (yellow dot)</li>
-            <li><span class="fa-li"><i class="fas fa-feather" style="color:#28a745"></i></span>Each (unadjusted) p-value was calculated for each pair of drug and gene independently.</li>
-        </ul>
-<br>
+        Racksum’s effect size was calculated by comparing IC50 between the mutant and wide-type cell lines. Mutant cell lines are those that have at least one mutation (allele frequency >= 0.2) in a given gene.
+        Spearman correlation was calculated by comparing IC50 and gene expression (TMM).
+        The association scores were calculated only for gene-drug pairs with at least 10 wild-type and 10 mutant cell lines, or with at least 10 cell lines for gene expression. We discard dose gene drug pair with an absolute correlation value less than 0.2. The association scores based on IC50 provided by the original source are also provided (yellow dot)
+       Each (unadjusted) p-value was calculated for each pair of drug and gene independently.<br><br>
+
+
         <div class="card shadow-sm border-0">
             <div class="card-body p-4">
                 <div class="card-body p-4">

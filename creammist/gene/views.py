@@ -26,7 +26,7 @@ def download_mutation(gene, dataset, cancer_type):
 
     mutation_df = mutation_df[
         ['gene', 'standard_drug_name', 'dataset', 'cancer_type', 'statistic', 'pvalue', 'n_mut', 'n_wt']]
-    mutation_df = mutation_df.rename(columns={'statistic': 'effect_size'})
+    mutation_df = mutation_df.rename(columns={'statistic': 'effect_size','standard_drug_name':'drug_name'})
     path = f'gene/output/mutation_{gene}_{cancer_type}_{dataset}_information.csv'
     mutation_df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)
@@ -42,6 +42,8 @@ def download_expression(gene, dataset, cancer_type):
 
     express_df = express_df[
         ['gene', 'standard_drug_name', 'dataset', 'cancer_type', 'correlation', 'pvalue', 'n_cell_line']]
+    express_df = express_df.rename(columns={'standard_drug_name':'drug_name'})
+
     path = f'gene/output/gene_expression_{gene}_{cancer_type}_{dataset}_information.csv'
     express_df.to_csv('creammist/' + path, index=False)
     return send_file(path, as_attachment=True)

@@ -104,7 +104,7 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
                                                       Mutation.cancer_type == cancer_type)  # .all()
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
     # mutation_df = mutation_df[['dataset', 'statistic', 'pvalue', 'provided_statistic', 'provided_pvalue']]
-    print(mutation_df)
+    # print(mutation_df)
     express_data = db.session.query(GeneExpression).filter(GeneExpression.gene == gene,
                                                            GeneExpression.standard_drug_name == drug,
                                                            GeneExpression.cancer_type == cancer_type)  # .all()
@@ -158,6 +158,7 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
         cancer_type_records = db.session.query(CellLine.cellosaurus_id).filter(CellLine.site == cancer_type).all()
     cell_line_list = [r.cellosaurus_id for r in cancer_type_records]
 
+
     # print('query plot info')
     # find ic50
     data = db.session.query(CellLine, Experiment, JagsSampling) \
@@ -168,6 +169,7 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
     df = df[df['cellosaurus_id'].isin(cell_line_list)]
     df = df[['cellosaurus_id', 'standard_drug_name', 'beta0_mode']]
 
+
     # cell_line_index_list = df['cellosaurus_index']
     # print('list cell line')
 
@@ -177,7 +179,7 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
 
     mut_exp_df = mut_exp_df[mut_exp_df['cellosaurus_id'].isin(cell_line_list)]
     mut_exp_df = mut_exp_df[['cellosaurus_id', 'gene', 'values', 'score']]
-    # print(mut_exp_df)
+
 
     # print('finish query')
     # print(df.shape, mut_exp_df.shape)

@@ -66,20 +66,17 @@
                     </form>
                     <br>
                     <span style="float:left;">Examples:
-                        <a href="#" id="link-id1">EGFR</a>&nbsp; &
-                        <a href="#" id="link-id2">Lapatinib</a>&nbsp; -
-                        <a href="#" id="link-id3">AAAS</a>&nbsp; &
-                        <a href="#" id="link-id4">LY-2183240</a>
+                        <a href="#" id="link-id1">EGFR</a> and
+                        <a href="#" id="link-id2">Lapatinib</a>
+<!--                        <a href="#" id="link-id3">AAAS</a>&nbsp; &-->
+<!--                        <a href="#" id="link-id4">LY-2183240</a>-->
                 </span>
                 </div>
             </div>
         </div>
     </section>
 
-<div class="container py-5 col-lg-12 ">
-    <div class="card-body p-4 p-lg-5">
-    </div>
-</div>
+
 
 <script type="text/javascript">
     $(function () {
@@ -99,24 +96,24 @@
         });
     });
 </script>
-<script type="text/javascript">
-    $(function () {
-        $("#link-id3").click(function () {
-            $('#biomarker_autocomplete').val($(this).html());
-            $('#biomarker_autocomplete').submit();
-            return false;
-        });
-    });
-</script>
-<script type="text/javascript">
-    $(function () {
-        $("#link-id4").click(function () {
-            $('#biomarker_autocomplete_drug').val($(this).html());
-            $('#biomarker_autocomplete_drug').submit();
-            return false;
-        });
-    });
-</script>
+<!--<script type="text/javascript">-->
+<!--    $(function () {-->
+<!--        $("#link-id3").click(function () {-->
+<!--            $('#biomarker_autocomplete').val($(this).html());-->
+<!--            $('#biomarker_autocomplete').submit();-->
+<!--            return false;-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--<script type="text/javascript">-->
+<!--    $(function () {-->
+<!--        $("#link-id4").click(function () {-->
+<!--            $('#biomarker_autocomplete_drug').val($(this).html());-->
+<!--            $('#biomarker_autocomplete_drug').submit();-->
+<!--            return false;-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 {% endblock %}
 
 <!--{##}-->

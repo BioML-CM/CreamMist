@@ -52,7 +52,7 @@ def plot_ic_auc_mode(df, type):
         if i==10:
             fig['data'][0]['x'][i] = f"—"
         else:
-            fig['data'][0]['x'][i] = f"<a href='https://creammist.mtms.dev/cell_line/view/{df['id'][i]}' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][i] = f"<a href='https://creammist.mtms.dev/cell_line/view/{df['id'][i]}' target='_self' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
 
     fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
@@ -84,7 +84,7 @@ def plot_statistic(df, score):
                               marker_color=color_list, width=1, name='',
                               hovertemplate='<b>Drug Name</b> : %{x} <br>'
                                             '<b>Effect Size </b> : %{y:.4f}<br>'
-                                            '<b>Pvalue</b> : ' + '%{customdata:.4f}',
+                                            '<b>P-value</b> : ' + '%{customdata:.4f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 
         fig.update_yaxes(title_text="Ranksum's Effect Size")
@@ -108,7 +108,7 @@ def plot_statistic(df, score):
                               marker_color=color_list, width=1, name='',
                               hovertemplate='<b>Drug Name</b> : %{x} <br>'
                                             '<b>Correlation </b> : %{y:.4f}<br>'
-                                            '<b>Pvalue</b> : ' + '%{customdata:.4f}',
+                                            '<b>P-value</b> : ' + '%{customdata:.4f}',
                               hoverlabel=dict(bgcolor='#FFF4ED')))
 
         fig.update_yaxes(title_text="Spearman Correlation")
@@ -120,7 +120,7 @@ def plot_statistic(df, score):
             fig['data'][0]['x'][i] = f"—"
         else:
             fig['data'][0]['x'][
-                i] = f"<a href='http://creammist.mtms.dev/biomarker/{df['gene'][i]}/{df['standard_drug_name'][i]}/pancan' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
+                i] = f"<a href='http://creammist.mtms.dev/biomarker/{df['gene'][i]}/{df['standard_drug_name'][i]}/pancan' target='_self' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
 
     fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})

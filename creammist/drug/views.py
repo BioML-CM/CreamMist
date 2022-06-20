@@ -84,8 +84,10 @@ def select():  # choose drug
     form = DrugForm()
     if request.method == 'POST':
         name = request.form.get('name')
-        # print(name)
-        return redirect(url_for('drug.information_drug', drug=name, dataset='All'))
+        if name in drug_name_db:
+            return redirect(url_for('drug.information_drug', drug=name, dataset='All'))
+        else:
+            return render_template('select_drug.html', form=form, data=drug_name_db)
     return render_template('select_drug.html', form=form, data=drug_name_db)
 
 

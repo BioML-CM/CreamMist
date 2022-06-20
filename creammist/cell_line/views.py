@@ -14,8 +14,8 @@ import plotly
 cell_line_blueprint = Blueprint('cell_line',
                                 __name__, template_folder='templates/cell_line')
 
-hdi = 0.95
-random_state = 1
+# hdi = 0.95
+# random_state = 1
 
 
 @cell_line_blueprint.route('/download/<string:dataset>/<string:cell_line>', methods=['GET', 'POST'])
@@ -68,12 +68,12 @@ def download_experiment(exp):
     df.loc[:, 'dose_response'] = list_of_dose_list
 
     df = df[['cellosaurus_id', 'standard_drug_name', 'dataset', 'info', 'n_dosage', 'min_dosage', 'max_dosage',
-             'dose_response','fitted_mae','beta1_mode', 'ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate',
+             'dose_response','fitted_mae','beta1_mode', 'beta0_HDI_low','beta0_HDI_high','ic50_mode', 'ic90_calculate', 'ec50_calculate', 'einf_calculate',
              'auc_calculate',]]
     # print(df)
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
                             'einf_calculate': 'Einf', 'auc_calculate': 'AUC','info':'original_datasets','beta1_mode':'slope',
-                            'standard_drug_name':'drug_name'})
+                            'standard_drug_name':'drug_name','beta0_HDI_low':'IC50_HDI_low','beta0_HDI_high':'IC50_HDI_high'})
 
     path = f'cell_line/output/experiment_{cl}_{drug}_information.csv'
     df.to_csv('creammist/' + path, index=False)
@@ -96,7 +96,10 @@ def select():  # choose cell line
     form = CellLineForm()
     if request.method == 'POST':
         name = request.form.get('name')
-        return redirect(url_for('cell_line.information_cell_line', cell_line=name, dataset='All'))
+        if name in cell_line_name_db:
+            return redirect(url_for('cell_line.information_cell_line', cell_line=name, dataset='All'))
+        else:
+            return render_template('select_cell_line.html', form=form, data=cell_line_name_db)
     return render_template('select_cell_line.html', form=form, data=cell_line_name_db)
 
 
@@ -214,16 +217,10 @@ def view_logistic(exp):
         ic50_list += [plot_data.inv_logistic(0.5, beta1_s[i], beta0_s[i])]
 
     fig_logistic = plot_data.plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
-    # fig_auc = plot_data.plot_distribution(auc_list,0.01,hdi,'AUC')
-    # fig_ic90 = plot_data.plot_distribution(ic90_list,1,hdi,'IC90')
     fig_ic50 = plot_data.plot_distribution_ic50(ic50_list, jags.beta0_HDI_low, jags.beta0_HDI_high)
-    # fig_input_dose = plot_data.plot_distribution(input_dose_list,0.01,hdi,f'{input_dose}->{np.log2(input_dose):.2f}')
 
     graph1Jason = json.dumps(fig_logistic, cls=plotly.utils.PlotlyJSONEncoder)
     graph2Jason = json.dumps(fig_ic50, cls=plotly.utils.PlotlyJSONEncoder)
-    # graph3Jason = json.dumps(fig_ic90, cls=plotly.utils.PlotlyJSONEncoder)
-    # graph4Jason = json.dumps(fig_auc, cls=plotly.utils.PlotlyJSONEncoder)
-    # graph5Jason = json.dumps(fig_input_dose, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('view_cell_line.html', experiment=experiment, graph1Jason=graph1Jason,
                            graph2Jason=graph2Jason, form=form, data=sens,cl=c,drug=drug)

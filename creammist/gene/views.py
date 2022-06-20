@@ -6,10 +6,9 @@ from creammist.gene.forms import GeneForm, ChoiceForm
 
 from flask import request, send_file
 
-import scipy.stats as stats
+
 from creammist.gene import plot_data
-from scipy.stats import skewnorm
-import numpy as np
+
 import pandas as pd
 import json
 import plotly
@@ -65,7 +64,10 @@ def select():
     form = GeneForm()
     if request.method == 'POST':
         gene = request.form.get('name')
-        return redirect(url_for('gene.information_gene', gene=gene, dataset='All', cancer_type='pancan'))
+        if gene in gene_name_db:
+            return redirect(url_for('gene.information_gene', gene=gene, dataset='All', cancer_type='pancan'))
+        else:
+            return render_template('select_gene.html', form=form,data=gene_name_db)
     return render_template('select_gene.html', form=form,data=gene_name_db)
 
 
@@ -126,51 +128,3 @@ def information_gene(gene, dataset, cancer_type):  # show information cell line
                            graph2Jason=graph2Jason,
                            gene=gene, dataset=dataset, cancer_type=cancer_type)
 
-# @gene_blueprint.route("/<string:dataset>/<string:cancer_type>/<string:gene>/<string:score>",methods=['GET', 'POST'])
-# def information_gene(gene, dataset, score, cancer_type): #show information cell line
-#
-#     if score == 'mutation':
-#         data = db.session.query(WildtypeMutation).filter(WildtypeMutation.gene == gene, WildtypeMutation.dataset == dataset, WildtypeMutation.cancer_type == cancer_type)#.all()
-#     elif score == 'gene expression':
-#         data = db.session.query(GeneExpression).filter(GeneExpression.gene == gene, GeneExpression.dataset == dataset, GeneExpression.cancer_type == cancer_type)#.all()
-#
-#     df = pd.read_sql(data.statement, db.session.bind)
-#     print(data.statement)
-#
-#
-#     #all dataset
-#
-#     gene_records = db.session.query(WildtypeMutation).filter(WildtypeMutation.gene == gene)#.all()
-#     dataset_list = list(set(r.dataset for r in gene_records))
-#     cancer_type_list = list(set(r.cancer_type for r in gene_records))
-#
-#     #form for select dataset
-#     form = ChoiceForm()
-#     form.dataset.choices = dataset_list
-#     form.cancer_type.choices = cancer_type_list
-#
-#     form.dataset.default = dataset
-#     form.cancer_type.default = cancer_type
-#     form.process()
-#
-#     if request.method == 'POST':
-#         dataset = request.form.get('dataset')
-#         cancer_type = request.form.get('cancer_type')
-#         score = request.form.get('score')
-#         return redirect(url_for('gene.information_gene', gene=gene, dataset=dataset, cancer_type=cancer_type, score=score))
-#
-#     print(df)
-#     #plot graph
-#     if score == 'mutation':
-#         fig_stat = plot_data.plot_statistic(df,'statistic')
-#         fig_stat_provided = plot_data.plot_statistic(df,'statistic_provided')
-#     elif score == 'gene expression':
-#         fig_stat = plot_data.plot_statistic(df,'correlation')
-#         fig_stat_provided = plot_data.plot_statistic(df,'correlation_provided')
-#
-#     graph1Jason = json.dumps(fig_stat, cls=plotly.utils.PlotlyJSONEncoder)
-#     graph2Jason = json.dumps(fig_stat_provided, cls=plotly.utils.PlotlyJSONEncoder)
-#
-#
-#     return render_template('information_gene.html', data=data, graph1Jason=graph1Jason,form=form,
-#                            graph2Jason=graph2Jason, score=score, gene=gene, dataset=dataset, cancer_type=cancer_type)

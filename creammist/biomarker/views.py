@@ -6,19 +6,10 @@ from creammist.biomarker.forms import BiomarkerForm, ChoiceForm
 
 from flask import request, send_file
 
-import scipy.stats as stats
 from creammist.biomarker import plot_data
-from scipy.stats import skewnorm
-import numpy as np
 import pandas as pd
 import json
 import plotly
-
-# import pickle
-
-# cancer_dict = pickle.load(open('myproject/biomarker/data/cancer_dict.pickle', 'rb'))
-# vaf_df = pd.read_csv('myproject/biomarker/data/mutation.csv', index_col=0)
-# gene_express_df = pd.read_csv('myproject/biomarker/data/gene_expression.csv', index_col=0)
 
 
 biomarker_blueprint = Blueprint('biomarker',
@@ -53,12 +44,6 @@ def download(gene, drug, cancer_type):
 
 @biomarker_blueprint.route('/_autocomplete', methods=['GET'])
 def autocomplete():
-    # gene_mutation_records = db.session.query(Mutation.gene).distinct()
-    # gene_express_records = db.session.query(GeneExpression.gene).distinct()
-    # gene_mutation_list = [r.gene for r in gene_mutation_records]
-    # gene_express_list = [r.gene for r in gene_express_records]
-    # gene_name_db = list(set(gene_mutation_list).union(set(gene_express_list)))
-    # print(gene_mutation_list)
 
     gene_records = db.session.query(Gene.gene_name).all()
     gene_name_db = [r.gene_name for r in gene_records]
@@ -91,28 +76,31 @@ def select():  # choose cell line
     if request.method == 'POST':
         gene_name = request.form.get('gene_name')
         drug_name = request.form.get('drug_name')
-        return redirect(
+
+        drug_mutation_records = db.session.query(Mutation.standard_drug_name).filter(Mutation.gene == gene_name, Mutation.standard_drug_name == drug_name).distinct()
+        drug_express_records = db.session.query(GeneExpression.standard_drug_name).filter(GeneExpression.gene == gene_name,GeneExpression.standard_drug_name == drug_name).distinct()
+        drug_mutation_list = [r.standard_drug_name for r in drug_mutation_records]
+        drug_express_list = [r.standard_drug_name for r in drug_express_records]
+
+        if len(drug_mutation_list)!=0 or len(drug_express_list)!=0 :
+            return redirect(
             url_for('biomarker.information_biomarker', gene=gene_name, drug=drug_name, cancer_type='pancan'))
+        else:
+            return render_template('select_biomarker.html', form=form)
     return render_template('select_biomarker.html', form=form)
 
 
 @biomarker_blueprint.route("/<string:gene>/<string:drug>/<string:cancer_type>", methods=['GET', 'POST'])
-def information_biomarker(gene, drug, cancer_type):  # show information cell line
-    # vaf_df = pd.read_csv('myproject/biomarker/data/mutation.csv', index_col=0)
-
+def information_biomarker(gene, drug, cancer_type):
     mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug,
                                                       Mutation.cancer_type == cancer_type)  # .all()
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)
-    # mutation_df = mutation_df[['dataset', 'statistic', 'pvalue', 'provided_statistic', 'provided_pvalue']]
-    # print(mutation_df)
+
     express_data = db.session.query(GeneExpression).filter(GeneExpression.gene == gene,
                                                            GeneExpression.standard_drug_name == drug,
                                                            GeneExpression.cancer_type == cancer_type)  # .all()
     express_df = pd.read_sql(express_data.statement, db.session.bind)
-    # express_df = express_df[['dataset', 'correlation', 'pvalue', 'provided_correlation', 'provided_pvalue']]
 
-    # print("db mut/exp complete")
-    # print(express_df)
 
     # all dataset
     mutation_records = db.session.query(Mutation).filter(Mutation.gene == gene,
@@ -136,7 +124,6 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
         return redirect(url_for('biomarker.information_biomarker', gene=gene, drug=drug, cancer_type=cancer_type))
 
     # plot graph
-    # print('start plot graph')
     fig_mutation_stat, box_plot, mut_plot = plot_data.plot_mutation(mutation_df)
     fig_express_stat, scatt_plot, exp_plot = plot_data.plot_expression(express_df)
     if mut_plot:
@@ -149,7 +136,7 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
     else:
         graph2Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
 
-    # print('finish plot stat')
+
     # plot information
     # find cell line match cancer type
     if cancer_type == 'pancan':
@@ -159,7 +146,6 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
     cell_line_list = [r.cellosaurus_id for r in cancer_type_records]
 
 
-    # print('query plot info')
     # find ic50
     data = db.session.query(CellLine, Experiment, JagsSampling) \
         .join(Experiment, Experiment.cellosaurus_id == CellLine.cellosaurus_id) \
@@ -170,9 +156,6 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
     df = df[['cellosaurus_id', 'standard_drug_name', 'beta0_mode']]
 
 
-    # cell_line_index_list = df['cellosaurus_index']
-    # print('list cell line')
-
     # find mut/exp values
     mut_exp_data = db.session.query(OmicsProfiles).filter(OmicsProfiles.gene == gene)  # .all()
     mut_exp_df = pd.read_sql(mut_exp_data.statement, db.session.bind)
@@ -181,22 +164,18 @@ def information_biomarker(gene, drug, cancer_type):  # show information cell lin
     mut_exp_df = mut_exp_df[['cellosaurus_id', 'gene', 'values', 'score']]
 
 
-    # print('finish query')
-    # print(df.shape, mut_exp_df.shape)
-
     if box_plot:
         fig_box_mutation = plot_data.plot_box_mutation(df, mut_exp_df)
         graph3Jason = json.dumps(fig_box_mutation, cls=plotly.utils.PlotlyJSONEncoder)
     else:
         graph3Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
-    # print("finish plot mut box")
+
 
     if scatt_plot:
         fig_scatter_expression = plot_data.plot_scatter_expression(df, mut_exp_df)
         graph4Jason = json.dumps(fig_scatter_expression, cls=plotly.utils.PlotlyJSONEncoder)
     else:
         graph4Jason = json.dumps(plot_data.plot_nodata(), cls=plotly.utils.PlotlyJSONEncoder)
-    # print('before box plot')
 
     return render_template('information_biomarker.html', data=mutation_data, graph1Jason=graph1Jason,
                            graph2Jason=graph2Jason,

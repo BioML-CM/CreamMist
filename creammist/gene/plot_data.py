@@ -7,11 +7,11 @@ import plotly.graph_objects as go
 
 def plot_statistic(df, score):
     n = 10
-    color_list = ['#17a2b8', '#ffc107'] * 5 + ['black'] + ['#17a2b8', '#ffc107'] * 5
     fig = go.Figure()
     if score == 'statistic':
         #preprocess df
         if df.shape[0]>=(2*n):
+            color_list = ['#17a2b8', '#ffc107'] * 5 + ['black'] + ['#17a2b8', '#ffc107'] * 5
             top_df = df.sort_values(score).head(n)
             new_row = {'standard_drug_name':'', score:''}
             #append row to the dataframe
@@ -19,6 +19,7 @@ def plot_statistic(df, score):
             df = pd.concat(
                 [top_df, df.sort_values(score).tail(n)]).reset_index(drop=True)
         else:
+            color_list = ['#17a2b8', '#ffc107'] * n
             df = pd.concat(
                 [df.sort_values(score).head(n), df.sort_values(score).tail(n)]).drop_duplicates().reset_index(drop=True)
 
@@ -37,6 +38,7 @@ def plot_statistic(df, score):
     elif score == 'correlation':
         #preprocess df
         if df.shape[0]>=(2*n):
+            color_list = ['#17a2b8', '#ffc107'] * 5 + ['black'] + ['#17a2b8', '#ffc107'] * 5
             top_df = df.sort_values(score).head(n)
             new_row = {'standard_drug_name':'', score:''}
             #append row to the dataframe
@@ -44,6 +46,7 @@ def plot_statistic(df, score):
             df = pd.concat(
                 [top_df, df.sort_values(score).tail(n)]).reset_index(drop=True)
         else:
+            color_list = ['#17a2b8', '#ffc107'] * n
             df = pd.concat(
                 [df.sort_values(score).head(n), df.sort_values(score).tail(n)]).drop_duplicates().reset_index(drop=True)
 

@@ -1,17 +1,11 @@
-from flask import Blueprint, render_template, redirect, url_for, Response
+from flask import Blueprint, render_template
 from creammist import db
 from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, MutExpMetadata, Drug, \
     Gene, GeneExpression, Mutation
 
-from flask import request, send_file, jsonify
-
-import numpy as np
+from flask import jsonify
 import pandas as pd
 import json
-import plotly
-
-# var_df = pd.read_csv('myproject/biomarker/data/mutation.csv', index_col=0)
-# gene_express_df = pd.read_csv('myproject/biomarker/data/gene_expression.csv', index_col=0)
 
 
 api_blueprint = Blueprint('api',
@@ -19,7 +13,7 @@ api_blueprint = Blueprint('api',
 
 
 @api_blueprint.route('/information/', methods=['GET', 'POST'])
-def information():  # choose cell line
+def information():
     return render_template('information_api.html')
 
 
@@ -33,7 +27,7 @@ def get_all_celllines_data():
 
 @api_blueprint.route('/celllines/<string:cell_line>', methods=['GET'])
 def get_drug_with_cl_info(cell_line):
-    data = db.session.query(Experiment).filter(Experiment.cellosaurus_id == cell_line)  # .all()
+    data = db.session.query(Experiment).filter(Experiment.cellosaurus_id == cell_line)
     df = pd.read_sql(data.statement, db.session.bind)
     df = df[['cellosaurus_id', 'standard_drug_name', 'dataset', 'info']]
     df = df.rename(columns={'standard_drug_name':'drug_name','info':'original_datasets'})
@@ -90,12 +84,12 @@ def get_experiments(cell_line, drug):
     df.loc[:, 'dose_response'] = list_of_dose_list
 
     df = df[['cellosaurus_id', 'standard_drug_name', 'dataset', 'info', 'n_dosage', 'min_dosage', 'max_dosage',
-             'dose_response','fitted_mae','beta1_mode', 'ic50_mode', 'ic90_calculate', 'ec50_calculate',
+             'dose_response','fitted_mae','beta1_mode', 'beta0_HDI_low','beta0_HDI_high', 'ic50_mode', 'ic90_calculate', 'ec50_calculate',
              'einf_calculate', 'auc_calculate',]]
     # print(df)
     df = df.rename(columns={'ic50_mode': 'IC50', 'ic90_calculate': 'IC90', 'ec50_calculate': 'EC50',
                             'einf_calculate': 'Einf', 'auc_calculate': 'AUC','standard_drug_name':'drug_name',
-                            'info':'original_datasets','beta1_mode':'slope'})
+                            'info':'original_datasets','beta1_mode':'slope','beta0_HDI_low':'IC50_HDI_low','beta0_HDI_high':'IC50_HDI_high'})
     result = df.to_json(orient="records")
     return result
 

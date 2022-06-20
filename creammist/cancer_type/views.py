@@ -64,7 +64,10 @@ def select():  # choose cell line
     form = CancerForm()
     if request.method == 'POST':
         name = request.form.get('name')
-        return redirect(url_for('cancer_type.information_cancer_type', cancer_type=name, dataset='All'))
+        if (name in cancer_type_name_db) and (name != ""):
+            return redirect(url_for('cancer_type.information_cancer_type', cancer_type=name, dataset='All'))
+        else:
+            return render_template('select_cancer_type.html', form=form, data=cancer_type_name_db )
     return render_template('select_cancer_type.html', form=form, data=cancer_type_name_db )
 
 
@@ -76,7 +79,7 @@ def information_cancer_type(cancer_type, dataset):  # show information cell line
     else:
         cancer_type_records = db.session.query(CellLine.cellosaurus_id).filter(CellLine.site == cancer_type).all()
     cell_line_list = [r.cellosaurus_id for r in cancer_type_records]
-    n_cl = len(cell_line_list)
+    # n_cl = len(cell_line_list)
 
     data = db.session.query(Experiment, SensitivityScore) \
         .join(SensitivityScore, SensitivityScore.exp_id == Experiment.id).filter(
@@ -89,6 +92,7 @@ def information_cancer_type(cancer_type, dataset):  # show information cell line
     df = pd.read_sql(data.statement, db.session.bind)
 
     df = df[df['dataset'] == dataset]
+    n_cl = len(set(df['cellosaurus_id']))
 
     dataset_list = [(r.dataset, r.dataset) for r in
                     sorted(dataset_records)]  # sorted(dataset_list, key=lambda x: temp_list.index(x))

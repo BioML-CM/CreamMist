@@ -1,11 +1,8 @@
 import pandas as pd
 import numpy as np
 
-import plotly.express as px
 import plotly.graph_objects as go
 import plotly.figure_factory as ff
-import arviz as az
-import scipy.stats as stats
 
 ####################################
 config = {
@@ -41,7 +38,6 @@ def inv_logistic(y, k, a):
 ####################################
 ####################################
 ####################################
-from plotly.subplots import make_subplots
 
 
 def plot_distribution_ic50(data_list, m, M):
@@ -71,7 +67,7 @@ def plot_distribution_ic50(data_list, m, M):
 
 def plot_ic_auc_mode(df, type):
     n = 10
-    color_list = ['#17a2b8', '#ffc107'] * 5 + ['black'] + ['#17a2b8', '#ffc107'] * 5
+
     fig = go.Figure()
 
     if type == 'auc':
@@ -89,6 +85,7 @@ def plot_ic_auc_mode(df, type):
 
    #preprocess df
     if df.shape[0]>=(2*n):
+        color_list = ['#17a2b8', '#ffc107'] * 5 + ['black'] + ['#17a2b8', '#ffc107'] * 5
         top_df = df.sort_values(col).head(n)
         new_row = {'standard_drug_name':'', col:''}
         #append row to the dataframe
@@ -96,6 +93,7 @@ def plot_ic_auc_mode(df, type):
         df = pd.concat(
             [top_df, df.sort_values(col).tail(n)]).reset_index(drop=True)
     else:
+        color_list = ['#17a2b8', '#ffc107'] * n
         df = pd.concat(
             [df.sort_values(col).head(n), df.sort_values(col).tail(n)]).drop_duplicates(
             'exp_id').reset_index(drop=True)

@@ -212,22 +212,22 @@
         ];
         var jsonObj2 = [{
             "cellosaurus_id": "1321N1",
-            "standard_drug_name": "AEW541",
+            "drug_name": "AEW541",
             "dataset": "All",
-            "info": "CCLE"
+            "original_datasets": "CCLE"
         },
             {
                 "cellosaurus_id": "1321N1",
-                "standard_drug_name": "AEW541",
+                "drug_name": "AEW541",
                 "dataset": "CCLE",
-                "info": "CCLE"
+                "original_datasets": "CCLE"
             },
             {
                 "cellosaurus_id": "1321N1",
-                "standard_drug_name": "Crizotinib",
+                "drug_name": "Crizotinib",
                 "dataset": "All",
-                "info": "CCLE"
-            },
+                "original_datasets": "CCLE"
+            }
         ];
         var jsonObj3 = {
             "cancer_types": [
@@ -319,9 +319,9 @@
         var jsonObj5 = [
             {
                 "cellosaurus_id": "1321N1",
-                "standard_drug_name": "Lapatinib",
+                "drug_name": "Lapatinib",
                 "dataset": "All",
-                "info": "CCLE",
+                "original_datasets": "CCLE",
                 "n_dosage": 8,
                 "min_dosage": 0.0025,
                 "max_dosage": 8.0,
@@ -359,15 +359,16 @@
                         0.21
                     ]
                 ],
+                "fitted_mae": 0.0659728,
+                "slope": 0.802502,
                 "IC50": 4.65995,
                 "IC90": 8.61,
                 "EC50": 1.42824,
                 "Einf": 0.284276,
-                "AUC": 5.15445,
-                "fitted_mae": 0.0659728
+                "AUC": 5.15445
             }];
         var jsonObj6 = [{
-            "standard_drug_name": "(-)-gallocatechin-3-monogallate",
+            "drug_name": "(-)-gallocatechin-3-monogallate",
             "synonyms": "gallocatechin gallate;L-GCG;GCG",
             "target": "",
             "pathway": "natural product",
@@ -378,7 +379,7 @@
             "gdsc2_drug_name": ""
         },
             {
-                "standard_drug_name": "(5Z)-7-Oxozeaenol",
+                "drug_name": "(5Z)-7-Oxozeaenol",
                 "synonyms": "5Z-7-Oxozeaenol, LL-Z1640-2",
                 "target": "TAK1",
                 "pathway": "Other, kinases",
@@ -390,23 +391,23 @@
             },
         ];
         var jsonObj7 = [{
-            "standard_drug_name": "Lapatinib",
+            "drug_name": "Lapatinib",
             "cellosaurus_id": "1321N1",
             "dataset": "CCLE",
-            "info": "CCLE"
+            "original_datasets": "CCLE"
         },
             {
-                "standard_drug_name": "Lapatinib",
+                "drug_name": "Lapatinib",
                 "cellosaurus_id": "22RV1",
                 "dataset": "CCLE",
-                "info": "CCLE"
+                "original_datasets": "CCLE"
             },
             {
-                "standard_drug_name": "Lapatinib",
+                "drug_name": "Lapatinib",
                 "cellosaurus_id": "42-MG-BA",
                 "dataset": "CCLE",
-                "info": "CCLE"
-            },
+                "original_datasets": "CCLE"
+            }
         ];
         var jsonObj8 = {
             "genes": [
@@ -448,7 +449,7 @@
                 "AASS", "..."]
         };
         var jsonObj9 = [{
-            "standard_drug_name": "GSK-J4",
+            "drug_name": "GSK-J4",
             "gene": "EGFR",
             "dataset": "All",
             "cancer_type": "pancan",
@@ -457,7 +458,7 @@
             "n_cell_line": 83
         },
             {
-                "standard_drug_name": "decitabine:carboplatin (1:1 mol/mol)",
+                "drug_name": "decitabine:carboplatin (1:1 mol/mol)",
                 "gene": "EGFR",
                 "dataset": "All",
                 "cancer_type": "pancan",
@@ -466,7 +467,7 @@
                 "n_cell_line": 756
             },
             {
-                "standard_drug_name": "PJ 34",
+                "drug_name": "PJ 34",
                 "gene": "EGFR",
                 "dataset": "All",
                 "cancer_type": "pancan",
@@ -476,7 +477,7 @@
             },
         ];
         var jsonObj10 = [{
-            "standard_drug_name": "Lapatinib",
+            "drug_name": "Lapatinib",
             "gene": "POLR2L",
             "dataset": "All",
             "cancer_type": "pancan",
@@ -485,7 +486,7 @@
             "n_cell_line": 1130
         },
             {
-                "standard_drug_name": "Lapatinib",
+                "drug_name": "Lapatinib",
                 "gene": "ITGB1P1",
                 "dataset": "All",
                 "cancer_type": "pancan",
@@ -494,7 +495,7 @@
                 "n_cell_line": 1130
             },
             {
-                "standard_drug_name": "Lapatinib",
+                "drug_name": "Lapatinib",
                 "gene": "LAMC1-AS1",
                 "dataset": "All",
                 "cancer_type": "pancan",
@@ -503,8 +504,8 @@
                 "n_cell_line": 1130
             },
         ];
-        var jsonObj11 = {
-            "standard_drug_name": "Lapatinib",
+        var jsonObj11 = [ {
+            "drug_name": "Lapatinib",
             "gene": "EGFR",
             "dataset": "All",
             "cancer_type": "pancan",
@@ -512,7 +513,7 @@
             "pvalue": 0.397672,
             "n_mut": 106,
             "n_wt": 981
-        };
+        }]
         var jsonObj12 = [{
             "gene": "GIMAP1",
             "values": 0.0

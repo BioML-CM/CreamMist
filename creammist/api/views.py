@@ -104,6 +104,7 @@ def get_experiments(cell_line, drug):
 def get_all_drug_data():
     data = db.session.query(Drug)
     df = pd.read_sql(data.statement, db.session.bind)
+    df = df.rename(columns={'standard_drug_name':'drug_name'})
     result = df.to_json(orient="records")
     return result
 

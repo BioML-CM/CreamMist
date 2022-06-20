@@ -28,9 +28,9 @@
                     <form class="p-2 rounded shadow-sm bg-white" action="{{ url_for('biomarker.select') }}"
                           method="POST">
 <!--                        {#                        <div class="input-group">#}-->
-                        {{ form.gene_name(class="form-control border-1 me-2 shadow-0",placeholder="(Gene Name) Example: EGFR") }}
+                        {{ form.gene_name(class="form-control border-1 me-2 shadow-0",placeholder="(Gene Name) Example: ICAM3") }}
                         <br>
-                        {{ form.drug_name(class="form-control border-1 me-2 shadow-0",placeholder="(Drug Name) Example: Lapatinib") }}
+                        {{ form.drug_name(class="form-control border-1 me-2 shadow-0",placeholder="(Drug Name) Example: Bortezomib") }}
                         <br>
                         <button class="btn btn-primary rounded" type="submit"><i class="fas fa-search"></i></button>
 <!--                        {#                        </div>#}-->
@@ -66,11 +66,10 @@
                     </form>
                     <br>
                     <span style="float:left;">Examples:
-                        <a href="#" id="link-id1">EGFR</a> and
-                        <a href="#" id="link-id2">Lapatinib</a>
-<!--                        <a href="#" id="link-id3">AAAS</a>&nbsp; &-->
-<!--                        <a href="#" id="link-id4">LY-2183240</a>-->
-                </span>
+                        <a href="#" id="link-id1">ICAM3+Bortezomib</a> -
+                        <a href="#" id="link-id2">EGFR+EphB4_9721</a> -
+                        <a href="#" id="link-id3">EGFR+Lapatinib</a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -81,8 +80,11 @@
 <script type="text/javascript">
     $(function () {
         $("#link-id1").click(function () {
-            $('#biomarker_autocomplete').val($(this).html());
+            $('#biomarker_autocomplete').val('ICAM3');
             $('#biomarker_autocomplete').submit();
+
+            $('#biomarker_autocomplete_drug').val('Bortezomib');
+            $('#biomarker_autocomplete_drug').submit();
             return false;
         });
     });
@@ -90,7 +92,22 @@
 <script type="text/javascript">
     $(function () {
         $("#link-id2").click(function () {
-            $('#biomarker_autocomplete_drug').val($(this).html());
+            $('#biomarker_autocomplete').val('EGFR');
+            $('#biomarker_autocomplete').submit();
+
+            $('#biomarker_autocomplete_drug').val('EphB4_9721');
+            $('#biomarker_autocomplete_drug').submit();
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#link-id3").click(function () {
+            $('#biomarker_autocomplete').val('EGFR');
+            $('#biomarker_autocomplete').submit();
+
+            $('#biomarker_autocomplete_drug').val('Lapatinib');
             $('#biomarker_autocomplete_drug').submit();
             return false;
         });

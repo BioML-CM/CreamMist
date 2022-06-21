@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 
 
 def plot_mutation(df):
-    print(df)
+    # print(df)
     mut_plot = False
 
     if 'All' in list(df['dataset']):
@@ -70,7 +70,8 @@ def plot_mutation(df):
                                  marker=dict(size=8, color=c, line_width=1),
                                  legendgroup=label, showlegend=True, name=label))
 
-    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+    # fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+    fig['layout'].update({'template': 'simple_white'})
     fig.update_layout(
         yaxis=dict(
             tickmode='array',
@@ -170,7 +171,8 @@ def plot_expression(df):
                                  marker=dict(size=8, color=c, line_width=1),
                                  legendgroup=label, showlegend=True, name=label))
 
-    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+    # fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+    fig['layout'].update({'template': 'simple_white'})
     fig.update_layout(
         yaxis=dict(
             tickmode='array',
@@ -231,7 +233,8 @@ def plot_box_mutation(temp_df, mut_exp_df):
     fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
     fig.update_xaxes(title_text="")
     fig.update(layout_showlegend=False)
-    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+    # fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+    fig['layout'].update({'template': 'simple_white'})
 
     return fig
 
@@ -241,7 +244,7 @@ def plot_scatter_expression(temp_df, mut_exp_df):
 
     mut_exp_df = mut_exp_df.set_index('cellosaurus_id')
     temp_df = temp_df.set_index('cellosaurus_id')
-    # print(temp_df.index)
+
 
     cell_line_list = list(set(mut_exp_df.index).intersection(set(temp_df.index)))
 
@@ -251,13 +254,23 @@ def plot_scatter_expression(temp_df, mut_exp_df):
         if len(cell_line_list) >= 10:
             ic50 = temp_df.loc[cell_line_list, 'beta0_mode'].values
             exp = mut_exp_df.loc[cell_line_list, 'values'].values
-            fig = px.scatter(y=ic50, x=exp)
+            exp_log2 = np.log2(exp+0.01)
+            print(exp)
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x=exp_log2, y=ic50, mode='markers', line_color="#ffc107", name='',
+                                     customdata=exp,
+                                     hovertemplate='<b>IC50</b> : ' + '%{y:.4f}' +
+                                                   '<br><b>Gene expression (TMM)</b> : ' + '%{customdata:.2f}',
+                                     hoverlabel=dict(bgcolor='#FFF4ED')))
+
+            # fig = px.scatter(y=ic50, x=exp)
 
             fig.update_traces(marker=dict(color='#17a2b8'))
-            fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+            # fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+            fig['layout'].update({'template': 'simple_white'})
             fig.update_layout(
                 yaxis=dict(title_text="IC50 Log2 Concentration (\u03bcM)"),
-                xaxis=dict(title_text="Gene expression (TMM)")
+                xaxis=dict(title_text="Gene expression (Log2 TMM)")
             )
         else:
             fig = plot_nodata()
@@ -276,7 +289,8 @@ def plot_nodata():
     fig.add_annotation(x=3, y=3, text="No data / less than cut off", showarrow=False,
                        font=dict(size=18, color="#6c757d"))
 
-    fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+    # fig['layout'].update({'template': 'simple_white', 'width': 500, 'height': 300})
+    fig['layout'].update({'template': 'simple_white'})
     return fig
 
 

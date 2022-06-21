@@ -56,7 +56,8 @@ def plot_distribution_ic50(data_list, m, M):
     fig.update_layout(showlegend=False)
     fig.update_yaxes(rangemode="tozero", visible=False)
     # fig.update_layout(title='IC50 Distribution')
-    fig['layout'].update({'template': 'simple_white', 'width': 300})
+    # fig['layout'].update({'template': 'simple_white', 'width': 300})
+    fig['layout'].update({'template': 'simple_white'})
     fig.update_xaxes(title_text="Log2 Concentration (\u03bcM)")
     fig.update_traces(hoverinfo='none', selector=dict(type="scatter", ))
     fig.update_traces(hovertemplate='<b>Bin-range</b> : ' + '%{x}' + '<br><b>Density</b> : ' + '%{y:.2f}',
@@ -115,7 +116,10 @@ def plot_ic_auc_mode(df, type):
         else:
             fig['data'][0]['x'][i] = f"<a href='https://creammist.mtms.dev/cell_line/view/{df['id'][i]}' target='_self' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
-    fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
+    # fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
+    fig['layout'].update({'template': 'simple_white'})
+    # fig.update_layout(autosize=True)
+
     fig.update_xaxes(tickangle=-45)
     fig.update_xaxes(title_text="Drug Name",showline=False,tickcolor='white')
     fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
@@ -190,7 +194,8 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
                      titlefont_size=18)
     fig.update_yaxes(title_text="Response", range=(-0.27, 1.27), titlefont_size=18)
     # fig.update_layout(title='Dose Response Curve', titlefont_size=20)
-    fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 500, })
+    # fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 500, })
+    fig['layout'].update({'template': 'simple_white'})
     fig.update_layout(xaxis = dict(tickfont=dict( size=14)),
                         yaxis = dict(tickfont=dict( size=14))),
     fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))

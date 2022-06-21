@@ -30,7 +30,7 @@ def plot_ic_auc_mode(df, type):
 
         fig = px.box(df, x='standard_drug_name', y='auc_calculate', category_orders={'standard_drug_name': my_order},
                      color=list(df['color']),color_discrete_sequence=color_list,
-                     custom_data=['standard_drug_name','auc_calculate'], points=False)
+                     custom_data=['standard_drug_name','auc_calculate'],)
         fig.update_traces(hovertemplate = "<b>Drug Name : </b> %{customdata[0]} <br>"
                                           "<b> AUC : </b> %{customdata[1]} %", name='')
         fig.update_yaxes(title_text="AUC (%)")
@@ -39,7 +39,7 @@ def plot_ic_auc_mode(df, type):
     elif type == 'ic50_mode':
         fig = px.box(df, x='standard_drug_name', y='ic50_mode', category_orders={'standard_drug_name': my_order},
                      color=list(df['color']),color_discrete_sequence=color_list,
-                     custom_data=['standard_drug_name','ic50_mode'])
+                     custom_data=['standard_drug_name','ic50_mode'],)
         fig.update_traces(hovertemplate = "<b>Drug Name : </b> %{customdata[0]} <br>"
                                           "<b> IC50 : </b> %{customdata[1]}", name='')
         fig.update_yaxes(title_text="IC50 Log2 Concentration (\u03bcM)")
@@ -77,7 +77,9 @@ def plot_ic_auc_mode(df, type):
     fig.update(layout_showlegend=False)
     fig.update_layout(layout)
     fig.update_layout(hoverlabel_bgcolor='#FFF4ED')
-    fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
+    # fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
+    # fig.update_layout(autosize=True)
+    fig['layout'].update({'template': 'simple_white'})
     fig.update_xaxes(title_text="Drug Name",showline=False,tickcolor='white')
 
     return fig

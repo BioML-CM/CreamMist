@@ -72,24 +72,24 @@ def plot_ic_auc_mode(df, type):
     fig = go.Figure()
 
     if type == 'auc':
-        col='auc_calculate'
+        col = 'auc_calculate'
         hov_label = 'AUC (%)'
-        title_text =  'AUC (%)'
+        title_text = 'AUC (%)'
     elif type == 'ic50':
-        col='ic50_mode'
+        col = 'ic50_mode'
         hov_label = 'IC50'
-        title_text =  'IC50 Log2 Concentration (\u03bcM)'
+        title_text = 'IC50 Log2 Concentration (\u03bcM)'
     elif type == 'ic90':
-        col='ic90_calculate'
+        col = 'ic90_calculate'
         hov_label = 'IC90'
-        title_text =  'IC90 Log2 Concentration (\u03bcM)'
+        title_text = 'IC90 Log2 Concentration (\u03bcM)'
 
-   #preprocess df
-    if df.shape[0]>=(2*n):
+    # preprocess df
+    if df.shape[0] >= (2 * n):
         color_list = ['#17a2b8', '#ffc107'] * 5 + ['black'] + ['#17a2b8', '#ffc107'] * 5
         top_df = df.sort_values(col).head(n)
-        new_row = {'standard_drug_name':'', col:''}
-        #append row to the dataframe
+        new_row = {'standard_drug_name': '', col: ''}
+        # append row to the dataframe
         top_df = top_df.append(new_row, ignore_index=True)
         df = pd.concat(
             [top_df, df.sort_values(col).tail(n)]).reset_index(drop=True)
@@ -99,7 +99,7 @@ def plot_ic_auc_mode(df, type):
             [df.sort_values(col).head(n), df.sort_values(col).tail(n)]).drop_duplicates(
             'exp_id').reset_index(drop=True)
 
-    #plot
+    # plot
     fig.add_traces(go.Bar(x=df['standard_drug_name'], y=df[col],
                           marker_color=color_list, width=1, name='',
                           hovertemplate='<b>Drug Name</b> : %{x} <br>'
@@ -109,19 +109,20 @@ def plot_ic_auc_mode(df, type):
     fig.update_yaxes(title_text=title_text)
     # fig.update_layout(title="10 highest and lowest AUC")
 
-    #xtick
+    # xtick
     for i in range(df.shape[0]):
-        if i==10:
+        if i == 10:
             fig['data'][0]['x'][i] = f"—"
         else:
-            fig['data'][0]['x'][i] = f"<a href='https://creammist.mtms.dev/cell_line/view/{df['id'][i]}' target='_self' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
+            fig['data'][0]['x'][
+                i] = f"<a href='https://creammist.mtms.dev/cell_line/view/{df['id'][i]}' target='_self' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
     # fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
     fig['layout'].update({'template': 'simple_white'})
     # fig.update_layout(autosize=True)
 
     fig.update_xaxes(tickangle=-45)
-    fig.update_xaxes(title_text="Drug Name",showline=False,tickcolor='white')
+    fig.update_xaxes(title_text="Drug Name", showline=False, tickcolor='white')
     fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     return fig
 
@@ -157,7 +158,6 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
         else:
             new_response += [response[i]]
             # marker_list += ['circle']
-
 
     fig = go.Figure()
 
@@ -196,7 +196,7 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
     # fig.update_layout(title='Dose Response Curve', titlefont_size=20)
     # fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 500, })
     fig['layout'].update({'template': 'simple_white'})
-    fig.update_layout(xaxis = dict(tickfont=dict( size=14)),
-                        yaxis = dict(tickfont=dict( size=14))),
+    fig.update_layout(xaxis=dict(tickfont=dict(size=14)),
+                      yaxis=dict(tickfont=dict(size=14))),
     fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     return fig

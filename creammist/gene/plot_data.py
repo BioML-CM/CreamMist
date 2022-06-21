@@ -69,7 +69,8 @@ def plot_statistic(df, score):
                 i] = f"<a href='https://creammist.mtms.dev/biomarker/{df['gene'][i]}/{df['standard_drug_name'][i]}/pancan' target='_self' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
 
-    fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
+    fig['layout'].update({'template': 'simple_white'})
+    fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     fig.update_xaxes(tickangle=-45)
     fig.update_xaxes(title_text="Drug Name",showline=False,tickcolor='white')
     return fig
@@ -86,5 +87,6 @@ def plot_nodata():
     fig.add_annotation(x=2, y=1, text="No data / less than cut off", showarrow=False,
                        font=dict(size=18, color="#6c757d"))
 
-    fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
+    fig['layout'].update({'template': 'simple_white'})
+    fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     return fig

@@ -57,7 +57,8 @@ def plot_ic_auc_mode(df, type):
             fig['data'][0]['x'][i] = f"<a href='https://creammist.mtms.dev/cell_line/view/{df['id'][i]}' target='_self' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
 
-    fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
+    fig['layout'].update({'template': 'simple_white'})
+    fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     fig.update_xaxes(tickangle=-45)
     fig.update_xaxes(title_text="Cellosaurus ID",showline=False,tickcolor='white')
     return fig
@@ -128,7 +129,8 @@ def plot_statistic(df, score):
                 i] = f"<a href='https://creammist.mtms.dev/biomarker/{df['gene'][i]}/{df['standard_drug_name'][i]}/pancan' target='_self' style='color:#ef5285;'>{fig['data'][0]['x'][i]}</a>"
 
 
-    fig['layout'].update({'template': 'simple_white', 'width': 550, 'height': 400})
+    fig['layout'].update({'template': 'simple_white'})
+    fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     fig.update_xaxes(tickangle=-45)
     fig.update_xaxes(title_text="Gene",showline=False,tickcolor='white')
     return fig

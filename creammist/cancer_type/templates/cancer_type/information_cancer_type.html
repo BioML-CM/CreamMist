@@ -111,7 +111,7 @@
     </div>
 </section>
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-1.44.2.min.js"></script>
 <script type="text/javascript">
     var graph1 = {{ graph1Jason | safe}};
     graph1.config = {
@@ -122,7 +122,8 @@
             'height': 500,
             'width': 700,
             'scale': 1
-        }
+        },
+        'responsive': true
     }
     Plotly.plot('chart1', graph1, {})
 
@@ -135,7 +136,8 @@
             'height': 500,
             'width': 700,
             'scale': 1
-        }
+        },
+        'responsive': true
     }
     Plotly.plot('chart2', graph2, {})
 
@@ -148,7 +150,8 @@
             'height': 500,
             'width': 700,
             'scale': 1
-        }
+        },
+        'responsive': true
     }
     Plotly.plot('chart3', graph3, {})
 </script>

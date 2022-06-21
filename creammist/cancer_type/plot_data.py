@@ -71,7 +71,8 @@ def plot_ic_auc_mode(df, type):
             tickvals=np.arange(0, 2*n+1).astype(int),
             ticktext=new_xlabel_list,
             tickangle=-45,
-        )
+        ),
+        margin=dict(l=20, r=20, t=50, b=20)
     )
 
     fig.update(layout_showlegend=False)

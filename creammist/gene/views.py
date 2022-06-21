@@ -96,6 +96,13 @@ def information_gene(gene, dataset, cancer_type):  # show information cell line
     dataset_list = sorted(list(set(dataset_mutation_list).union(set(dataset_exprees_list))))
     cancer_type_list = sorted(list(set(cancer_type_mutation_list).union(set(cancer_type_express_list))))
 
+    #check nodata?
+    if len(dataset_list)==0 or len(cancer_type_list)==0:
+        nodata = True
+    else:
+        nodata = False
+
+
     # form for select dataset
     form = ChoiceForm()
     form.dataset.choices = [(d, d) for d in dataset_list]
@@ -126,5 +133,5 @@ def information_gene(gene, dataset, cancer_type):  # show information cell line
 
     return render_template('information_gene.html', data=mutation_data, form=form, graph1Jason=graph1Jason,
                            graph2Jason=graph2Jason,
-                           gene=gene, dataset=dataset, cancer_type=cancer_type)
+                           gene=gene, dataset=dataset, cancer_type=cancer_type,nodata=nodata)
 

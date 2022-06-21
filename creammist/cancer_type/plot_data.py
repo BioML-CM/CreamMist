@@ -62,7 +62,7 @@ def plot_ic_auc_mode(df, type):
             new_xlabel_list += [f"—"]
         else:
             new_xlabel_list += [
-            f"<a href='http://127.0.0.1:5000/drug/All/{xlabel_list[i]}' target='_self' style='color:#ef5285;'>{xlabel_list[i]}</a>"]
+            f"<a href='https://creammist.mtms.dev/drug/All/{xlabel_list[i]}' target='_self' style='color:#ef5285;'>{xlabel_list[i]}</a>"]
 
     layout = dict(
         boxgap=0,boxgroupgap=0,

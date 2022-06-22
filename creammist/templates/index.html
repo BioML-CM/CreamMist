@@ -3,51 +3,81 @@
 {% block content %}
     <section class="hero-home py-5">
         <div class="container pt-5">
+
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
                     <p class="h6 text-uppercase text-primary mb-3">DATABASE</p>
                     <h1 class="mb-5">CREAMMIST</h1>
                 </div>
 
-                <div class="container pb-5 col-lg-8 mx-auto text-center">
+                <div class="container pb-5 col-lg-10 mx-auto text-center">
                     <div class="row text-center gy-4">
                         <div class="col-lg-2 px-lg-1">
-                            <div class="categories-item card border-2 shadow hover-transition">
+                            <div class="card border-2 shadow h-100 hover-transition">
                                 <div class="card-body px-4 py-5">
-                                    <h2 class="h6"><a class="stretched-link reset-anchor-inherit"
+                                    <img src="{{ url_for('static', filename='img/cell_line.jpg') }}" alt="" width="100%">
+<!--                                    <div class="essential-tool-img mb-1 mx-auto" style="background: url('static/img/cell_line.jpg'); width: auto"></div>-->
+                                    <h2 class="h5"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('cell_line.select') }}>Cell Line</a></h2>
+                                    <p class="categories-item-number small mb-0">1,337 cell lines</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-2 px-lg-1">
-                            <div class="categories-item card border-2 shadow hover-transition">
+                            <div class="card border-2 shadow h-100 hover-transition">
                                 <div class="card-body px-4 py-5">
-                                    <h2 class="h6"><a class="stretched-link reset-anchor-inherit"
+                                    <img src="{{ url_for('static', filename='img/drug.jpg') }}" alt="" width="100%">
+<!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/drug.jpg'); width: auto"></div>-->
+                                    <h2 class="h5"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('drug.select') }}>Drug</a></h2>
+                                    <p class="categories-item-number small mb-0">1,042 drugs</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 px-lg-1">
-                            <div class="categories-item card border-2 shadow hover-transition">
+                        <div class="col-lg-2 px-lg-1">
+                            <div class="card border-2 shadow h-100 hover-transition">
                                 <div class="card-body px-4 py-5">
-                                    <h2 class="h6"><a class="stretched-link reset-anchor-inherit"
+                                    <img src="{{ url_for('static', filename='img/cc_type.jpg') }}" alt="" width="100%">
+                                    <!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/gene.jpg'); width: auto"></div>-->
+                                    <h2 class="h5"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('cancer_type.select') }}>Cancer Type</a></h2>
+                                    <p class="categories-item-number small mb-0">32 types</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-2 px-lg-1">
-                            <div class="categories-item card border-2 shadow hover-transition">
+                            <div class="card border-2 shadow h-100 hover-transition">
                                 <div class="card-body px-4 py-5">
-                                    <h2 class="h6"><a class="stretched-link reset-anchor-inherit"
+                                    <img src="{{ url_for('static', filename='img/gene.jpg') }}" alt="" width="100%">
+<!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/cc_type.jpg'); width: auto"></div>-->
+                                    <h2 class="h5"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('gene.select') }}>Gene</a></h2>
+                                    <p class="categories-item-number small mb-0">37,601 genes</p>
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="col-lg-2 px-lg-1">
-                            <div class="categories-item card border-2 shadow hover-transition">
+                            <div class="card border-2 shadow h-100 hover-transition">
                                 <div class="card-body px-4 py-5">
-                                    <h2 class="h6"><a class="stretched-link reset-anchor-inherit"
+                                    <img src="{{ url_for('static', filename='img/biomarker.jpg') }}" alt="" width="100%">
+<!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/biomarker.jpg'); width: auto"></div>-->
+                                    <h2 class="h5"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('biomarker.select') }}>Biomarker</a></h2>
+                                    <p class="categories-item-number small mb-0">> 30,961,887 <br>drug-gene pairs</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 px-lg-1">
+                            <div class="card border-2 shadow h-100 hover-transition">
+                                <div class="card-body px-4 py-5">
+                                    <img src="{{ url_for('static', filename='img/api.jpg') }}" alt="" width="100%">
+<!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/api.jpg'); width: auto"></div>-->
+                                    <h2 class="h5"><a class="stretched-link reset-anchor"
+                                                      href={{ url_for('biomarker.select') }}>API</a></h2>
+<!--                                    <p class="categories-item-number small mb-0">> ... drug-gene pairs</p>-->
                                 </div>
                             </div>
                         </div>
@@ -58,12 +88,19 @@
 
     <div class="container py-5">
         <div class="row">
-            <div class="col-lg-10 mx-auto">
+            <div class="col-lg-12 mx-auto">
                 <div class="card border-0 shadow">
                     <div class="card-body p-4 p-lg-5">
                         <div class="row gy-4">
-                            <h5>An integrated cancer drug sensitivity database for <i>in vitro</i> pharmacogenomics analysis</h5>
-                            <p>CREAMMIST enables users to obtain an integrated dose-response across <a href={{ url_for('doc.information') }}>five widely used cancer cell-line drug-response datasets</a>. We utilized the <a href={{ url_for('doc.dose_response_curve') }}>Bayesian framework </a> to systematically integrate all available dose-response values across datasets. The integration at the dose-response level provides an extended view of the dose-response curve to users, especially when different ranges of drug dosages were used across experiments. Users can utilize easy-to-use statistics derived from integrative dose-response curves for various downstream analyses (such as identifying biomarkers, selecting dose range for their experiment, and training a machine learning model).</p>
+                            <div class="col-lg-7">
+                                <h2 class="h5">An integrated cancer drug sensitivity database for <i>in vitro</i> pharmacogenomics analysis</h2>
+                                <p>CREAMMIST enables users to obtain an integrated dose-response across <a href={{ url_for('doc.information') }}><u style="color: black">five widely used cancer cell-line drug-response datasets</u></a>. We utilized the <a href={{ url_for('doc.dose_response_curve') }}><u style="color: black">Bayesian framework </u></a> to systematically integrate all available dose-response values across datasets. The integration at the dose-response level provides an extended view of the dose-response curve to users, especially when different ranges of drug dosages were used across experiments. Users can utilize easy-to-use statistics derived from integrative dose-response curves for various downstream analyses (such as identifying biomarkers, selecting dose range for their experiment, and training a machine learning model).</p>
+                            </div>
+                            <div class="col-lg-5">
+                                <img src="{{ url_for('static', filename='img/index.png') }}" alt="" width="100%">
+<!--                                <h2 class="h5">Gather your info</h2>-->
+<!--                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>-->
+                            </div>
                         </div>
                     </div>
                 </div>

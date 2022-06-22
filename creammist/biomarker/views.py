@@ -92,6 +92,7 @@ def select():  # choose cell line
 
 @biomarker_blueprint.route("/<string:gene>/<string:drug>/<string:cancer_type>", methods=['GET', 'POST'])
 def information_biomarker(gene, drug, cancer_type):
+
     mutation_data = db.session.query(Mutation).filter(Mutation.gene == gene, Mutation.standard_drug_name == drug,
                                                       Mutation.cancer_type == cancer_type)  # .all()
     mutation_df = pd.read_sql(mutation_data.statement, db.session.bind)

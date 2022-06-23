@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+
     <section class="hero-home py-5">
         <div class="container pt-5">
 
@@ -10,14 +11,15 @@
                     <h1 class="mb-5">CREAMMIST</h1>
                 </div>
 
-                <div class="container pb-5 col-lg-10 mx-auto text-center">
+
+
+                <div class="container pb-5 col-lg-12 mx-auto text-center">
                     <div class="row text-center gy-4">
-                        <div class="col-lg-2 px-lg-1">
+                        <div class="col-lg-2 px-lg-2">
                             <div class="card border-2 shadow h-100 hover-transition">
-                                <div class="card-body px-4 py-5">
-                                    <img src="{{ url_for('static', filename='img/cell_line.jpg') }}" alt="" width="100%">
-<!--                                    <div class="essential-tool-img mb-1 mx-auto" style="background: url('static/img/cell_line.jpg'); width: auto"></div>-->
-                                    <h2 class="h5"><a class="stretched-link reset-anchor"
+                                <div class="card-body px-4 py-4">
+                                    <img src="{{ url_for('static', filename='img/cell_line.jpg') }}" alt="" width="50">
+                                    <h2 class="h6"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('cell_line.select') }}>Cell Line</a></h2>
                                     <p class="categories-item-number small mb-0">1,337 cell lines</p>
                                 </div>
@@ -25,10 +27,10 @@
                         </div>
                         <div class="col-lg-2 px-lg-1">
                             <div class="card border-2 shadow h-100 hover-transition">
-                                <div class="card-body px-4 py-5">
-                                    <img src="{{ url_for('static', filename='img/drug.jpg') }}" alt="" width="100%">
+                                <div class="card-body px-4 py-4">
+                                    <img src="{{ url_for('static', filename='img/drug.jpg') }}" alt="" width="50">
 <!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/drug.jpg'); width: auto"></div>-->
-                                    <h2 class="h5"><a class="stretched-link reset-anchor"
+                                    <h2 class="h6"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('drug.select') }}>Drug</a></h2>
                                     <p class="categories-item-number small mb-0">1,042 drugs</p>
                                 </div>
@@ -36,10 +38,10 @@
                         </div>
                         <div class="col-lg-2 px-lg-1">
                             <div class="card border-2 shadow h-100 hover-transition">
-                                <div class="card-body px-4 py-5">
-                                    <img src="{{ url_for('static', filename='img/cc_type.jpg') }}" alt="" width="100%">
+                                <div class="card-body px-4 py-4">
+                                    <img src="{{ url_for('static', filename='img/cc_type.jpg') }}" alt="" width="50">
                                     <!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/gene.jpg'); width: auto"></div>-->
-                                    <h2 class="h5"><a class="stretched-link reset-anchor"
+                                    <h2 class="h6"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('cancer_type.select') }}>Cancer Type</a></h2>
                                     <p class="categories-item-number small mb-0">32 types</p>
                                 </div>
@@ -47,10 +49,10 @@
                         </div>
                         <div class="col-lg-2 px-lg-1">
                             <div class="card border-2 shadow h-100 hover-transition">
-                                <div class="card-body px-4 py-5">
-                                    <img src="{{ url_for('static', filename='img/gene.jpg') }}" alt="" width="100%">
+                                <div class="card-body px-4 py-4">
+                                    <img src="{{ url_for('static', filename='img/gene.jpg') }}" alt="" width="50">
 <!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/cc_type.jpg'); width: auto"></div>-->
-                                    <h2 class="h5"><a class="stretched-link reset-anchor"
+                                    <h2 class="h6"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('gene.select') }}>Gene</a></h2>
                                     <p class="categories-item-number small mb-0">37,601 genes</p>
                                 </div>
@@ -60,10 +62,10 @@
 
                         <div class="col-lg-2 px-lg-1">
                             <div class="card border-2 shadow h-100 hover-transition">
-                                <div class="card-body px-4 py-5">
-                                    <img src="{{ url_for('static', filename='img/biomarker.jpg') }}" alt="" width="100%">
+                                <div class="card-body px-4 py-4">
+                                    <img src="{{ url_for('static', filename='img/biomarker.jpg') }}" alt="" width="50">
 <!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/biomarker.jpg'); width: auto"></div>-->
-                                    <h2 class="h5"><a class="stretched-link reset-anchor"
+                                    <h2 class="h6"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('biomarker.select') }}>Biomarker</a></h2>
                                     <p class="categories-item-number small mb-0">> 30,961,887 <br>drug-gene pairs</p>
                                 </div>
@@ -72,10 +74,10 @@
 
                         <div class="col-lg-2 px-lg-1">
                             <div class="card border-2 shadow h-100 hover-transition">
-                                <div class="card-body px-4 py-5">
-                                    <img src="{{ url_for('static', filename='img/api.jpg') }}" alt="" width="100%">
+                                <div class="card-body px-4 py-4">
+                                    <img src="{{ url_for('static', filename='img/api.jpg') }}" alt="" width="50">
 <!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/api.jpg'); width: auto"></div>-->
-                                    <h2 class="h5"><a class="stretched-link reset-anchor"
+                                    <h2 class="h6"><a class="stretched-link reset-anchor"
                                                       href={{ url_for('biomarker.select') }}>API</a></h2>
 <!--                                    <p class="categories-item-number small mb-0">> ... drug-gene pairs</p>-->
                                 </div>

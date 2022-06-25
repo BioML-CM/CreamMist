@@ -78,8 +78,8 @@
                                     <img src="{{ url_for('static', filename='img/api.jpg') }}" alt="" width="50" style="margin-bottom: 10px">
 <!--                                    <div class="essential-tool-img mb-2 mx-auto" style="background: url('static/img/api.jpg'); width: auto"></div>-->
                                     <h2 class="h5"><a class="stretched-link reset-anchor"
-                                                      href={{ url_for('biomarker.select') }}>API</a></h2>
-                                    <p class="categories-item-number small mb-0">Access drug response data</p>
+                                                      href={{ url_for('api.information') }}>API</a></h2>
+                                    <p class="categories-item-number small mb-0">Integrative drug response info</p>
 <!--                                    <p class="categories-item-number small mb-0">> ... drug-gene pairs</p>-->
                                 </div>
                             </div>
@@ -96,11 +96,13 @@
                     <div class="card-body p-4 p-lg-5">
                         <div class="row gy-4">
                             <div class="col-lg-7">
-                                <h2 class="h5">An integrated cancer drug sensitivity database for <i>in vitro</i> pharmacogenomics analysis</h2>
-                                <p>CREAMMIST enables users to obtain an integrated dose-response across <a href={{ url_for('doc.information') }}><u style="color: black">five widely used cancer cell-line drug-response datasets</u></a>. We utilized the <a href={{ url_for('doc.dose_response_curve') }}><u style="color: black">Bayesian framework </u></a> to systematically integrate all available dose-response values across datasets. The integration at the dose-response level provides an extended view of the dose-response curve to users, especially when different ranges of drug dosages were used across experiments. Users can utilize easy-to-use statistics derived from integrative dose-response curves for various downstream analyses (such as identifying biomarkers, selecting dose range for their experiment, and training a machine learning model).</p>
+                                <h2 class="h5">Reveal integrative dose-response information</h2>
+                                <p>CREAMMIST is an integrated cancer drug sensitivity database for <i>in vitro </i> pharmacogenomics analysis, providing an integrative dose-response curve across <a href={{ url_for('doc.information') }}><u style="color: black">five widely used cancer cell-line drug-response datasets (CCLE, GDSC1, GDSC2, CTRP1, CTRP2)</u></a>. <br><br>
+                                    Users can utilize easy-to-use statistics for various downstream analyses such as identifying biomarkers, selecting drug concentrations for their experiments, or training a more robust machine learning model.</p>
+<!--                                <p>CREAMMIST enables users to obtain an integrated dose-response across <a href={{ url_for('doc.information') }}><u style="color: black">five widely used cancer cell-line drug-response datasets</u></a>. We utilized the <a href={{ url_for('doc.dose_response_curve') }}><u style="color: black">Bayesian framework </u></a> to systematically integrate all available dose-response values across datasets. The integration at the dose-response level provides an extended view of the dose-response curve to users, especially when different ranges of drug dosages were used across experiments. Users can utilize easy-to-use statistics derived from integrative dose-response curves for various downstream analyses (such as identifying biomarkers, selecting dose range for their experiment, and training a machine learning model).</p>-->
                             </div>
                             <div class="col-lg-5">
-                                <img src="{{ url_for('static', filename='img/index.gif') }}" alt="" width="100%">
+                                <img src="{{ url_for('static', filename='img/index.gif') }}" alt="" width="90%" style="margin-left: 20px">
 <!--                                <h2 class="h5">Gather your info</h2>-->
 <!--                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>-->
                             </div>

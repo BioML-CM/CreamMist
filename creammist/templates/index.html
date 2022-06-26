@@ -95,17 +95,28 @@
                 <div class="card border-0 shadow">
                     <div class="card-body p-4 p-lg-5">
                         <div class="row gy-4">
+                            <div class="col-lg-5">
+                                <img src="{{ url_for('static', filename='img/index.gif') }}" alt="" width="100%" >
+                                <!--                                <h2 class="h5">Gather your info</h2>-->
+                                <!--                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>-->
+                            </div>
+
                             <div class="col-lg-7">
                                 <h2 class="h5">Reveal integrative dose-response information</h2>
-                                <p>CREAMMIST is an integrated cancer drug sensitivity database for <i>in vitro </i> pharmacogenomics analysis, providing an integrative dose-response curve across <a href={{ url_for('doc.information') }}><u style="color: black">five widely used cancer cell-line drug-response datasets (CCLE, GDSC1, GDSC2, CTRP1, CTRP2)</u></a>. <br><br>
-                                    Users can utilize easy-to-use statistics for various downstream analyses such as identifying biomarkers, selecting drug concentrations for their experiments, or training a more robust machine learning model.</p>
+                                <br>
+                                <ul class="fa-ul">
+                                    <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>CREAMMIST is an integrated cancer drug sensitivity database for <i>in vitro </i> pharmacogenomics analysis, providing an integrative dose-response curve across five widely used cancer cell-line drug-response datasets (CCLE, GDSC1, GDSC2, CTRP1, CTRP2).</li>
+                                    <br>
+                                    <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>Dose-response values are systematically integrated using the Bayesian framework to obtain an integrative dose-response curve.</li>
+                                    <br>
+                                    <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>Users can utilize easy-to-use statistics for various downstream analyses such as identifying biomarkers, selecting drug concentrations for their experiments, or training a more robust machine learning model.</li>
+                                </ul>
+
+<!--                                <p>CREAMMIST is an integrated cancer drug sensitivity database for <i>in vitro </i> pharmacogenomics analysis, providing an integrative dose-response curve across <a href={{ url_for('doc.information') }}><u style="color: black">five widely used cancer cell-line drug-response datasets (CCLE, GDSC1, GDSC2, CTRP1, CTRP2)</u></a>. <br><br>-->
+<!--                                    Users can utilize easy-to-use statistics for various downstream analyses such as identifying biomarkers, selecting drug concentrations for their experiments, or training a more robust machine learning model.</p>-->
 <!--                                <p>CREAMMIST enables users to obtain an integrated dose-response across <a href={{ url_for('doc.information') }}><u style="color: black">five widely used cancer cell-line drug-response datasets</u></a>. We utilized the <a href={{ url_for('doc.dose_response_curve') }}><u style="color: black">Bayesian framework </u></a> to systematically integrate all available dose-response values across datasets. The integration at the dose-response level provides an extended view of the dose-response curve to users, especially when different ranges of drug dosages were used across experiments. Users can utilize easy-to-use statistics derived from integrative dose-response curves for various downstream analyses (such as identifying biomarkers, selecting dose range for their experiment, and training a machine learning model).</p>-->
                             </div>
-                            <div class="col-lg-5">
-                                <img src="{{ url_for('static', filename='img/index.gif') }}" alt="" width="90%" style="margin-left: 20px">
-<!--                                <h2 class="h5">Gather your info</h2>-->
-<!--                                <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>-->
-                            </div>
+
                         </div>
                     </div>
                 </div>

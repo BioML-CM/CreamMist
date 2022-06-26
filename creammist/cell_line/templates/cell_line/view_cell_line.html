@@ -148,14 +148,14 @@
         </div>
     </section>
 
-    <script src="https://cdn.plot.ly/plotly-1.44.2.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-1.58.5.min.js"></script>
     <script type="text/javascript">
         var graph1 = {{ graph1Jason | safe}};
         graph1.config = {
             'displaylogo': false,
             'toImageButtonOptions': {
                 'format': 'svg',
-                'filename': 'custom_image',
+                'filename': 'Dose_Response_Relationship',
                 'height': 500,
                 'width': 700,
                 'scale': 1
@@ -169,7 +169,7 @@
             'displaylogo': false,
             'toImageButtonOptions': {
                 'format': 'svg',
-                'filename': 'custom_image',
+                'filename': 'IC50_Distribution',
                 'height': 500,
                 'width': 700,
                 'scale': 1
@@ -183,15 +183,15 @@
 
     <!-- #### for show/hide div -->
 
-    <script type="text/javascript">
-        var first = true;
-        $('input[type="checkbox"][name^=chk]').change(function () {
-            var $target = $('#content' + this.id.replace('chk', '')).toggle(this.checked);
-            if (first) {
-                $('p[id^=content]').not($target).hide();
-                first = false;
-            }
-        })
-    </script>
+<!--    <script type="text/javascript">-->
+<!--        var first = true;-->
+<!--        $('input[type="checkbox"][name^=chk]').change(function () {-->
+<!--            var $target = $('#content' + this.id.replace('chk', '')).toggle(this.checked);-->
+<!--            if (first) {-->
+<!--                $('p[id^=content]').not($target).hide();-->
+<!--                first = false;-->
+<!--            }-->
+<!--        })-->
+<!--    </script>-->
 
 {% endblock %}

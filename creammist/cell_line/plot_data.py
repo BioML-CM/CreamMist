@@ -169,6 +169,7 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
     # plot mode
     fig.add_trace(go.Scatter(x=x, y=func_x_mode, mode='lines', line_color="#d63384",
                              showlegend=False, hoverinfo='none'))
+
     # plot response
     for i in range(len(new_response)):
         fig.add_trace(go.Scatter(x=np.array(np.log2(dosage[i])), y=np.array(new_response[i]),
@@ -193,10 +194,10 @@ def plot_logistic1(jags, sens, beta0_s, beta1_s, dosage, response, dataset_plot)
                      range=(np.log2(min_dosage) - 1, np.log2(max_dosage) + 1),
                      titlefont_size=18)
     fig.update_yaxes(title_text="Response", range=(-0.27, 1.27), titlefont_size=18)
-    # fig.update_layout(title='Dose Response Curve', titlefont_size=20)
-    # fig['layout'].update({'template': 'simple_white', 'width': 800, 'height': 500, })
+
     fig['layout'].update({'template': 'simple_white'})
     fig.update_layout(xaxis=dict(tickfont=dict(size=14)),
                       yaxis=dict(tickfont=dict(size=14))),
     fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
+
     return fig

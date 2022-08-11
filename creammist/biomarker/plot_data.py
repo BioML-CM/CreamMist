@@ -270,7 +270,7 @@ def plot_scatter_expression(temp_df, mut_exp_df):
             fig['layout'].update({'template': 'simple_white'})
             fig.update_layout(
                 yaxis=dict(title_text="IC50 Log2 Concentration (\u03bcM)"),
-                xaxis=dict(title_text="Gene expression (Log2 TMM)")
+                xaxis=dict(title_text="Gene expression (Log2 TPM)")
             )
         else:
             fig = plot_nodata()

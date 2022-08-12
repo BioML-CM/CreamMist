@@ -260,7 +260,7 @@ def plot_scatter_expression(temp_df, mut_exp_df):
             fig.add_trace(go.Scatter(x=exp_log2, y=ic50, mode='markers', line_color="#ffc107", name='',
                                      customdata=exp,
                                      hovertemplate='<b>IC50</b> : ' + '%{y:.4f}' +
-                                                   '<br><b>Gene expression (TMM)</b> : ' + '%{customdata:.2f}',
+                                                   '<br><b>Gene expression (TPM)</b> : ' + '%{customdata:.2f}',
                                      hoverlabel=dict(bgcolor='#FFF4ED')))
 
             # fig = px.scatter(y=ic50, x=exp)

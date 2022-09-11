@@ -6,13 +6,13 @@ class CellLine(db.Model):
 
     # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     cellosaurus_id = db.Column(db.String(64), primary_key=True)
-    cellosaurus_index = db.Column(db.String(64)) #, index=True
+    cellosaurus_index = db.Column(db.String(64), index=True)
     ccle_name = db.Column(db.String(64))
     ctrp1_name = db.Column(db.String(64))
     ctrp2_name = db.Column(db.String(64))
     gdsc1_name = db.Column(db.String(64))
     gdsc2_name = db.Column(db.String(64))
-    site = db.Column(db.String(128)) #, index=True
+    site = db.Column(db.String(128), index=True)
     # Connect the exp.
     # cellosaurus_id = db.Column(db.String(64), db.ForeignKey('experiments.cellosaurus_id'), nullable=False, )
 

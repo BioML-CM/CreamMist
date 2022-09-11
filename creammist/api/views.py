@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from creammist import db
-from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, MutExpMetadata, Drug, \
+from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, OmicsProfiles, Drug, \
     Gene, GeneExpression, Mutation
 
 from flask import jsonify
@@ -253,8 +253,8 @@ def get_cl_mutation(cell_line):
     cell_line_list = [c.cellosaurus_index for c in cell_line_records]
     # print(cell_line_list)
 
-    data = db.session.query(MutExpMetadata).filter(MutExpMetadata.cellosaurus_index == cell_line_list[0],
-                                                   MutExpMetadata.score == 'mutation')  # .all()
+    data = db.session.query(OmicsProfiles).filter(OmicsProfiles.cellosaurus_index == cell_line_list[0],
+                                                   OmicsProfiles.score == 'mutation')  # .all()
     df = pd.read_sql(data.statement, db.session.bind)
     df = df[['gene', 'values']]
 
@@ -271,8 +271,8 @@ def get_cl_express(cell_line):
         CellLine.cellosaurus_id == cell_line).distinct()
     cell_line_list = [c.cellosaurus_index for c in cell_line_records]
 
-    data = db.session.query(MutExpMetadata).filter(MutExpMetadata.cellosaurus_index == cell_line_list[0],
-                                                   MutExpMetadata.score == 'gene_expression')  # .all()
+    data = db.session.query(OmicsProfiles).filter(OmicsProfiles.cellosaurus_index == cell_line_list[0],
+                                                   OmicsProfiles.score == 'gene_expression')  # .all()
     df = pd.read_sql(data.statement, db.session.bind)
     df = df[['gene', 'values']]
 

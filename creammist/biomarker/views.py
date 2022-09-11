@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, Response
 from creammist import db
 from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, Mutation, \
-    GeneExpression, Gene, MutExpMetadata, OmicsProfiles
+    GeneExpression, Gene, OmicsProfiles
 from creammist.biomarker.forms import BiomarkerForm, ChoiceForm
 
 from flask import request, send_file

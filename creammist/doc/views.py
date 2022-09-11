@@ -1,14 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, Response
-from creammist import db
-from creammist.models import Experiment, DoseResponse, JagsSampling, SensitivityScore, CellLine, MutExpMetadata, Drug, \
-    Gene, GeneExpression, Mutation
-
-from flask import request, send_file, jsonify
-
-import numpy as np
-import pandas as pd
-import json
-import plotly
+from flask import Blueprint, render_template
 
 doc_blueprint = Blueprint('doc',
                           __name__, template_folder='templates/doc')

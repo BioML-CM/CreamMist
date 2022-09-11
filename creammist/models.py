@@ -6,13 +6,13 @@ class CellLine(db.Model):
 
     # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     cellosaurus_id = db.Column(db.String(64), primary_key=True)
-    cellosaurus_index = db.Column(db.String(64), index=True)
+    cellosaurus_index = db.Column(db.String(64)) #, index=True
     ccle_name = db.Column(db.String(64))
     ctrp1_name = db.Column(db.String(64))
     ctrp2_name = db.Column(db.String(64))
     gdsc1_name = db.Column(db.String(64))
     gdsc2_name = db.Column(db.String(64))
-    site = db.Column(db.String(128), index=True)
+    site = db.Column(db.String(128)) #, index=True
     # Connect the exp.
     # cellosaurus_id = db.Column(db.String(64), db.ForeignKey('experiments.cellosaurus_id'), nullable=False, )
 
@@ -241,8 +241,8 @@ class Mutation(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     standard_drug_name = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'))
     gene = db.Column(db.String(64), db.ForeignKey('genes.gene_name'))
-    dataset = db.Column(db.String(32), index=True)
-    cancer_type = db.Column(db.String(64), index=True)
+    dataset = db.Column(db.String(32)) #, index=True
+    cancer_type = db.Column(db.String(64)) #, index=True
     pvalue = db.Column(db.Float)
     statistic = db.Column(db.Float)
     provided_pvalue = db.Column(db.Float)
@@ -274,8 +274,8 @@ class GeneExpression(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     standard_drug_name = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'))
     gene = db.Column(db.String(64), db.ForeignKey('genes.gene_name'))
-    dataset = db.Column(db.String(32), index=True)
-    cancer_type = db.Column(db.String(64), index=True)
+    dataset = db.Column(db.String(32)) #, index=True
+    cancer_type = db.Column(db.String(64)) #, index=True
     pvalue = db.Column(db.Float)
     correlation = db.Column(db.Float)
     provided_pvalue = db.Column(db.Float)
@@ -299,31 +299,31 @@ class GeneExpression(db.Model):
         self.n_cell_line = n_cell_line
         self.provided_n_cell_line = provided_n_cell_line
 
+# For matrix factorization in the future
+# class DrugSimilarity(db.Model):
+#     __tablename__ = 'drug_similarities'
+#
+#     drug_x = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'), primary_key=True)
+#     drug_y = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'), primary_key=True)
+#     similarity = db.Column(db.Float)
+#
+#     def __init__(self, drug_x, drug_y, similarity):
+#         self.drug_x = drug_x
+#         self.drug_y = drug_y
+#         self.similarity = similarity
 
-class DrugSimilarity(db.Model):
-    __tablename__ = 'drug_similarities'
-
-    drug_x = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'), primary_key=True)
-    drug_y = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'), primary_key=True)
-    similarity = db.Column(db.Float)
-
-    def __init__(self, drug_x, drug_y, similarity):
-        self.drug_x = drug_x
-        self.drug_y = drug_y
-        self.similarity = similarity
-
-
-class GeneSimilarity(db.Model):
-    __tablename__ = 'gene_similarities'
-
-    gene_x = db.Column(db.String(64), db.ForeignKey('genes.gene_name'), primary_key=True)
-    gene_y = db.Column(db.String(64), db.ForeignKey('genes.gene_name'), primary_key=True)
-    similarity = db.Column(db.Float)
-
-    def __init__(self, gene_x, gene_y, similarity):
-        self.gene_x = gene_x
-        self.gene_y = gene_y
-        self.similarity = similarity
+# For matrix factorization in the future
+# class GeneSimilarity(db.Model):
+#     __tablename__ = 'gene_similarities'
+#
+#     gene_x = db.Column(db.String(64), db.ForeignKey('genes.gene_name'), primary_key=True)
+#     gene_y = db.Column(db.String(64), db.ForeignKey('genes.gene_name'), primary_key=True)
+#     similarity = db.Column(db.Float)
+#
+#     def __init__(self, gene_x, gene_y, similarity):
+#         self.gene_x = gene_x
+#         self.gene_y = gene_y
+#         self.similarity = similarity
 
 class OmicsProfiles(db.Model): #OmicsProfiles
     __tablename__ = 'omics_profiles'
@@ -340,17 +340,18 @@ class OmicsProfiles(db.Model): #OmicsProfiles
         self.values = values
         self.score = score
 
-class MutExpMetadata(db.Model): #OmicsProfiles
-    __tablename__ = 'mut_exp_metadata'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    cellosaurus_index = db.Column(db.String(64), nullable=False, index=True)
-    gene = db.Column(db.String(64), index=True)
-    values = db.Column(db.Float)
-    score = db.Column(db.String(64))
-
-    def __init__(self, cellosaurus_index, gene, values, score):
-        self.cellosaurus_index = cellosaurus_index
-        self.gene = gene
-        self.values = values
-        self.score = score
+# TO DELETE
+# class MutExpMetadata(db.Model): #OmicsProfiles
+#     __tablename__ = 'mut_exp_metadata'
+#
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     cellosaurus_index = db.Column(db.String(64), nullable=False, index=True)
+#     gene = db.Column(db.String(64), index=True)
+#     values = db.Column(db.Float)
+#     score = db.Column(db.String(64))
+#
+#     def __init__(self, cellosaurus_index, gene, values, score):
+#         self.cellosaurus_index = cellosaurus_index
+#         self.gene = gene
+#         self.values = values
+#         self.score = score

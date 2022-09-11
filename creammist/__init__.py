@@ -12,7 +12,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 # Connects our Flask App to our Database
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://creammist:CreamMist$2022@13.213.238.8/creammist-2022-09" # mysql://username:password@server/db
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://creammist:CreamMist$2022@13.213.238.8/creammist_2022_09" # mysql://username:password@server/db
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # set FLASK_APP=app.py

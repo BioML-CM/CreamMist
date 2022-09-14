@@ -3,56 +3,120 @@
 {% block doc_content %}
 
 <div class=" mb-4 p-2" id="content1">
-    <h2 class="h4 mb-4"><span style="color:#17a2b8"> Bulk download </span></h2>
+    <h2 class="h4 mb-4"><span style="color:#17a2b8"> Download integrative dose-response information </span></h2>
     <div class="card shadow-sm border-0">
         <div class="card-body p-4">
-            Download all statistis of dataset 'All'<br>
-            <ul class="fa-ul">
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>cellosaurus_id</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>drug_name</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>dataset</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>original_datasets</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>n_dosage</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>min_dosage</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>max_dosage</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>fitted_mae</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>slope</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>IC50_HDI_low</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>IC50_HDI_high</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>IC50</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>IC90</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>EC50</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>Einf</li>
-                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>AUC</li>
-            </ul>
+            <form action="{{ url_for('doc.download_bulk') }}"
+                  method="POST">
+                <button class="btn btn-info w-10" type="submit"><i
+                        class="fa fa-download me-2 small"></i> Download
+                </button>
+            </form><br>
+
+            <table class="table table-bordered" style="border-radius: 5px 5px 5px 5px;">
+                <thead>
+                <tr>
+                    <th>Column name</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>cellosaurus_id</td>
+                    <td>Cell line ID according to Cellosaurus</td>
+                </tr>
+                <tr>
+                    <td>drug_name</td>
+                    <td>Drug name</td>
+                </tr>
+                <tr>
+                    <td>dataset </td>
+                    <td>"All" means all available datasets for a given drug-cell line pair</td>
+                </tr>
+                <tr>
+                    <td>original_datasets </td>
+                    <td>A list of original datasets</td>
+                </tr>
+                <tr>
+                    <td>n_dosage </td>
+                    <td>Number of testing concentrations</td>
+                </tr>
+                <tr>
+                    <td>min_dosage </td>
+                    <td>Minimum concentration (uM)</td>
+                </tr>
+                <tr>
+                    <td>max_dosage </td>
+                    <td>Maximum concentration (uM)</td>
+                </tr>
+                <tr>
+                    <td> fitted_mae</td>
+                    <td>Mean absolute error of the integrative dose-response curve</td>
+                </tr>
+                <tr>
+                    <td>slope </td>
+                    <td>A slope of the integrative dose-response curve</td>
+                </tr>
+                <tr>
+                    <td>IC50_HDI_low </td>
+                    <td>A lower end of high density interval (95%) of IC50</td>
+                </tr>
+                <tr>
+                    <td> IC50_HDI_high</td>
+                    <td>A higher end of high density interval (95%) of IC50</td>
+                </tr>
+                <tr>
+                    <td>IC50 </td>
+                    <td>Drug concentration needed to inhibit the cells by 50%</td>
+                </tr>
+                <tr>
+                    <td>IC90 </td>
+                    <td>Drug concentration needed to inhibit the cells by 90%</td>
+                </tr>
+                <tr>
+                    <td>EC50 </td>
+                    <td>Half-maximal effective dosage</td>
+                </tr>
+                <tr>
+                    <td> Einf</td>
+                    <td>Response at the highest drug dosage tested</td>
+                </tr>
+                <tr>
+                    <td> AUC</td>
+                    <td>Area under the integrative dose-response curve</td>
+                </tr>
+                </tbody>
+            </table>
+            <i>Last update: September 2022.
+            The file includes 1,325 cell lines, 1,132 drugs and 829,782 drug-cell line pairs.</i>
 <!--            cellosaurus_id, drug_name, dataset, original_datasets, n_dosage, min_dosage, max_dosage, fitted_mae, slope, IC50_HDI_low,-->
 <!--            IC50_HDI_high, IC50, IC90, EC50, Einf, AUC-->
 
-            <div style="float: right;">
-                <form action="{{ url_for('doc.download_bulk') }}"
-                      method="POST">
-                    <button class="btn btn-info w-10" type="submit"><i
-                            class="fa fa-download me-2 small"></i> Bulk download
-                    </button>
-                </form>
-            </div>
+<!--            <div style="float: right;">-->
+<!--                <form action="{{ url_for('doc.download_bulk') }}"-->
+<!--                      method="POST">-->
+<!--                    <button class="btn btn-info w-10" type="submit"><i-->
+<!--                            class="fa fa-download me-2 small"></i> Download-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--            </div>-->
         </div>
 
     </div>
 </div>
-<div class=" mb-4 p-2" id="content2">
-<!--    <h2 class="h4 mb-4"><span style="color:#17a2b8"> .... </span></h2>-->
-<!--    .....<br><br>-->
+<!--<div class=" mb-4 p-2" id="content2">-->
+<!--&lt;!&ndash;    <h2 class="h4 mb-4"><span style="color:#17a2b8"> .... </span></h2>&ndash;&gt;-->
+<!--&lt;!&ndash;    .....<br><br>&ndash;&gt;-->
 
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-4">
-            <div class="card-body p-4">
-                <img class="img-fluid" src={{ url_for('static', filename='img/doc/bulk.png') }} alt="..."
-                width="900"><br><br>
-            </div>
-        </div>
-    </div>
-</div>
+<!--    <div class="card shadow-sm border-0">-->
+<!--        <div class="card-body p-4">-->
+<!--            <div class="card-body p-4">-->
+<!--                <img class="img-fluid" src={{ url_for('static', filename='img/doc/bulk.png') }} alt="..."-->
+<!--                width="900"><br><br>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 

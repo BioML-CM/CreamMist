@@ -1,0 +1,61 @@
+{% extends "base_doc.html" %}
+
+{% block doc_content %}
+
+<div class=" mb-4 p-2" id="content1">
+    <h2 class="h4 mb-4"><span style="color:#17a2b8"> Bulk download </span></h2>
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            Download all statistis of dataset 'All'<br>
+            <ul class="fa-ul">
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>cellosaurus_id</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>drug_name</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>dataset</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>original_datasets</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>n_dosage</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>min_dosage</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>max_dosage</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>fitted_mae</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>slope</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>IC50_HDI_low</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>IC50_HDI_high</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>IC50</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>IC90</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>EC50</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>Einf</li>
+                <li><span class="fa-li"><i class="fas fa-cube" style="color:#6c757d"></i></span>AUC</li>
+            </ul>
+<!--            cellosaurus_id, drug_name, dataset, original_datasets, n_dosage, min_dosage, max_dosage, fitted_mae, slope, IC50_HDI_low,-->
+<!--            IC50_HDI_high, IC50, IC90, EC50, Einf, AUC-->
+
+            <div style="float: right;">
+                <form action="{{ url_for('doc.download_bulk') }}"
+                      method="POST">
+                    <button class="btn btn-info w-10" type="submit"><i
+                            class="fa fa-download me-2 small"></i> Bulk download
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class=" mb-4 p-2" id="content2">
+<!--    <h2 class="h4 mb-4"><span style="color:#17a2b8"> .... </span></h2>-->
+<!--    .....<br><br>-->
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            <div class="card-body p-4">
+                <img class="img-fluid" src={{ url_for('static', filename='img/doc/bulk.png') }} alt="..."
+                width="900"><br><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

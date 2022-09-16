@@ -241,8 +241,8 @@ class Mutation(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     standard_drug_name = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'))
     gene = db.Column(db.String(64), db.ForeignKey('genes.gene_name'))
-    dataset = db.Column(db.String(32)) #, index=True
-    cancer_type = db.Column(db.String(64)) #, index=True
+    dataset = db.Column(db.String(32), index=True)
+    cancer_type = db.Column(db.String(64), index=True)
     pvalue = db.Column(db.Float)
     statistic = db.Column(db.Float)
     provided_pvalue = db.Column(db.Float)
@@ -274,8 +274,8 @@ class GeneExpression(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     standard_drug_name = db.Column(db.String(64), db.ForeignKey('drugs.standard_drug_name'))
     gene = db.Column(db.String(64), db.ForeignKey('genes.gene_name'))
-    dataset = db.Column(db.String(32)) #, index=True
-    cancer_type = db.Column(db.String(64)) #, index=True
+    dataset = db.Column(db.String(32), index=True)
+    cancer_type = db.Column(db.String(64), index=True)
     pvalue = db.Column(db.Float)
     correlation = db.Column(db.Float)
     provided_pvalue = db.Column(db.Float)
